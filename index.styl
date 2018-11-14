@@ -1,0 +1,52 @@
+@import "index-var.styl"
+
+
+
+test-var = blue 
+
+arrow-btn-hight = 15px
+
+
+
+.container
+    width: 400px
+    height 600px
+    background: #ddd
+
+    margin: 0 auto
+    margin-top: 30px 
+
+
+
+.UI
+    display: grid
+    grid-template-columns: 1fr 4fr 1fr
+    grid-template-rows: 20% 80%
+    grid-template-areas:  
+        "head head head"\
+        "left char righ"
+    align-content: center
+
+
+    &_header-text
+        grid-area: head
+        
+        display: flex
+        justify-content: center
+        color: red
+
+    &_character-container
+        grid-area: char
+
+        justify-self: center
+        background: red
+        width: 200px
+        height 400px
+
+    &_arrow_left
+        grid-area: left 
+        height: arrow-btn-hight
+    
+    &_arrow_right
+        grid-area: right
+        height: arrow-btn-hight
