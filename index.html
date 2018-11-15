@@ -24,14 +24,14 @@
     <script>
         let playableCharacters = 
             [
-                "Jon Snow",
-                "Daenerys Targaryen",
-                "Tyrion Lannister",
-                "Cersei Lannister",
-                "Arya Stark",
-                "Jorah Mormont",
-                "Brandon Stark",
-                "Brienne of Tarth"
+                {name:"Jon Snow", ID:583},
+                {name:"Daenerys Targaryen", ID:1303},
+                {name:"Tyrion Lannister", ID:1052},
+                {name:"Cersei Lannister", ID:238},
+                {name:"Arya Stark", ID:148},
+                {name:"Jorah Mormont", ID:1560},
+                {name:"Brandon Stark", ID:206},
+                {name:"Brienne of Tarth", ID:216}
             ]
 
             let exampleCharacter = {
@@ -41,6 +41,27 @@
                 
 
             }
+            
+            fetch('https://anapioficeandfire.com/api/characters/583',
+                {
+                    method: "GET", // *GET, POST, PUT, DELETE, etc.
+                    mode: "cors", // no-cors, cors, *same-origin
+                    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+                    credentials: "same-origin", // include, *same-origin, omit
+                    headers: {
+                        "Content-Type": "application/json; charset=utf-8",
+                        // "Content-Type": "application/x-www-form-urlencoded",
+                        },
+                    redirect: "follow", // manual, *follow, error
+                    referrer: "no-referrer", // no-referrer, *client    
+                }
+            )
+                .then(respons => respons.json())
+                .then(json => {                   
+                    console.log(json);
+                    
+                })
+                .catch(error => console.log("ERROR MAN!: ",error))
 
     </script>
     
