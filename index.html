@@ -35,33 +35,46 @@
             ]
 
             let exampleCharacter = {
-                name: "Jon Snow",
-                title: "Lord Commander of the Night's Watch",
-                alias: "Lord Snow",
-                
-
+                name: "bob",
+                title: "bobstar",
+                alias: "ringo",
+                house: "børen",
+                coatOfArms: "den bøyde skje",
+                words: "det er deg det",
+                ancestralWeapons: "utedo"
             }
             
-            fetch('https://anapioficeandfire.com/api/characters/583',
-                {
-                    method: "GET", // *GET, POST, PUT, DELETE, etc.
-                    mode: "cors", // no-cors, cors, *same-origin
-                    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-                    credentials: "same-origin", // include, *same-origin, omit
-                    headers: {
-                        "Content-Type": "application/json; charset=utf-8",
-                        // "Content-Type": "application/x-www-form-urlencoded",
-                        },
-                    redirect: "follow", // manual, *follow, error
-                    referrer: "no-referrer", // no-referrer, *client    
-                }
-            )
+            fetch('https://anapioficeandfire.com/api/characters/' + playableCharacters[2].ID)
                 .then(respons => respons.json())
-                .then(json => {                   
-                    console.log(json);
+                .then(json => {
+
+                    // console.log(json)
+
+                    exampleCharacter.name = json.name
+                    exampleCharacter.title = (json.titles.length != 0) ? json.titles[0] : "None"
+                    exampleCharacter.alias = (json.aliases.length != 0) ? json.aliases[0] : "None"
                     
+
+                    // console.log(exampleCharacter);
+                // console.log(json.allegiances[0]) 
+                fetch(json.allegiances[0])
+                    .then(respons => respons.json())
+                    .then(json => {
+                        // console.log(json)
+                        
+                        exampleCharacter.house = json.name
+                        exampleCharacter.coatOfArms = json.coatOfArms
+                        exampleCharacter.words = json.words
+                        exampleCharacter.ancestralWeapons = json.ancestralWeapons 
+                        console.log(exampleCharacter);
+                    })
+                    .catch(error => console.log("ERROR MAN INTER!: ", error))
                 })
                 .catch(error => console.log("ERROR MAN!: ",error))
+
+                
+
+
 
     </script>
     

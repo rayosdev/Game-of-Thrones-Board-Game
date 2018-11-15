@@ -8,7 +8,7 @@
 .UI {
   display: grid;
   grid-template-columns: 1fr 4fr 1fr;
-  grid-template-rows: 20% 80%;
+  grid-template-rows: 1fr 5fr;
   grid-template-areas: "head head head" "left char righ";
   align-content: center;
 }
