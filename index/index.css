@@ -16,20 +16,22 @@
   grid-area: head;
   display: flex;
   justify-content: center;
-  color: #f00;
+  color: #777;
 }
 .UI_character-container {
   grid-area: char;
   justify-self: center;
-  background: #f00;
-  width: 200px;
-  height: 400px;
+  background: #aaa;
+  width: 300px;
+  height: 450px;
 }
 .UI_arrow_left {
   grid-area: left;
   height: 15px;
+  font-size: 2px;
 }
 .UI_arrow_right {
   grid-area: right;
   height: 15px;
+  font-size: 2px;
 }

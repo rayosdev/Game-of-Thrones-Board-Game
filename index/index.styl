@@ -5,7 +5,7 @@
 test-var = blue 
 
 arrow-btn-hight = 15px
-
+arrow-size = 2px
 
 
 .container
@@ -33,20 +33,22 @@ arrow-btn-hight = 15px
         
         display: flex
         justify-content: center
-        color: red
+        color: #777
 
     &_character-container
         grid-area: char
 
         justify-self: center
-        background: red
-        width: 200px
-        height 400px
+        background: #aaa
+        width: 300px
+        height 450px
 
     &_arrow_left
         grid-area: left 
         height: arrow-btn-hight
+        font-size: arrow-size
     
     &_arrow_right
         grid-area: right
         height: arrow-btn-hight
+        font-size: arrow-size

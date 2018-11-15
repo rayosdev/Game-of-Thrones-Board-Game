@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Select Character</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="../index/index.css">
 </head>
 <style>
 
@@ -14,19 +14,33 @@
 </style>
 <body>
     
+
     <!-- API -->
+    <!-- https://anapioficeandfire.com/. -->
+
+    <!-- multiplayer -->
     <!-- https://socket.io/docs/ -->
+
+    
 
     <div class="container">
         
         <div class="UI">
             <h1 class="UI_header-text">Select your Character</h1>
-            <div class="UI_character-container" id="characterContainer"></div>
-            <button class="UI_arrow-left">left</button>
-            <button class="UI_arrow-right">right</button>
-            <div class="UI_character-info-area"></div>
-        </div>
+            <div class="UI_character-container" id="characterContainer">
 
+                <div class="character-card">
+                    <h3 class="character-card_name">John Snow</h3>
+                    <img src="" alt="" class="character-card_image">
+                    <div class="character-card_info">
+                        <h4 class="character-card_info_title">king of the north</h4>
+                        
+                    </div>
+                </div>
+
+            </div>
+            <button class="UI_arrow-left"> < </button>
+            <button class="UI_arrow-right"> > </button>
     </div>
 
 </body>
