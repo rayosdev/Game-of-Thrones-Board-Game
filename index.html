@@ -34,47 +34,53 @@
                 {name:"Brienne of Tarth", ID:216}
             ]
 
-            let exampleCharacter = {
-                name: "bob",
-                title: "bobstar",
-                alias: "ringo",
-                house: "børen",
-                coatOfArms: "den bøyde skje",
-                words: "det er deg det",
-                ancestralWeapons: "utedo"
-            }
+            // let exampleCharacter = {
+            //     name: "bob",
+            //     title: "bobstar",
+            //     alias: "ringo",
+            //     house: "børen",
+            //     coatOfArms: "den bøyde skje",
+            //     words: "det er deg det",
+            //     ancestralWeapons: "utedo"
+            // }
             
-            fetch('https://anapioficeandfire.com/api/characters/' + playableCharacters[2].ID)
+            
+                
+        function fetchCharacter(charcterObject){
+            let returnCharacter = {}
+            
+            fetch('https://anapioficeandfire.com/api/characters/' + charcterObject.ID)
                 .then(respons => respons.json())
                 .then(json => {
 
-                    // console.log(json)
 
-                    exampleCharacter.name = json.name
-                    exampleCharacter.title = (json.titles.length != 0) ? json.titles[0] : "None"
-                    exampleCharacter.alias = (json.aliases.length != 0) ? json.aliases[0] : "None"
-                    
+                    returnCharacter.name = json.name
+                    returnCharacter.title = (json.titles.length != 0) ? json.titles[0] : "None"
+                    returnCharacter.alias = (json.aliases.length
+                     != 0) ? json.aliases[0] : "None"
 
-                    // console.log(exampleCharacter);
-                // console.log(json.allegiances[0]) 
-                fetch(json.allegiances[0])
-                    .then(respons => respons.json())
-                    .then(json => {
-                        // console.log(json)
-                        
-                        exampleCharacter.house = json.name
-                        exampleCharacter.coatOfArms = json.coatOfArms
-                        exampleCharacter.words = json.words
-                        exampleCharacter.ancestralWeapons = json.ancestralWeapons 
-                        console.log(exampleCharacter);
+                    fetch(json.allegiances[0])
+                        .then(respons => respons.json())
+                        .then(json => {
+
+                            returnCharacter.house = json.name
+                            returnCharacter.coatOfArms = json.coatOfArms
+                            returnCharacter.words = json.words
+                            returnCharacter.ancestralWeapons = json.ancestralWeapons 
+                            // console.log(returnCharacter);
                     })
                     .catch(error => console.log("ERROR MAN INTER!: ", error))
-                })
-                .catch(error => console.log("ERROR MAN!: ",error))
+            })
+            .catch(error => console.log("ERROR MAN!: ",error))
+            return returnCharacter
+        }
+        
+        fetchCharacter(playableCharacters[7])
 
-                
 
+        
 
+        
 
     </script>
     
@@ -84,15 +90,23 @@
             <h1 class="UI_header-text">Select your Character</h1>
             <div class="UI_character-container" id="characterContainer">
 
+                <script>
+                    
+                </script>
+                
+<!-- 
                 <div class="character-card">
                     <h3 class="character-card_name">John Snow</h3>
                     <img src="" alt="" class="character-card_image">
-                    <div class="character-card_info">
-                        <h4 class="character-card_info_title">king of the north</h4>
-                        
+                    <div class="character-card__info">
+                        <h4 class="character-card__info__title">king of the north</h4>
+                        <p class="character-card__info__house"></p>
+                        <img src="" alt="" class="character-card__info__coat-of-arms">
+                        <p class="character-card__info__words"></p>
+                        <p class="character-card__info__ancestral-weapons"></p>
                     </div>
                 </div>
-
+ -->
             </div>
             <button class="UI_arrow-left"> < </button>
             <button class="UI_arrow-right"> > </button>
