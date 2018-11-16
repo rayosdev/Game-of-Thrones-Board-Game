@@ -16,7 +16,7 @@
         /* transform: scale(0.7); */
         position: absolute;
         top: -300px;
-        left: -300px;
+        /* left: -300px; */
 
     }
     .container{
@@ -26,7 +26,6 @@
     }
     .top-tiles{
         display: flex;
-        flex-direction: row-reverse;
     }
     .bottom-tiles{
         display: flex;
@@ -39,6 +38,9 @@
         background: #444;
         border: solid #777;
         list-style: none;
+        color: white;
+        font-size: 40px;
+        text-align: center;
     }
     .top-tiles      {grid-area: top;}
     .bottom-tiles   {grid-area: bot;}
@@ -107,43 +109,43 @@
             <div class="players" id="player2"></div>
 
             <ol class="top-tiles">
-                <li class="tile"></li>
-                <li class="tile"></li>
-                <li class="tile"></li>
-                <li class="tile"></li>
-                <li class="tile"></li>
-                <li class="tile"></li>
-                <li class="tile"></li>
-                <li class="tile"></li>
+                <li class="tile" id="tileNr1">01</li>
+                <li class="tile" id="tileNr2">02</li>
+                <li class="tile" id="tileNr3">03</li>
+                <li class="tile" id="tileNr4">04</li>
+                <li class="tile" id="tileNr5">05</li>
+                <li class="tile" id="tileNr6">06</li>
+                <li class="tile" id="tileNr7">07</li>
+                <li class="tile" id="tileNr8">08</li>
             </ol>
             <ol class="left-tiles">
-                <li class="tile"></li>
-                <li class="tile"></li>
-                <li class="tile"></li>
-                <li class="tile"></li>
-                <li class="tile"></li>
-                <li class="tile"></li>
+                <li class="tile" id="tileNr9">09</li>
+                <li class="tile" id="tileNr10">10</li>
+                <li class="tile" id="tileNr11">11</li>
+                <li class="tile" id="tileNr12">12</li>
+                <li class="tile" id="tileNr13">13</li>
+                <li class="tile" id="tileNr14">14</li>
             </ol>
             <ol class="bottom-tiles">
-                <li class="tile"></li>
-                <li class="tile"></li>
-                <li class="tile"></li>
-                <li class="tile"></li>
-                <li class="tile"></li>
-                <li class="tile"></li>
-                <li class="tile"></li>
-                <li class="tile"></li>
+                <li class="tile" id="tileNr15">15</li>
+                <li class="tile" id="tileNr16">16</li>
+                <li class="tile" id="tileNr17">17</li>
+                <li class="tile" id="tileNr18">18</li>
+                <li class="tile" id="tileNr19">19</li>
+                <li class="tile" id="tileNr20">20</li>
+                <li class="tile" id="tileNr21">21</li>
+                <li class="tile" id="tileNr22">22</li>
             </ol>
             <ol class="right-tiles">
-                <li class="tile"></li>
-                <li class="tile"></li>
-                <li class="tile"></li>
-                <li class="tile"></li>
-                <li class="tile"></li>
-                <li class="tile"></li>
+                <li class="tile" id="tileNr23">23</li>
+                <li class="tile" id="tileNr24">24</li>
+                <li class="tile" id="tileNr25">25</li>
+                <li class="tile" id="tileNr26">26</li>
+                <li class="tile" id="tileNr27">27</li>
+                <li class="tile" id="tileNr28">28</li>
             </ol>
         </div>
-    
+        
     </div>
 
     
@@ -152,12 +154,7 @@
         let player1 = document.getElementById('player1')
         let player2 = document.getElementById('player2')
         
-        // console.log(player1);
-        
-        player1.style.top = "0px"
-        
-        // player1.style.left = `${42}px`
-        // player1.style.top = `${-1}px`
+        // player1.style.top = "0px"
 
         function moveToTile(element, number){
                  
@@ -198,7 +195,10 @@
                 {x:0,y:2},
                 {x:0,y:1}
             ] 
-                
+            
+
+            // if(number >= tilesIndex.length + 1){number = 1}
+
             elementPos.x = 120 * tilesIndex[number -1].x 
             elementPos.y = 120 * tilesIndex[number -1].y
             
@@ -210,31 +210,137 @@
 
             element.innerText = number
         }
+        
+
+
+
+        // let tileNumber = 1
+
+        // setInterval(e => {
+        //     moveToTile(player1,tileNumber)
+        //     tileNumber += 1
+
+        //     if(tileNumber >= 28 +1){
+        //         tileNumber = 1
+        //     } 
+        // }, 500)
+
+        // let tileNumber2 = 1
+
+        // setInterval(e => {
+        //     moveToTile(player2,tileNumber2)
+        //     tileNumber2 += 1
+
+        //     if(tileNumber2 >= 28 +1){
+        //         tileNumber2 = 1
+        //     } 
+        // }, 250)
 
         
-        let tileNumber = 1
+    </script>
 
-        setInterval(e => {
-            moveToTile(player1,tileNumber)
-            tileNumber += 1
+    <style>
+        .game-gui-container{
+            position: fixed;
+            width: 160%;
+            height: 600px;
+            background: rgba(41, 0, 221, 0.404);
+            bottom: -700px;
+            left: -25%;
 
-            if(tileNumber >= 28 +1){
-                tileNumber = 1
-            } 
-        }, 500)
-
-        let tileNumber2 = 1
-
-        setInterval(e => {
-            moveToTile(player2,tileNumber2)
-            tileNumber2 += 1
-
-            if(tileNumber2 >= 28 +1){
-                tileNumber2 = 1
-            } 
-        }, 250)
-
+            display: grid;
+            align-items: center;
+            justify-items: center;
+        }
         
+        .role-dice-btn{
+            width: 400px;
+            height: 200px;
+            font-size: 50px;
+        }
+        
+        .hide{
+            display: none;
+        }
+
+        .player-turn-label{
+            font-size: 50px;
+            color: white;
+            justify-self: start;
+            align-self: start;
+            padding: 0 40px;
+        }
+        .player-turn-label::first-letter{ text-transform: capitalize;}
+        
+        .dice-number-label{
+            position: absolute;
+            top: -60px;
+            font-size: 150px;
+            color: white;
+        }
+
+    </style>
+    <div class="game-gui-container">
+        <p class="player-turn-label">turn</p>
+        <h2 class="dice-number-label hide">0</h2>
+        <button class="role-dice-btn hide" id="roleDiceButton">Role Dice</button>
+    </div>
+
+    <script>
+        
+
+        let roleDiceButton = document.getElementById('roleDiceButton')
+        roleDiceButton.addEventListener("click",_diceRole)
+
+        let whosTurn = player1
+        let playerTurnLabel = document.getElementsByClassName('player-turn-label')[0]
+        let diceNumberLabel = document.getElementsByClassName('dice-number-label')[0]
+
+        function _startRound(){
+            roleDiceButton.classList.remove('hide')
+            playerTurnLabel.innerHTML = `${whosTurn.id}'s turn`
+
+            //waite for player input
+        }
+
+        function flipTurns(){
+            if(whosTurn.id == 'player1'){whosTurn = player2}
+            else{whosTurn = player1}
+            _startRound()
+        }
+        
+        let randomDiceNumber
+
+        function _diceRole(e){
+            randomDiceNumber = Math.round(Math.random() * 5 + 1) 
+            diceNumberLabel.classList.remove("hide")
+            diceNumberLabel.innerText = randomDiceNumber
+            roleDiceButton.classList.add("hide")
+            let moveInterval = setInterval(e => {
+                whosTurn.tile = (whosTurn.tile >= 28) ? 1 : whosTurn.tile + 1
+                moveToTile(whosTurn, whosTurn.tile)
+                randomDiceNumber -= 1
+                if(randomDiceNumber <= 0){
+                    clearInterval(moveInterval)
+                    return flipTurns()
+                }
+            }, 200)
+        }
+
+        function _onReady(){
+            player1.tile = 1
+            player2.tile = 1
+
+            moveToTile(player1, player1.tile)
+            moveToTile(player2, player2.tile)
+            
+            console.log(player1.test)
+
+            _startRound()
+        }
+
+        _onReady()
+
     </script>
 
 </body>
