@@ -21,68 +21,6 @@
     <!-- multiplayer -->
     <!-- https://socket.io/docs/ -->
 
-    <script>
-        let playableCharacters = 
-            [
-                {name:"Jon Snow", ID:583},
-                {name:"Daenerys Targaryen", ID:1303},
-                {name:"Tyrion Lannister", ID:1052},
-                {name:"Cersei Lannister", ID:238},
-                {name:"Arya Stark", ID:148},
-                {name:"Jorah Mormont", ID:1560},
-                {name:"Brandon Stark", ID:206},
-                {name:"Brienne of Tarth", ID:216}
-            ]
-
-            // let exampleCharacter = {
-            //     name: "bob",
-            //     title: "bobstar",
-            //     alias: "ringo",
-            //     house: "børen",
-            //     coatOfArms: "den bøyde skje",
-            //     words: "det er deg det",
-            //     ancestralWeapons: "utedo"
-            // }
-            
-            
-                
-        function fetchCharacter(charcterObject){
-            let returnCharacter = {}
-            
-            fetch('https://anapioficeandfire.com/api/characters/' + charcterObject.ID)
-                .then(respons => respons.json())
-                .then(json => {
-
-
-                    returnCharacter.name = json.name
-                    returnCharacter.title = (json.titles.length != 0) ? json.titles[0] : "None"
-                    returnCharacter.alias = (json.aliases.length
-                     != 0) ? json.aliases[0] : "None"
-
-                    fetch(json.allegiances[0])
-                        .then(respons => respons.json())
-                        .then(json => {
-
-                            returnCharacter.house = json.name
-                            returnCharacter.coatOfArms = json.coatOfArms
-                            returnCharacter.words = json.words
-                            returnCharacter.ancestralWeapons = json.ancestralWeapons 
-                            // console.log(returnCharacter);
-                    })
-                    .catch(error => console.log("ERROR MAN INTER!: ", error))
-            })
-            .catch(error => console.log("ERROR MAN!: ",error))
-            return returnCharacter
-        }
-        
-        fetchCharacter(playableCharacters[7])
-
-
-        
-
-        
-
-    </script>
     
     <div class="container">
         
@@ -91,22 +29,109 @@
             <div class="UI_character-container" id="characterContainer">
 
                 <script>
+
                     
                 </script>
-                
-<!-- 
-                <div class="character-card">
-                    <h3 class="character-card_name">John Snow</h3>
-                    <img src="" alt="" class="character-card_image">
-                    <div class="character-card__info">
-                        <h4 class="character-card__info__title">king of the north</h4>
-                        <p class="character-card__info__house"></p>
-                        <img src="" alt="" class="character-card__info__coat-of-arms">
-                        <p class="character-card__info__words"></p>
-                        <p class="character-card__info__ancestral-weapons"></p>
+
+                <script>
+                    let playableCharacters = 
+                        [
+                            {name:"Jon Snow", ID:583},
+                            {name:"Daenerys Targaryen", ID:1303},
+                            {name:"Tyrion Lannister", ID:1052},
+                            {name:"Cersei Lannister", ID:238},
+                            {name:"Arya Stark", ID:148},
+                            {name:"Jorah Mormont", ID:1560},
+                            {name:"Brandon Stark", ID:206},
+                            {name:"Brienne of Tarth", ID:216}
+                        ]
+
+                        // let exampleCharacter = {
+                        //     name: "bob",
+                        //     title: "bobstar",
+                        //     alias: "ringo",
+                        //     house: "børen",
+                        //     coatOfArms: "den bøyde skje",
+                        //     words: "det er deg det",
+                        //     ancestralWeapons: "utedo"
+                        // }
+                        
+                        
+                            
+                    function fetchCharacter(charcterObject){
+                        let returnCharacter = {}
+                        
+                        fetch('https://anapioficeandfire.com/api/characters/' + charcterObject.ID)
+                            .then(respons => respons.json())
+                            .then(json => {
+
+
+                                returnCharacter.name = json.name
+                                returnCharacter.title = (json.titles.length != 0) ? json.titles[0] : "None"
+                                returnCharacter.alias = (json.aliases.length
+                                != 0) ? json.aliases[0] : "None"
+
+                                fetch(json.allegiances[0])
+                                    .then(respons => respons.json())
+                                    .then(json => {
+
+                                        returnCharacter.house = json.name
+                                        returnCharacter.coatOfArms = json.coatOfArms
+                                        returnCharacter.words = json.words
+                                        returnCharacter.ancestralWeapons = json.ancestralWeapons 
+                                        // console.log(returnCharacter);
+                                })
+                                .catch(error => console.log("ERROR MAN INTER!: ", error))
+                        })
+                        .catch(error => console.log("ERROR MAN!: ",error))
+                        return returnCharacter
+                    }
+                        
+                        
+                        function createCharacterHTML(character){
+                            console.log(typeof(character));
+                            
+                            let characterContainer = document.getElementById('characterContainer')
+                            let chracterDiv = document.createElement('div')
+                            chracterDiv.classList.add('character')
+                            chracterDiv.innerHTML = `
+                                <h3 class="character_name">${character.name}</h3>
+                                <img src="" alt="" class="character_image">
+                                <div class="character__info">
+                                    <h4 class="character__info__title">${character.title}</h4>
+                                    <p class="character__info__house">${character.house}</p>
+                                    <img src="" alt="" class="character__info__coat-of-arms">
+                                    <p class="character__info__words">${character.words}</p>
+                                    <p class="character__info__ancestral-weapons">${character.ancestralWeapons}</p>
+                                </div>
+                            `
+                            characterContainer.appendChild(chracterDiv)
+                        }
+
+
+                        createCharacterHTML(fetchCharacter(playableCharacters[6]))
+
+
+                        
+
+                        
+
+                    </script>
+
+<!--                     
+                <div class="character">
+                    <h3 class="character_name">John Snow</h3>
+                    <img src="" alt="" class="character_image">
+                    <div class="character__info">
+                        <h4 class="character__info__title">king of the north</h4>
+                        <p class="character__info__house"></p>
+                        <img src="" alt="" class="character__info__coat-of-arms">
+                        <p class="character__info__words"></p>
+                        <p class="character__info__ancestral-weapons"></p>
                     </div>
                 </div>
  -->
+
             </div>
             <button class="UI_arrow-left"> < </button>
             <button class="UI_arrow-right"> > </button>
