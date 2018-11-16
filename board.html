@@ -210,31 +210,6 @@
 
             element.innerText = number
         }
-        
-
-
-
-        // let tileNumber = 1
-
-        // setInterval(e => {
-        //     moveToTile(player1,tileNumber)
-        //     tileNumber += 1
-
-        //     if(tileNumber >= 28 +1){
-        //         tileNumber = 1
-        //     } 
-        // }, 500)
-
-        // let tileNumber2 = 1
-
-        // setInterval(e => {
-        //     moveToTile(player2,tileNumber2)
-        //     tileNumber2 += 1
-
-        //     if(tileNumber2 >= 28 +1){
-        //         tileNumber2 = 1
-        //     } 
-        // }, 250)
 
         
     </script>
@@ -292,40 +267,52 @@
         let roleDiceButton = document.getElementById('roleDiceButton')
         roleDiceButton.addEventListener("click",_diceRole)
 
-        let whosTurn = player1
+        let activePlayer = player1
         let playerTurnLabel = document.getElementsByClassName('player-turn-label')[0]
         let diceNumberLabel = document.getElementsByClassName('dice-number-label')[0]
 
         function _startRound(){
             roleDiceButton.classList.remove('hide')
-            playerTurnLabel.innerHTML = `${whosTurn.id}'s turn`
-
-            //waite for player input
+            playerTurnLabel.innerHTML = `${activePlayer.id}'s turn`
         }
 
         function flipTurns(){
-            if(whosTurn.id == 'player1'){whosTurn = player2}
-            else{whosTurn = player1}
+            if(activePlayer.id == 'player1'){activePlayer = player2}
+            else{activePlayer = player1}
             _startRound()
         }
         
         let randomDiceNumber
+        
+        
+        function tileAction(){
+            fetch("./tileCards.json")
+            .then(response => response.json())
+            .then(json => {
+                console.log(json)
+            })
+        }
 
         function _diceRole(e){
             randomDiceNumber = Math.round(Math.random() * 5 + 1) 
-            diceNumberLabel.classList.remove("hide")
+            diceNumberLabel.classList.remove('hide')
             diceNumberLabel.innerText = randomDiceNumber
-            roleDiceButton.classList.add("hide")
+            roleDiceButton.classList.add('hide')
             let moveInterval = setInterval(e => {
-                whosTurn.tile = (whosTurn.tile >= 28) ? 1 : whosTurn.tile + 1
-                moveToTile(whosTurn, whosTurn.tile)
+                activePlayer.tile = (activePlayer.tile >= 28) ? 1 : activePlayer.tile + 1
+                moveToTile(activePlayer, activePlayer.tile)
                 randomDiceNumber -= 1
                 if(randomDiceNumber <= 0){
                     clearInterval(moveInterval)
-                    return flipTurns()
+                    diceNumberLabel.classList.add('hide')
+                    // flipTurns()
+                    tileAction()
                 }
             }, 200)
         }
+        
+
+
 
         function _onReady(){
             player1.tile = 1
