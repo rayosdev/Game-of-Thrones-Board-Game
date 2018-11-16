@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Game Board</title>
+</head>
+<style>
+    body{
+        min-height: 100vh;
+        color: red;
+        display: grid;
+        border: solid black 13px;
+        background: #111;
+        /* transform: scale(0.2); */
+        transform: scale(0.2);
+
+    }
+    .container{
+        align-self: center;
+        justify-self: center;
+    }
+    .top-tiles{
+        display: flex;
+        flex-direction: row-reverse;
+    }
+    .bottom-tiles{
+        display: flex;
+        flex-direction: row-reverse;
+    }
+    .tile{
+        position: relative;
+        width: 116px;
+        height: 116px;
+        background: #444;
+        border: solid #777;
+        list-style: none;
+    }
+    .top-tiles      {grid-area: top;}
+    .bottom-tiles   {grid-area: bot;}
+    .right-tiles    {grid-area: rig;}
+    .left-tiles     {grid-area: lef;}
+    
+    .top-tiles > .tile {border: salmon solid 2px;}
+    .bottom-tiles > .tile {border: seagreen solid 2px;}
+    .right-tiles > .tile {border: royalblue solid 2px;}
+    .left-tiles > .tile {border: rebeccapurple solid 2px;}
+    
+    .left-tiles {justify-self: end;}
+    
+    ol{
+        margin: 0;
+    }
+
+    .board-container{
+        display: grid;
+        row-gap: 0;
+        column-gap: 0;
+        grid-template-areas: 
+            "top top top"
+            "rig . lef"
+            "bot bot bot";
+            
+        /* transform: perspective(900px) rotateX(25deg); */
+    }
+
+    .players{
+        height: 116px;
+        width: 116px;
+        background: red;
+        float: left;
+        position: relative;
+        top: 50px;
+        z-index: 10;
+        /* transform: perspective(200px) rotateX(25deg); */
+    }
+
+    #player1{
+        background: rgba(40, 212, 97, 0.514);
+    }
+    #player2{
+        background: rgba(255, 0, 0, 0);
+    }
+
+</style>
+<body>
+    
+
+
+
+    <div class="container">
+        <div class="board-container">
+            <div class="players" id="player1"></div>
+            <div class="players" id="player2"></div>
+
+            <ol class="top-tiles">
+                <li class="tile"></li>
+                <li class="tile"></li>
+                <li class="tile"></li>
+                <li class="tile"></li>
+                <li class="tile"></li>
+                <li class="tile"></li>
+                <li class="tile"></li>
+                <li class="tile"></li>
+            </ol>
+            <ol class="left-tiles">
+                <li class="tile"></li>
+                <li class="tile"></li>
+                <li class="tile"></li>
+                <li class="tile"></li>
+                <li class="tile"></li>
+                <li class="tile"></li>
+            </ol>
+            <ol class="bottom-tiles">
+                <li class="tile"></li>
+                <li class="tile"></li>
+                <li class="tile"></li>
+                <li class="tile"></li>
+                <li class="tile"></li>
+                <li class="tile"></li>
+                <li class="tile"></li>
+                <li class="tile"></li>
+            </ol>
+            <ol class="right-tiles">
+                <li class="tile"></li>
+                <li class="tile"></li>
+                <li class="tile"></li>
+                <li class="tile"></li>
+                <li class="tile"></li>
+                <li class="tile"></li>
+            </ol>
+        </div>
+    
+    </div>
+
+    
+    <script>
+        let tiles = document.getElementsByClassName('tile')
+        let player1 = document.getElementById('player1')
+        
+        // console.log(player1);
+        
+        player1.style.top = "0px"
+        
+        let tilePos      = {x:0, y:0} 
+        let playerPos    = {x:0, y:0}
+        let playerOffset = {x:-307, y:-118}
+        
+        let tilesIndex = [
+            {x:0,y:0},
+            {x:1,y:0},
+            {x:2,y:0},
+            {x:3,y:0},
+            {x:4,y:0},
+            {x:5,y:0},
+            {x:6,y:0},
+            {x:7,y:0},
+            {x:7,y:1},
+            {x:7,y:2},
+            {x:7,y:3},
+            {x:7,y:4},
+            {x:7,y:5},
+            {x:7,y:6},
+        ] 
+        
+        
+
+        playerPos.x += playerOffset.x
+        playerPos.y += playerOffset.y
+
+        playerPos.x += 120 * tilesIndex[9].x
+        playerPos.y += 120 * tilesIndex[9].y
+
+        player1.style.left = `${playerPos.x}px`
+        player1.style.top = `${playerPos.y}px`
+        
+        
+
+        setInterval(e => {
+
+        }, 100)
+
+        // tiles[0].style.position = ""
+        // console.log("que: ", tiles);
+        
+
+        // setInterval(e => {
+        //     player1.style.top = pos.y + "px"
+        //     pos.y += 5
+        // }, 10)
+        
+    </script>
+
+</body>
+</html>
