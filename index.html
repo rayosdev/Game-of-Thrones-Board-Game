@@ -25,13 +25,8 @@
     <div class="container">
         
         <div class="UI">
-            <h1 class="UI_header-text">Select your Character</h1>
-            <div class="UI_character-container" id="characterContainer">
-
-                <script>
-
-                    
-                </script>
+            <h1 class="UI__header-text">Select your Character</h1>
+            <div class="UI__character-container" id="characterContainer">
 
                 <script>
                     let playableCharacters = 
@@ -56,6 +51,26 @@
                         //     ancestralWeapons: "utedo"
                         // }
                         
+                                            
+                    function generatCharacterHTML(character){
+                        
+
+                        let characterContainer = document.getElementById('characterContainer')
+                        let chracterDiv = document.createElement('div')
+                        chracterDiv.classList.add('character')
+                        chracterDiv.innerHTML = `
+                            <h3 class="character_name">${character.name}</h3>
+                            <img src="" alt="" class="character__image">
+                            <div class="character__info">
+                                <h4 class="character__info__title">${(character.title == "") ? character.alias : character.title}</h4>
+                                <p class="character__info__house">${character.house}</p>
+                                <img src="" alt="" class="character__info__coat-of-arms">
+                                <p class="character__info__words">${character.words}</p>
+                                <p class="character__info__ancestral-weapons">${character.ancestralWeapons}</p>
+                            </div>
+                        `
+                        characterContainer.appendChild(chracterDiv)
+                    }
                         
                             
                     function fetchCharacter(charcterObject){
@@ -81,42 +96,19 @@
                                         returnCharacter.ancestralWeapons = json.ancestralWeapons 
                                         // console.log(returnCharacter);
                                 })
+                                .then( e => generatCharacterHTML(returnCharacter))
                                 .catch(error => console.log("ERROR MAN INTER!: ", error))
-                        })
-                        .catch(error => console.log("ERROR MAN!: ",error))
-                        return returnCharacter
+                            })
+                            .catch(error => console.log("ERROR MAN!: ",error))
+                            return returnCharacter
                     }
-                        
-                        
-                        function createCharacterHTML(character){
-                            console.log(typeof(character));
-                            
-                            let characterContainer = document.getElementById('characterContainer')
-                            let chracterDiv = document.createElement('div')
-                            chracterDiv.classList.add('character')
-                            chracterDiv.innerHTML = `
-                                <h3 class="character_name">${character.name}</h3>
-                                <img src="" alt="" class="character_image">
-                                <div class="character__info">
-                                    <h4 class="character__info__title">${character.title}</h4>
-                                    <p class="character__info__house">${character.house}</p>
-                                    <img src="" alt="" class="character__info__coat-of-arms">
-                                    <p class="character__info__words">${character.words}</p>
-                                    <p class="character__info__ancestral-weapons">${character.ancestralWeapons}</p>
-                                </div>
-                            `
-                            characterContainer.appendChild(chracterDiv)
-                        }
+                    
+                    playerOne = fetchCharacter(playableCharacters[7])
+                    playertwo = fetchCharacter(playableCharacters[0])
 
+                    console.log(playerOne, " - ", playertwo);
 
-                        createCharacterHTML(fetchCharacter(playableCharacters[6]))
-
-
-                        
-
-                        
-
-                    </script>
+                </script>
 
 <!--                     
                 <div class="character">
@@ -133,8 +125,8 @@
  -->
 
             </div>
-            <button class="UI_arrow-left"> < </button>
-            <button class="UI_arrow-right"> > </button>
+            <button class="UI__arrow-left"> < </button>
+            <button class="UI__arrow-right"> > </button>
     </div>
 
 </body>

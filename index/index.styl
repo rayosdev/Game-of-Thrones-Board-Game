@@ -4,8 +4,9 @@
 
 test-var = blue 
 
-arrow-btn-hight = 15px
-arrow-size = 2px
+arrow-btn-hight = 40px
+arrow-btn-width = 40px
+arrow-size = 20px
 
 
 .container
@@ -25,30 +26,47 @@ arrow-size = 2px
     grid-template-areas:  
         "head head head"\
         "left char righ"
-    align-content: center
 
-
-    &_header-text
+    &__header-text
         grid-area: head
         
         display: flex
         justify-content: center
         color: #777
 
-    &_character-container
+    &__character-container
         grid-area: char
 
         justify-self: center
-        background: #aaa
-        width: 300px
+        // background: #aaa
+        // width: 300px
+        position relative
         height 450px
+        display: flex
+        flex-wrap: nowrap
 
-    &_arrow_left
+        
+        // CHRACTER AREA
+        
+        .character
+            position: relative
+            right: 20px 
+            width: 300px
+            border: solid black
+            background: rgba(122,0,0,0.2)
+            margin: 30px
+            padding: 20px
+
+
+    &__arrow-left
         grid-area: left 
         height: arrow-btn-hight
         font-size: arrow-size
     
-    &_arrow_right
+    &__arrow-right
         grid-area: right
         height: arrow-btn-hight
+        width: arrow-btn-width
         font-size: arrow-size
+
+

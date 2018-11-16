@@ -10,28 +10,38 @@
   grid-template-columns: 1fr 4fr 1fr;
   grid-template-rows: 1fr 5fr;
   grid-template-areas: "head head head" "left char righ";
-  align-content: center;
 }
-.UI_header-text {
+.UI__header-text {
   grid-area: head;
   display: flex;
   justify-content: center;
   color: #777;
 }
-.UI_character-container {
+.UI__character-container {
   grid-area: char;
   justify-self: center;
-  background: #aaa;
-  width: 300px;
+  position: relative;
   height: 450px;
+  display: flex;
+  flex-wrap: nowrap;
 }
-.UI_arrow_left {
+.UI__character-container .character {
+  position: relative;
+  right: 20px;
+  width: 300px;
+  border: solid #000;
+  background: rgba(122,0,0,0.2);
+  margin: 30px;
+  padding: 20px;
+}
+.UI__arrow-left {
   grid-area: left;
-  height: 15px;
-  font-size: 2px;
+  height: 40px;
+  font-size: 20px;
 }
-.UI_arrow_right {
+.UI__arrow-right {
   grid-area: right;
-  height: 15px;
-  font-size: 2px;
+  height: 40px;
+  width: 40px;
+  font-size: 20px;
 }
