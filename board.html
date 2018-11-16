@@ -9,11 +9,10 @@
 <style>
     body{
         min-height: 100vh;
-        color: red;
         display: grid;
         border: solid black 13px;
         background: #111;
-        transform: scale(0.4);
+        transform: scale(0.3);
         /* transform: scale(0.7); */
         position: absolute;
         top: -300px;
@@ -72,10 +71,12 @@
     .players{
         height: 116px;
         width: 116px;
-        background: red;
+        color: white;
         float: left;
         position: relative;
-        top: 50px;
+        top: 0;
+        left: 0;
+        /* top: 50px; */
         z-index: 10;
         /* transform: perspective(200px) rotateX(25deg); */
         font-size: 50px;
@@ -84,9 +85,14 @@
 
     #player1{
         background: rgba(40, 212, 97, 0.514);
+        position: absolute;
+        /* left: 120px; */
     }
     #player2{
-        background: rgba(255, 0, 0, 0);
+        background: rgba(182, 211, 17, 0.507);
+        position: absolute;
+        top: 0;
+        left: 240px;
     }
 
 </style>
@@ -144,85 +150,90 @@
     <script>
         let tiles = document.getElementsByClassName('tile')
         let player1 = document.getElementById('player1')
+        let player2 = document.getElementById('player2')
         
         // console.log(player1);
         
         player1.style.top = "0px"
         
-        let tilePos      = {x:0, y:0} 
-        let playerPos    = {x:0, y:0}
-        let playerOffset = {x:-307, y:-118}
-        
-        let tilesIndex = [
-                        //Top Side
-            {x:0,y:0},
-            {x:1,y:0},
-            {x:2,y:0},
-            {x:3,y:0},
-            {x:4,y:0},
-            {x:5,y:0},
-            {x:6,y:0},
-            {x:7,y:0},
-                        //Right Side
-            {x:7,y:1},
-            {x:7,y:2},
-            {x:7,y:3},
-            {x:7,y:4},
-            {x:7,y:5},
-            {x:7,y:6},
-                        //Bottom Side
-            {x:7,y:7},
-            {x:6,y:7},
-            {x:5,y:7},
-            {x:4,y:7},
-            {x:3,y:7},
-            {x:2,y:7},
-            {x:1,y:7},
-            {x:0,y:7},
-                        //Left Side
-            {x:0,y:6},
-            {x:0,y:5},
-            {x:0,y:4},
-            {x:0,y:3},
-            {x:0,y:2},
-            {x:0,y:1}
-        ] 
-        
-        function moveToTile(number){
+        // player1.style.left = `${42}px`
+        // player1.style.top = `${-1}px`
 
+        function moveToTile(element, number){
+                 
+            let elementPos    = {x:0, y:0}
+            let elementOffset = {x:42, y:-1}
+
+            let tilesIndex = [
+            //Top Side
+                {x:0,y:0},
+                {x:1,y:0},
+                {x:2,y:0},
+                {x:3,y:0},
+                {x:4,y:0},
+                {x:5,y:0},
+                {x:6,y:0},
+                {x:7,y:0},
+                            //Right Side
+                {x:7,y:1},
+                {x:7,y:2},
+                {x:7,y:3},
+                {x:7,y:4},
+                {x:7,y:5},
+                {x:7,y:6},
+                            //Bottom Side
+                {x:7,y:7},
+                {x:6,y:7},
+                {x:5,y:7},
+                {x:4,y:7},
+                {x:3,y:7},
+                {x:2,y:7},
+                {x:1,y:7},
+                {x:0,y:7},
+                            //Left Side
+                {x:0,y:6},
+                {x:0,y:5},
+                {x:0,y:4},
+                {x:0,y:3},
+                {x:0,y:2},
+                {x:0,y:1}
+            ] 
+                
+            elementPos.x = 120 * tilesIndex[number -1].x 
+            elementPos.y = 120 * tilesIndex[number -1].y
             
-            playerPos.x = 120 * tilesIndex[number -1].x 
-            playerPos.y = 120 * tilesIndex[number -1].y
-            
-            playerPos.x += playerOffset.x
-            playerPos.y += playerOffset.y
+            elementPos.x += elementOffset.x
+            elementPos.y += elementOffset.y
     
-            player1.style.left = `${playerPos.x}px`
-            player1.style.top = `${playerPos.y}px`
+            element.style.left = `${elementPos.x}px`
+            element.style.top = `${elementPos.y}px`
 
-            player1.innerText = number
+            element.innerText = number
         }
 
         
         let tileNumber = 1
 
         setInterval(e => {
-            moveToTile(tileNumber)
+            moveToTile(player1,tileNumber)
             tileNumber += 1
 
-            if(tileNumber >= tilesIndex.length +1){
+            if(tileNumber >= 28 +1){
                 tileNumber = 1
             } 
         }, 500)
 
-        // tiles[0].style.position = ""
-        // console.log("que: ", tiles);
-        
+        let tileNumber2 = 1
 
-        // setInterval(e => {
-        //     player1.style.top = pos.y + "px"
-        //     pos.y += 5
-        // }, 10)
+        setInterval(e => {
+            moveToTile(player2,tileNumber2)
+            tileNumber2 += 1
+
+            if(tileNumber2 >= 28 +1){
+                tileNumber2 = 1
+            } 
+        }, 250)
+
         
     </script>
 
