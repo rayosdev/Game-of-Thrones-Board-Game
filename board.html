@@ -253,12 +253,83 @@
             font-size: 150px;
             color: white;
         }
-
+        
+        .tile-card{
+            position: absolute;
+            align-self: center;
+            justify-self: center;
+            width: 650px;
+            height: 900px;
+            background: rgba(155, 89, 28, 0.801);
+            right: 160px;
+        }
+        .tile-card--show{
+            /* border: solid 15px red; */
+            animation: show-card 1s;
+        }
+        @keyframes show-card{
+            from{
+                transform: scale(0);
+            }
+            to{
+                transform: scale(1);
+            }
+        }
+        .tile-card__name{
+            color: white;
+            font-size: 50px;
+            padding: 0 30px;
+            margin: 20px 0;
+        }
+        .tile-card__image-container{
+            min-width: 80%;
+            height: 500px;
+            margin: 0 50px;
+            background: rgba(255, 255, 255, 0.459);
+        }
+        .tile-card__states-container{
+            position: relative;
+            display: flex;
+            color: white;
+            font-size: 70px;
+            list-style: none;
+            bottom: -50px;
+            left: 270px;
+        }
+        .stats-item{
+            display: grid;
+            padding: 35px;
+            margin: 10px;
+            height: 70px;
+            width: 70px;
+            justify-content: center;
+            align-content: center;
+            background: rgba(82, 82, 202, 0.705);
+            border-radius: 100%;
+        }
+        .stats__strength{
+            background: rgb(255, 235, 55);
+            color: #444;
+        }
+        .stats__life{
+            background: rgb(255, 55, 88);
+            color: rgb(7, 7, 7);
+        }
     </style>
+    
     <div class="game-gui-container">
         <p class="player-turn-label">turn</p>
         <h2 class="dice-number-label hide">0</h2>
         <button class="role-dice-btn hide" id="roleDiceButton">Role Dice</button>
+    </div>
+
+    <div class="tile-card tile-card--show" id="tileCard">
+        <h3 class="tile-card__name">Wolf</h3>
+        <div class="tile-card__image-container"></div>
+        <ul class="tile-card__states-container">
+            <li class="stats-item stats__strength">4</li>
+            <li class="stats-item stats__life">2</li>
+        </ul>
     </div>
 
     <script>
@@ -282,6 +353,10 @@
             _startRound()
         }
         
+
+        function createCard(card){
+            
+        }
         
         
         function tileAction(){
@@ -293,12 +368,23 @@
                 let count = 1
                 let cards = json[0]
                 let pickRandom = Math.round(Math.random() * Object.keys(cards).length + 1)
+                for (const iterator of new Array(200)) {
+                    // if(Object.keys(cards).length == 0){
+                    if(Math.round(Math.random() * Object.keys(cards).length) > Object.keys(cards).length){
+                        console.log("test!!!!!!!!!!!!!!!!!!!")
+                    }
+                    // console.log(Object.keys(cards).length, " : ", Math.round(Math.random() * Object.keys(cards).length + 1))   
+                }
                 let pickedCard
                 for (const key in cards) {
                     // console.log(count, " : ", key)
                     if(count == pickRandom){
-                        console.log(key)
-                        pickedCard = {key:cards[key]}
+                        // pickedCard = {key:cards[key]}
+                        pickedCard = {}
+                        pickedCard[key] = cards[key]
+                        createCard(pickedCard)
+                        // console.log(pickedCard)
+                        // console.log(Object.keys(pickedCard)[0])
                         break 
                     }
                     count += 1
@@ -306,7 +392,6 @@
                 console.log(pickedCard)
             })
         }
-
 
         let randomDiceNumber
 
@@ -340,8 +425,6 @@
 
             moveToTile(player1, player1.tile)
             moveToTile(player2, player2.tile)
-            
-            console.log(player1.test)
 
             _startRound()
         }
