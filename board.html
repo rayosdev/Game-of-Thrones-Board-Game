@@ -13,13 +13,17 @@
         display: grid;
         border: solid black 13px;
         background: #111;
-        /* transform: scale(0.2); */
-        transform: scale(0.2);
+        transform: scale(0.4);
+        /* transform: scale(0.7); */
+        position: absolute;
+        top: -300px;
+        left: -300px;
 
     }
     .container{
-        align-self: center;
+        /* align-self: center; */
         justify-self: center;
+        top: -100px;
     }
     .top-tiles{
         display: flex;
@@ -62,7 +66,7 @@
             "rig . lef"
             "bot bot bot";
             
-        /* transform: perspective(900px) rotateX(25deg); */
+        transform: perspective(1200px) rotateX(25deg);
     }
 
     .players{
@@ -74,6 +78,8 @@
         top: 50px;
         z-index: 10;
         /* transform: perspective(200px) rotateX(25deg); */
+        font-size: 50px;
+        text-align: center;
     }
 
     #player1{
@@ -148,6 +154,7 @@
         let playerOffset = {x:-307, y:-118}
         
         let tilesIndex = [
+                        //Top Side
             {x:0,y:0},
             {x:1,y:0},
             {x:2,y:0},
@@ -156,30 +163,57 @@
             {x:5,y:0},
             {x:6,y:0},
             {x:7,y:0},
+                        //Right Side
             {x:7,y:1},
             {x:7,y:2},
             {x:7,y:3},
             {x:7,y:4},
             {x:7,y:5},
             {x:7,y:6},
+                        //Bottom Side
+            {x:7,y:7},
+            {x:6,y:7},
+            {x:5,y:7},
+            {x:4,y:7},
+            {x:3,y:7},
+            {x:2,y:7},
+            {x:1,y:7},
+            {x:0,y:7},
+                        //Left Side
+            {x:0,y:6},
+            {x:0,y:5},
+            {x:0,y:4},
+            {x:0,y:3},
+            {x:0,y:2},
+            {x:0,y:1}
         ] 
         
-        
+        function moveToTile(number){
 
-        playerPos.x += playerOffset.x
-        playerPos.y += playerOffset.y
+            
+            playerPos.x = 120 * tilesIndex[number -1].x 
+            playerPos.y = 120 * tilesIndex[number -1].y
+            
+            playerPos.x += playerOffset.x
+            playerPos.y += playerOffset.y
+    
+            player1.style.left = `${playerPos.x}px`
+            player1.style.top = `${playerPos.y}px`
 
-        playerPos.x += 120 * tilesIndex[9].x
-        playerPos.y += 120 * tilesIndex[9].y
+            player1.innerText = number
+        }
 
-        player1.style.left = `${playerPos.x}px`
-        player1.style.top = `${playerPos.y}px`
         
-        
+        let tileNumber = 1
 
         setInterval(e => {
+            moveToTile(tileNumber)
+            tileNumber += 1
 
-        }, 100)
+            if(tileNumber >= tilesIndex.length +1){
+                tileNumber = 1
+            } 
+        }, 500)
 
         // tiles[0].style.position = ""
         // console.log("que: ", tiles);
