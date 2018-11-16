@@ -289,7 +289,11 @@
             fetch("./tileCards.json")
             .then(response => response.json())
             .then(json => {
-                console.log(json)
+                let count = 1
+                for (const key in json[0]) {
+                    console.log(count, " : ", key)
+                    count += 1
+                }
             })
         }
 
