@@ -282,30 +282,46 @@
             _startRound()
         }
         
-        let randomDiceNumber
         
         
         function tileAction(){
             fetch("./tileCards.json")
             .then(response => response.json())
             .then(json => {
+                // let t = {"one":1, "two":2}
+                // console.log(Object.keys(t).length)
                 let count = 1
-                for (const key in json[0]) {
-                    console.log(count, " : ", key)
+                let cards = json[0]
+                let pickRandom = Math.round(Math.random() * Object.keys(cards).length + 1)
+                let pickedCard
+                for (const key in cards) {
+                    // console.log(count, " : ", key)
+                    if(count == pickRandom){
+                        console.log(key)
+                        pickedCard = {key:cards[key]}
+                        break 
+                    }
                     count += 1
                 }
+                console.log(pickedCard)
             })
         }
+
+
+        let randomDiceNumber
 
         function _diceRole(e){
             randomDiceNumber = Math.round(Math.random() * 5 + 1) 
             diceNumberLabel.classList.remove('hide')
             diceNumberLabel.innerText = randomDiceNumber
             roleDiceButton.classList.add('hide')
+            
             let moveInterval = setInterval(e => {
+                //Update player.tile property if it\s over 28 set it back to zero
                 activePlayer.tile = (activePlayer.tile >= 28) ? 1 : activePlayer.tile + 1
                 moveToTile(activePlayer, activePlayer.tile)
                 randomDiceNumber -= 1
+                //Breake interval when random number is depleated
                 if(randomDiceNumber <= 0){
                     clearInterval(moveInterval)
                     diceNumberLabel.classList.add('hide')
