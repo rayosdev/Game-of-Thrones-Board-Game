@@ -235,7 +235,7 @@
         }
         
         .hide{
-            display: none;
+            display: none!important;
         }
 
         .player-turn-label{
@@ -315,6 +315,10 @@
             background: rgb(255, 55, 88);
             color: rgb(7, 7, 7);
         }
+        .stats__magic{
+            background: rgb(161, 62, 161);
+            color: white;
+        }
     </style>
     
     <div class="game-gui-container">
@@ -323,13 +327,16 @@
         <button class="role-dice-btn hide" id="roleDiceButton">Role Dice</button>
     </div>
 
-    <div class="tile-card tile-card--show" id="tileCard">
-        <h3 class="tile-card__name">Wolf</h3>
-        <div class="tile-card__image-container"></div>
-        <ul class="tile-card__states-container">
-            <li class="stats-item stats__strength">4</li>
-            <li class="stats-item stats__life">2</li>
-        </ul>
+    <div class="tile-card tile-card--show hide" id="tileCard">
+        <template>
+            <h3 class="tile-card__name">Wolf</h3>
+            <div class="tile-card__image-container"></div>
+            <ul class="tile-card__states-container">
+                <li class="stats-item stats__strength">4</li>
+                <li class="stats-item stats__magic">2</li>
+                <li class="stats-item stats__life">2</li>
+            </ul>
+        </template>
     </div>
 
     <script>
@@ -355,42 +362,67 @@
         
 
         function createCard(card){
-            
+            console.log("CreatecardTime:")
+            let tileCard = document.getElementById('tileCard')
+            let name = Object.keys(card)[0]
+            let cardInner = `
+                <h3 class="tile-card__name">${name}</h3>
+                <div class="tile-card__image-container"></div>
+                <ul class="tile-card__states-container">
+                    <li class="stats-item stats__strength">${ card[name].strength }</li>
+                    <li class="stats-item stats__magic">${ card[name].magic }</li>
+                    <li class="stats-item stats__life">${ card[name].lives }</li>
+                </ul>
+            `
+            tileCard.innerHTML = cardInner
+            // console.log(tileCard.children[2].children[0])
+            let statsItems = Array.from(document.getElementsByClassName('stats-item'))
+            statsItems.forEach(li => {
+                console.log(li.innerText)
+                if(li.innerText == "undefined"){
+                    console.log("found")
+                    li.classList.add('hide')
+                    console.log(li.classList)
+                }
+            });
+
+            tileCard.classList.remove('hide')
+            tileCard.classList.add('tile-card--show')
         }
         
         
+        
         function tileAction(){
-            fetch("./tileCards.json")
-            .then(response => response.json())
-            .then(json => {
-                // let t = {"one":1, "two":2}
-                // console.log(Object.keys(t).length)
-                let count = 1
-                let cards = json[0]
-                let pickRandom = Math.round(Math.random() * Object.keys(cards).length + 1)
-                for (const iterator of new Array(200)) {
-                    // if(Object.keys(cards).length == 0){
-                    if(Math.round(Math.random() * Object.keys(cards).length) > Object.keys(cards).length){
-                        console.log("test!!!!!!!!!!!!!!!!!!!")
-                    }
-                    // console.log(Object.keys(cards).length, " : ", Math.round(Math.random() * Object.keys(cards).length + 1))   
-                }
-                let pickedCard
-                for (const key in cards) {
-                    // console.log(count, " : ", key)
-                    if(count == pickRandom){
-                        // pickedCard = {key:cards[key]}
-                        pickedCard = {}
-                        pickedCard[key] = cards[key]
-                        createCard(pickedCard)
-                        // console.log(pickedCard)
-                        // console.log(Object.keys(pickedCard)[0])
-                        break 
-                    }
-                    count += 1
-                }
-                console.log(pickedCard)
-            })
+
+            drawCard()
+            
+            // fetch("./tileCards.json")
+            // .then(response => response.json())
+            // .then(json => {
+            
+            //     // let t = {"one":1, "two":2}
+            //     // console.log(Object.keys(t).length)
+            
+            //     let cards = json[0]
+                // let count = 1
+                // let pickRandom = Math.round(Math.random() * Object.keys(cards).length + 1)
+                
+                // let pickedCard
+                // for (const key in cards) {
+                //     // console.log(count, " : ", key)
+                //     if(count == pickRandom){
+                //         // pickedCard = {key:cards[key]}
+                //         pickedCard = {}
+                //         pickedCard[key] = cards[key]
+                //         console.log(pickedCard)
+                //         createCard(pickedCard)
+                //         // console.log(Object.keys(pickedCard)[0])
+                //         break 
+                //     }
+                //     count += 1
+                // }
+                // console.log(pickedCard)
+            // })
         }
 
         let randomDiceNumber
@@ -413,16 +445,56 @@
                     // flipTurns()
                     tileAction()
                 }
-            }, 200)
+            }, 20)
         }
         
+        
+        function shuffle(array){
 
+        }
+
+        
+        let tileCardDeck = []
+        
+        function fetchTileCardDeck(){
+            fetch("./tileCards.json")
+            .then(response => response.json())
+            .then(json => {
+                // tileCardDeck = json[0]
+                let count = 0
+                for (const key in json[0]) {
+                    let new_item = {}
+                    new_item[key] = json[0][key]
+                    tileCardDeck.push(new_item)
+                }
+                console.log("tileCardDeck: ", tileCardDeck[0])
+                // console.log(tileCardDeck)
+            })
+        }
+
+        fetchTileCardDeck()
+        
+
+        function drawCard() {
+            // let count = 1
+            // let pickRandom = Math.round(Math.random() * Object.keys(tileCardDeck).length)
+            // let pickedCard
+            // for (const key in tileCardDeck) {
+            //     if(count == pickRandom){
+            //         pickedCard = {}
+            //         pickedCard[key] = tileCardDeck[key]
+            //         createCard(pickedCard)
+            //         break 
+            //     }
+            // count += 1
+            // }
+        }
 
 
         function _onReady(){
             player1.tile = 1
             player2.tile = 1
-
+            
             moveToTile(player1, player1.tile)
             moveToTile(player2, player2.tile)
 
@@ -430,7 +502,7 @@
         }
 
         _onReady()
-
+        _diceRole()
     </script>
 
 </body>
