@@ -142,7 +142,11 @@ function updateHTMLStats() {
     let expStatHTML         = document.getElementById('playerExpiriance')
     let goldStatHTML        = document.getElementById('playerGold')
     let lifeStatHTML        = document.getElementById('playerLife')
+    
+    let playerNaneHTML        = document.getElementById('playerNameHTML')
 
+
+    playerNaneHTML.innerText = activePlayer.stats.name
     
     strengthStatHTML.querySelector('.stat-item__number').innerText  = activePlayer.stats.strength
     magicStatHTML.querySelector('.stat-item__number').innerText     = activePlayer.stats.magic

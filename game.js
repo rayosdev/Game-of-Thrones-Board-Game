@@ -85,7 +85,8 @@ function Game_Loop(){
             }
             
             if(randomDiceNumber != 0){
-                dealCombatDamage(randomDiceNumber)
+
+                gatherDamage(randomDiceNumber)
                 randomDiceNumber = 0
             }
             break
@@ -96,8 +97,8 @@ function Game_Loop(){
 
 
 
-function dealCombatDamage(diceNumber){
-    console.log(activePlayer.stats)
+function gatherDamage(diceNumber){
+    // console.log(card)
 }
 
 

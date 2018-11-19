@@ -143,6 +143,18 @@ ol{
 }
 .player-turn-label::first-letter{ text-transform: capitalize;}
 
+.player-name-label{
+    font-size: 60px;
+    color: white;
+    /* justify-self: start; */
+    /* align-self: start; */
+    position: fixed;
+    top: 1120px;
+    left: -350px;
+    padding: 0 40px;
+}
+.player-name-label::first-letter{ text-transform: capitalize;}
+
 .dice-number-label{
     position: absolute;
     top: -60px;
