@@ -1,4 +1,5 @@
 
+//Tile actions
 let actionList = {
     DRAW_CARD: "DRAW_CARD",
 
@@ -191,7 +192,7 @@ function polulateTileDetails(){
         element.tileDitails = tileDitails[i]
         i++
     });
-    console.log(allHTMLTiles[4].tileDitails)
+    // console.log(allHTMLTiles[4].tileDitails)
 }
 
 let tileCardDeck = []
@@ -200,13 +201,14 @@ function fetchTileCardDeck(){
     fetch("./tileCards.json")
     .then(response => response.json())
     .then(json => {
-        // tileCardDeck = json[0]
-        // let count = 0
-        for (const key in json[0]) {
-            let new_item = {}
-            new_item[key] = json[0][key]
-            tileCardDeck.push(new_item)
-        }
+       
+        tileCardDeck = Object.keys(json[0]).map(key => {
+            json[0][key].name = key
+            let tmpObj = {}
+            tmpObj[key] = json[0][key]
+            return tmpObj
+             
+        })
         
     })
     .then(e => {
@@ -219,6 +221,8 @@ fetchTileCardDeck()
 let gameInterval
 
 function _onReady(){
+
+    
 
     polulateTileDetails()
 

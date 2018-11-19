@@ -1,9 +1,4 @@
 
-let test = true
-test = true
-console.log(test)
-
-
 let Phase = {
     _IDEL   :1,
     _MOVE   :2,
@@ -35,7 +30,7 @@ function Game_Loop(){
             if(runOnce){
                 runOnce = false
 
-                console.log("_IDEL: ", runOnce)
+                // console.log("_IDEL: ", runOnce)
                 _startRound()
             }
             if(randomDiceNumber !== 0){
@@ -50,7 +45,7 @@ function Game_Loop(){
             if(runOnce){
                 runOnce = false
 
-                console.log("_MOVE: ", runOnce)
+                // console.log("_MOVE: ", runOnce)
                 playerMovment()
             }
             
@@ -62,7 +57,7 @@ function Game_Loop(){
             if(runOnce){
                 runOnce = false
 
-                console.log("_ON_TILE: ", runOnce)
+                // console.log("_ON_TILE: ", runOnce)
                 diceNumberLabel.classList.add('hide')
                 tileAction()
             }
@@ -75,10 +70,24 @@ function Game_Loop(){
             if(runOnce){
                 runOnce = false
 
-                console.log("DRAW TIME?")
+                // console.log("DRAW TIME?")
                 drawCard()
             }
             
+            break
+
+            
+            
+        case Phase._FIGHT:
+            if(runOnce){
+                runOnce = false
+                roleDiceButton.classList.remove('hide')
+            }
+            
+            if(randomDiceNumber != 0){
+                dealCombatDamage(randomDiceNumber)
+                randomDiceNumber = 0
+            }
             break
 
     }
@@ -87,8 +96,9 @@ function Game_Loop(){
 
 
 
-
-
+function dealCombatDamage(diceNumber){
+    console.log(activePlayer.data)
+}
 
 
 
@@ -108,7 +118,8 @@ function tileAction(){
 let randomDiceNumber = 0
 
 function _diceRole(e){
-    randomDiceNumber = Math.round(Math.random() * 5 + 1) 
+    randomDiceNumber = Math.round(Math.random() * 5 + 1)
+    roleDiceButton.classList.add('hide') 
     diceNumberLabel.classList.remove('hide')
     diceNumberLabel.innerText = randomDiceNumber
     
@@ -132,13 +143,22 @@ function playerMovment(){
     }, 200)
 }
 
+let fightCharacter
+
 function drawCard() {
-    // let beforeCopy = tileCardDeck.length
     let card = tileCardDeck.shift() // shift removes first pops first item in array
     let tileCardHTML = createHTMLCard(card)
-    tileCardHTML.addEventListener("transitionend", e =>{
-        console.log("QUW ", arguments.callee)
-        this.removeEventListener("transitionend", arguments.callee)
+    const cardType = card[Object.keys(card)[0]].cardType
+    let tempEvent = tileCardHTML.addEventListener("animationend", e =>{
+        this.removeEventListener("animationend", tempEvent)
+        switch (cardType){
+
+            case "FIGHT":
+                fightCharacter = card
+                changePhase(Phase._FIGHT)
+                break
+        }
+
         
     })
 }

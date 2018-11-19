@@ -118,6 +118,8 @@ ol{
 /* ------ UI-BTNS -------- */
 
 .role-dice-btn{
+    position: relative;
+    top: -280px;
     width: 400px;
     height: 200px;
     font-size: 50px;
@@ -157,7 +159,7 @@ ol{
     background: rgba(155, 89, 28, 0.801);
     right: 160px;
 }
-.tile-card--show{
+.tile-card--anim-appear{
     /* border: solid 15px red; */
     animation: show-card 1s;
 }
