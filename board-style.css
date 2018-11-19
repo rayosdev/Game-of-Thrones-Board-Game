@@ -1,0 +1,271 @@
+body{
+    min-height: 100vh;
+    display: grid;
+    border: solid black 13px;
+    background: #111;
+    transform: scale(0.3);
+    /* transform: scale(0.7); */
+    position: absolute;
+    top: -300px;
+    left: -250px;
+
+}
+.container{
+    /* align-self: center; */
+    justify-self: center;
+    top: -100px;
+}
+.top-tiles{
+    display: flex;
+}
+.bottom-tiles{
+    display: flex;
+    flex-direction: row-reverse;
+}
+.left-tiles{
+    display: flex;
+    flex-direction: column-reverse;
+}
+.tile{
+    position: relative;
+    width: 116px;
+    height: 116px;
+    background: #444;
+    border: solid #777;
+    list-style: none;
+    color: white;
+    font-size: 40px;
+    text-align: center;
+}
+.top-tiles      {grid-area: top;}
+.bottom-tiles   {grid-area: bot;}
+.right-tiles    {grid-area: rig;}
+.left-tiles     {grid-area: lef;}
+
+.top-tiles > .tile {border: salmon solid 2px;}
+.bottom-tiles > .tile {border: seagreen solid 2px;}
+.right-tiles > .tile {border: royalblue solid 2px;}
+.left-tiles > .tile {border: rebeccapurple solid 2px;}
+
+.left-tiles {justify-self: end;}
+
+ol{
+    margin: 0;
+}
+
+.board-container{
+    display: grid;
+    row-gap: 0;
+    column-gap: 0;
+    grid-template-areas: 
+        "top top top"
+        "lef . rig"
+        "bot bot bot";
+        
+    transform: perspective(1200px) rotateX(25deg);
+}
+
+.players{
+    height: 116px;
+    width: 116px;
+    color: white;
+    float: left;
+    position: relative;
+    top: 0;
+    left: 0;
+    /* top: 50px; */
+    z-index: 10;
+    /* transform: perspective(200px) rotateX(25deg); */
+    font-size: 50px;
+    text-align: center;
+}
+
+#player1{
+    background: rgba(40, 212, 97, 0.514);
+    position: absolute;
+    /* left: 120px; */
+}
+#player2{
+    background: rgba(182, 211, 17, 0.507);
+    position: absolute;
+    top: 0;
+    left: 240px;
+}
+
+
+
+
+
+/* ______________________________________________________ */
+
+
+
+
+
+.game-gui-container{
+    position: fixed;
+    width: 160%;
+    height: 600px;
+    background: rgba(41, 0, 221, 0.404);
+    bottom: -700px;
+    left: -35%;
+
+    display: grid;
+    align-items: center;
+    justify-items: center;
+}
+
+/* ------ UI-BTNS -------- */
+
+.role-dice-btn{
+    width: 400px;
+    height: 200px;
+    font-size: 50px;
+}
+.attack-btn{
+    width: 400px;
+    height: 200px;
+    font-size: 50px;
+}
+
+.hide{
+    display: none!important;
+}
+
+.player-turn-label{
+    font-size: 50px;
+    color: white;
+    justify-self: start;
+    align-self: start;
+    padding: 0 40px;
+}
+.player-turn-label::first-letter{ text-transform: capitalize;}
+
+.dice-number-label{
+    position: absolute;
+    top: -60px;
+    font-size: 150px;
+    color: white;
+}
+
+.tile-card{
+    position: absolute;
+    align-self: center;
+    justify-self: center;
+    width: 650px;
+    height: 900px;
+    background: rgba(155, 89, 28, 0.801);
+    right: 160px;
+}
+.tile-card--show{
+    /* border: solid 15px red; */
+    animation: show-card 1s;
+}
+@keyframes show-card{
+    from{
+        transform: scale(0);
+    }
+    to{
+        transform: scale(1);
+    }
+}
+.tile-card__name{
+    color: white;
+    font-size: 50px;
+    padding: 0 30px;
+    margin: 20px 0;
+}
+.tile-card__image-container{
+    min-width: 80%;
+    height: 500px;
+    margin: 0 50px;
+    background: rgba(255, 255, 255, 0.459);
+}
+.tile-card__states-container{
+    position: relative;
+    display: flex;
+    color: white;
+    font-size: 70px;
+    list-style: none;
+    bottom: -50px;
+    left: 270px;
+}
+.stats-item{
+    display: grid;
+    padding: 35px;
+    margin: 10px;
+    height: 70px;
+    width: 70px;
+    justify-content: center;
+    align-content: center;
+    background: rgba(82, 82, 202, 0.705);
+    border-radius: 100%;
+}
+.stats__strength{
+    background: rgb(255, 235, 55);
+    color: #444;
+}
+.stats__life{
+    background: rgb(255, 55, 88);
+    color: rgb(7, 7, 7);
+}
+.stats__magic{
+    background: rgb(161, 62, 161);
+    color: white;
+}
+
+
+
+
+
+/* ______________________________________________________ */
+
+
+
+
+.ui-action-btn{
+    z-index: 999;
+}
+
+
+.character-overlay{
+    position: fixed;
+    width: 160%;
+    height: 600px;
+    background: rgba(209, 70, 15, 0.404);
+    bottom: -700px;
+    left: -35%;
+
+    display: grid;
+    align-items: center;
+    justify-items: center;
+}
+.states-container{
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    font-size: 50px;
+    list-style: none;
+    display: flex;
+    text-align: center;
+    position: relative;
+    top: 200px;
+}
+.state-item{
+    padding: 30px;
+    margin: 0 20px;
+    min-width: 200px;
+    height: 120px;
+    text-align: center; 
+    border: solid 3px #ddd;
+}
+.state-item:first-child{
+    margin-left: -10px;
+}
+.state-item__number{
+    padding: 0;
+    margin: 0;
+}
+.state-item__label{
+    padding: 0;
+    margin: 10px;
+}

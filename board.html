@@ -4,111 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" media="screen" href="board-style.css" />
     <title>Game Board</title>
+    
 </head>
-<style>
-    body{
-        min-height: 100vh;
-        display: grid;
-        border: solid black 13px;
-        background: #111;
-        transform: scale(0.3);
-        /* transform: scale(0.7); */
-        position: absolute;
-        top: -300px;
-        /* left: -300px; */
-
-    }
-    .container{
-        /* align-self: center; */
-        justify-self: center;
-        top: -100px;
-    }
-    .top-tiles{
-        display: flex;
-    }
-    .bottom-tiles{
-        display: flex;
-        flex-direction: row-reverse;
-    }
-    .tile{
-        position: relative;
-        width: 116px;
-        height: 116px;
-        background: #444;
-        border: solid #777;
-        list-style: none;
-        color: white;
-        font-size: 40px;
-        text-align: center;
-    }
-    .top-tiles      {grid-area: top;}
-    .bottom-tiles   {grid-area: bot;}
-    .right-tiles    {grid-area: rig;}
-    .left-tiles     {grid-area: lef;}
-    
-    .top-tiles > .tile {border: salmon solid 2px;}
-    .bottom-tiles > .tile {border: seagreen solid 2px;}
-    .right-tiles > .tile {border: royalblue solid 2px;}
-    .left-tiles > .tile {border: rebeccapurple solid 2px;}
-    
-    .left-tiles {justify-self: end;}
-    
-    ol{
-        margin: 0;
-    }
-
-    .board-container{
-        display: grid;
-        row-gap: 0;
-        column-gap: 0;
-        grid-template-areas: 
-            "top top top"
-            "rig . lef"
-            "bot bot bot";
-            
-        transform: perspective(1200px) rotateX(25deg);
-    }
-
-    .players{
-        height: 116px;
-        width: 116px;
-        color: white;
-        float: left;
-        position: relative;
-        top: 0;
-        left: 0;
-        /* top: 50px; */
-        z-index: 10;
-        /* transform: perspective(200px) rotateX(25deg); */
-        font-size: 50px;
-        text-align: center;
-    }
-
-    #player1{
-        background: rgba(40, 212, 97, 0.514);
-        position: absolute;
-        /* left: 120px; */
-    }
-    #player2{
-        background: rgba(182, 211, 17, 0.507);
-        position: absolute;
-        top: 0;
-        left: 240px;
-    }
-
-</style>
 <body>
-    
-
-
 
     <div class="container">
         <div class="board-container">
             <div class="players" id="player1"></div>
             <div class="players" id="player2"></div>
 
-            <ol class="top-tiles">
+            <ol class="top-tiles" id="topTiles">
                 <li class="tile" id="tileNr1">01</li>
                 <li class="tile" id="tileNr2">02</li>
                 <li class="tile" id="tileNr3">03</li>
@@ -118,7 +25,7 @@
                 <li class="tile" id="tileNr7">07</li>
                 <li class="tile" id="tileNr8">08</li>
             </ol>
-            <ol class="left-tiles">
+            <ol class="right-tiles" id="rightTiles">
                 <li class="tile" id="tileNr9">09</li>
                 <li class="tile" id="tileNr10">10</li>
                 <li class="tile" id="tileNr11">11</li>
@@ -126,7 +33,7 @@
                 <li class="tile" id="tileNr13">13</li>
                 <li class="tile" id="tileNr14">14</li>
             </ol>
-            <ol class="bottom-tiles">
+            <ol class="bottom-tiles" id="bottomTiles">
                 <li class="tile" id="tileNr15">15</li>
                 <li class="tile" id="tileNr16">16</li>
                 <li class="tile" id="tileNr17">17</li>
@@ -136,7 +43,7 @@
                 <li class="tile" id="tileNr21">21</li>
                 <li class="tile" id="tileNr22">22</li>
             </ol>
-            <ol class="right-tiles">
+            <ol class="left-tiles" id="leftTiles">
                 <li class="tile" id="tileNr23">23</li>
                 <li class="tile" id="tileNr24">24</li>
                 <li class="tile" id="tileNr25">25</li>
@@ -148,185 +55,8 @@
         
     </div>
 
+
     
-    <script>
-        let tiles = document.getElementsByClassName('tile')
-        let player1 = document.getElementById('player1')
-        let player2 = document.getElementById('player2')
-        
-        // player1.style.top = "0px"
-
-        function moveToTile(element, number){
-                 
-            let elementPos    = {x:0, y:0}
-            let elementOffset = {x:42, y:-1}
-
-            let tilesIndex = [
-            //Top Side
-                {x:0,y:0},
-                {x:1,y:0},
-                {x:2,y:0},
-                {x:3,y:0},
-                {x:4,y:0},
-                {x:5,y:0},
-                {x:6,y:0},
-                {x:7,y:0},
-                            //Right Side
-                {x:7,y:1},
-                {x:7,y:2},
-                {x:7,y:3},
-                {x:7,y:4},
-                {x:7,y:5},
-                {x:7,y:6},
-                            //Bottom Side
-                {x:7,y:7},
-                {x:6,y:7},
-                {x:5,y:7},
-                {x:4,y:7},
-                {x:3,y:7},
-                {x:2,y:7},
-                {x:1,y:7},
-                {x:0,y:7},
-                            //Left Side
-                {x:0,y:6},
-                {x:0,y:5},
-                {x:0,y:4},
-                {x:0,y:3},
-                {x:0,y:2},
-                {x:0,y:1}
-            ] 
-            
-
-            // if(number >= tilesIndex.length + 1){number = 1}
-
-            elementPos.x = 120 * tilesIndex[number -1].x 
-            elementPos.y = 120 * tilesIndex[number -1].y
-            
-            elementPos.x += elementOffset.x
-            elementPos.y += elementOffset.y
-    
-            element.style.left = `${elementPos.x}px`
-            element.style.top = `${elementPos.y}px`
-
-            element.innerText = number
-        }
-
-        
-    </script>
-
-    <style>
-        .game-gui-container{
-            position: fixed;
-            width: 160%;
-            height: 600px;
-            background: rgba(41, 0, 221, 0.404);
-            bottom: -700px;
-            left: -25%;
-
-            display: grid;
-            align-items: center;
-            justify-items: center;
-        }
-        
-        .role-dice-btn{
-            width: 400px;
-            height: 200px;
-            font-size: 50px;
-        }
-        
-        .hide{
-            display: none!important;
-        }
-
-        .player-turn-label{
-            font-size: 50px;
-            color: white;
-            justify-self: start;
-            align-self: start;
-            padding: 0 40px;
-        }
-        .player-turn-label::first-letter{ text-transform: capitalize;}
-        
-        .dice-number-label{
-            position: absolute;
-            top: -60px;
-            font-size: 150px;
-            color: white;
-        }
-        
-        .tile-card{
-            position: absolute;
-            align-self: center;
-            justify-self: center;
-            width: 650px;
-            height: 900px;
-            background: rgba(155, 89, 28, 0.801);
-            right: 160px;
-        }
-        .tile-card--show{
-            /* border: solid 15px red; */
-            animation: show-card 1s;
-        }
-        @keyframes show-card{
-            from{
-                transform: scale(0);
-            }
-            to{
-                transform: scale(1);
-            }
-        }
-        .tile-card__name{
-            color: white;
-            font-size: 50px;
-            padding: 0 30px;
-            margin: 20px 0;
-        }
-        .tile-card__image-container{
-            min-width: 80%;
-            height: 500px;
-            margin: 0 50px;
-            background: rgba(255, 255, 255, 0.459);
-        }
-        .tile-card__states-container{
-            position: relative;
-            display: flex;
-            color: white;
-            font-size: 70px;
-            list-style: none;
-            bottom: -50px;
-            left: 270px;
-        }
-        .stats-item{
-            display: grid;
-            padding: 35px;
-            margin: 10px;
-            height: 70px;
-            width: 70px;
-            justify-content: center;
-            align-content: center;
-            background: rgba(82, 82, 202, 0.705);
-            border-radius: 100%;
-        }
-        .stats__strength{
-            background: rgb(255, 235, 55);
-            color: #444;
-        }
-        .stats__life{
-            background: rgb(255, 55, 88);
-            color: rgb(7, 7, 7);
-        }
-        .stats__magic{
-            background: rgb(161, 62, 161);
-            color: white;
-        }
-    </style>
-    
-    <div class="game-gui-container">
-        <p class="player-turn-label">turn</p>
-        <h2 class="dice-number-label hide">0</h2>
-        <button class="role-dice-btn hide" id="roleDiceButton">Role Dice</button>
-    </div>
-
     <div class="tile-card tile-card--show hide" id="tileCard">
         <template>
             <h3 class="tile-card__name">Wolf</h3>
@@ -339,171 +69,60 @@
         </template>
     </div>
 
-    <script>
+    <div class="game-gui-container">
+        <p class="player-turn-label">turn</p>
+        <h2 class="dice-number-label hide">0</h2>
+        <button class="ui-action-btn role-dice-btn hide" id="roleDiceButton">Role Dice</button>
+        <button class="ui-action-btn attack-btn hide" id="AttackBtn">Attack</button>
+
+        <div class="character-overlay">
+            <div class="character-overlay__states-panel">
+                <ul class="states-container">
+                    <li class="state-item">
+                        <p class="state-item__number">0</p>
+                        <p class="state-item__label">Strength</p>
+                    </li>
+                    <li class="state-item">
+                        <p class="state-item__number">0</p>
+                        <p class="state-item__label">Magic</p>
+                    </li>
+                    <li class="state-item">
+                        <p class="state-item__number">0</p>
+                        <p class="state-item__label">Expiriance</p>
+                    </li>
+                    <li class="state-item">
+                        <p class="state-item__number">0</p>
+                        <p class="state-item__label">Gold</p>
+                    </li>
+                    <li class="state-item">
+                        <p class="state-item__number">0</p>
+                        <p class="state-item__label">Life</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script> // --- Start Variables
         
+        let tiles = document.getElementsByClassName('tile')
+        let player1 = document.getElementById('player1')
+        let player2 = document.getElementById('player2')
+        player1.tileIndex = 0
+        player2.tileIndex = 0
 
         let roleDiceButton = document.getElementById('roleDiceButton')
-        roleDiceButton.addEventListener("click",_diceRole)
+        
 
         let activePlayer = player1
         let playerTurnLabel = document.getElementsByClassName('player-turn-label')[0]
         let diceNumberLabel = document.getElementsByClassName('dice-number-label')[0]
-
-        function _startRound(){
-            roleDiceButton.classList.remove('hide')
-            playerTurnLabel.innerHTML = `${activePlayer.id}'s turn`
-        }
-
-        function flipTurns(){
-            if(activePlayer.id == 'player1'){activePlayer = player2}
-            else{activePlayer = player1}
-            _startRound()
-        }
-        
-
-        function createCard(card){
-            console.log("CreatecardTime:")
-            let tileCard = document.getElementById('tileCard')
-            let name = Object.keys(card)[0]
-            let cardInner = `
-                <h3 class="tile-card__name">${name}</h3>
-                <div class="tile-card__image-container"></div>
-                <ul class="tile-card__states-container">
-                    <li class="stats-item stats__strength">${ card[name].strength }</li>
-                    <li class="stats-item stats__magic">${ card[name].magic }</li>
-                    <li class="stats-item stats__life">${ card[name].lives }</li>
-                </ul>
-            `
-            tileCard.innerHTML = cardInner
-            // console.log(tileCard.children[2].children[0])
-            let statsItems = Array.from(document.getElementsByClassName('stats-item'))
-            statsItems.forEach(li => {
-                console.log(li.innerText)
-                if(li.innerText == "undefined"){
-                    console.log("found")
-                    li.classList.add('hide')
-                    console.log(li.classList)
-                }
-            });
-
-            tileCard.classList.remove('hide')
-            tileCard.classList.add('tile-card--show')
-        }
-        
-        
-        
-        function tileAction(){
-
-            drawCard()
-            
-            // fetch("./tileCards.json")
-            // .then(response => response.json())
-            // .then(json => {
-            
-            //     // let t = {"one":1, "two":2}
-            //     // console.log(Object.keys(t).length)
-            
-            //     let cards = json[0]
-                // let count = 1
-                // let pickRandom = Math.round(Math.random() * Object.keys(cards).length + 1)
-                
-                // let pickedCard
-                // for (const key in cards) {
-                //     // console.log(count, " : ", key)
-                //     if(count == pickRandom){
-                //         // pickedCard = {key:cards[key]}
-                //         pickedCard = {}
-                //         pickedCard[key] = cards[key]
-                //         console.log(pickedCard)
-                //         createCard(pickedCard)
-                //         // console.log(Object.keys(pickedCard)[0])
-                //         break 
-                //     }
-                //     count += 1
-                // }
-                // console.log(pickedCard)
-            // })
-        }
-
-        let randomDiceNumber
-
-        function _diceRole(e){
-            randomDiceNumber = Math.round(Math.random() * 5 + 1) 
-            diceNumberLabel.classList.remove('hide')
-            diceNumberLabel.innerText = randomDiceNumber
-            roleDiceButton.classList.add('hide')
-            
-            let moveInterval = setInterval(e => {
-                //Update player.tile property if it\s over 28 set it back to zero
-                activePlayer.tile = (activePlayer.tile >= 28) ? 1 : activePlayer.tile + 1
-                moveToTile(activePlayer, activePlayer.tile)
-                randomDiceNumber -= 1
-                //Breake interval when random number is depleated
-                if(randomDiceNumber <= 0){
-                    clearInterval(moveInterval)
-                    diceNumberLabel.classList.add('hide')
-                    // flipTurns()
-                    tileAction()
-                }
-            }, 20)
-        }
-        
-        
-        function shuffle(array){
-
-        }
-
-        
-        let tileCardDeck = []
-        
-        function fetchTileCardDeck(){
-            fetch("./tileCards.json")
-            .then(response => response.json())
-            .then(json => {
-                // tileCardDeck = json[0]
-                let count = 0
-                for (const key in json[0]) {
-                    let new_item = {}
-                    new_item[key] = json[0][key]
-                    tileCardDeck.push(new_item)
-                }
-                console.log("tileCardDeck: ", tileCardDeck[0])
-                // console.log(tileCardDeck)
-            })
-        }
-
-        fetchTileCardDeck()
-        
-
-        function drawCard() {
-            // let count = 1
-            // let pickRandom = Math.round(Math.random() * Object.keys(tileCardDeck).length)
-            // let pickedCard
-            // for (const key in tileCardDeck) {
-            //     if(count == pickRandom){
-            //         pickedCard = {}
-            //         pickedCard[key] = tileCardDeck[key]
-            //         createCard(pickedCard)
-            //         break 
-            //     }
-            // count += 1
-            // }
-        }
-
-
-        function _onReady(){
-            player1.tile = 1
-            player2.tile = 1
-            
-            moveToTile(player1, player1.tile)
-            moveToTile(player2, player2.tile)
-
-            _startRound()
-        }
-
-        _onReady()
-        _diceRole()
+    
+    
     </script>
+    <script src="utils.js"></script>
+    <script src="boradSetup.js"></script>
+    <script src="game.js"></script>
 
 </body>
 </html>
