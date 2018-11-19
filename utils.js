@@ -96,7 +96,7 @@ function createHTMLCard(card){
     let cardInner = `
         <h3 class="tile-card__name">${name}</h3>
         <div class="tile-card__image-container"></div>
-        <ul class="tile-card__states-container">
+        <ul class="tile-card__stats-container">
             <li class="stats-item stats__strength">${ card[name].strength }</li>
             <li class="stats-item stats__magic">${ card[name].magic }</li>
             <li class="stats-item stats__life">${ card[name].lives }</li>
@@ -135,3 +135,19 @@ function _startRound(){
 function getKeyByValue(object, value) {
     return Object.keys(object).find(key => object[key] === value);
   }
+
+function updateHTMLStats() {
+    let strengthStatHTML    = document.getElementById('playerStrength')
+    let magicStatHTML       = document.getElementById('playerMagic')
+    let expStatHTML         = document.getElementById('playerExpiriance')
+    let goldStatHTML        = document.getElementById('playerGold')
+    let lifeStatHTML        = document.getElementById('playerLife')
+
+    
+    strengthStatHTML.querySelector('.stat-item__number').innerText  = activePlayer.stats.strength
+    magicStatHTML.querySelector('.stat-item__number').innerText     = activePlayer.stats.magic
+    expStatHTML.querySelector('.stat-item__number').innerText       = activePlayer.stats.expiriance
+    goldStatHTML.querySelector('.stat-item__number').innerText      = activePlayer.stats.gold
+    lifeStatHTML.querySelector('.stat-item__number').innerText      = activePlayer.stats.life
+
+}

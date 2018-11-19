@@ -31,14 +31,86 @@
                 <script>
                     let playableCharacters = 
                         [
-                            {name:"Jon Snow", ID:583},
-                            {name:"Daenerys Targaryen", ID:1303},
-                            {name:"Tyrion Lannister", ID:1052},
-                            {name:"Cersei Lannister", ID:238},
-                            {name:"Arya Stark", ID:148},
-                            {name:"Jorah Mormont", ID:1560},
-                            {name:"Brandon Stark", ID:206},
-                            {name:"Brienne of Tarth", ID:216}
+                            {
+                                name:"Jon Snow", 
+                                ID:583,
+                                strength:4,
+                                magic:2,
+                                life:6,
+                                expiriance:0,
+                                gold:1,
+                                modefiers:[]
+                            },
+                            {
+                                name:"Daenerys Targaryen", 
+                                ID:1303,
+                                strength:2,
+                                magic:4,
+                                life:6,
+                                expiriance:0,
+                                gold:2,
+                                modefiers:[]
+                            },
+                            {
+                                name:"Tyrion Lannister", 
+                                ID:1052,
+                                strength:2,
+                                magic:2,
+                                life:6,
+                                expiriance:0,
+                                gold:6,
+                                modefiers:[]
+                            },
+                            {
+                                name:"Cersei Lannister", 
+                                ID:238,
+                                strength:1,
+                                magic:2,
+                                life:6,
+                                expiriance:0,
+                                gold:8,
+                                modefiers:[]
+                            },
+                            {
+                                name:"Arya Stark", 
+                                ID:148,
+                                strength:4,
+                                magic:3,
+                                life:6,
+                                expiriance:0,
+                                gold:1,
+                                modefiers:[]
+                            },
+                            {
+                                name:"Jorah Mormont", 
+                                ID:1560,
+                                strength:5,
+                                magic:1,
+                                life:6,
+                                expiriance:0,
+                                gold:2,
+                                modefiers:[]
+                            },
+                            {
+                                name:"Brandon Stark", 
+                                ID:206,
+                                strength:1,
+                                magic:5,
+                                life:6,
+                                expiriance:0,
+                                gold:1,
+                                modefiers:[]
+                            },
+                            {
+                                name:"Brienne of Tarth",
+                                ID:216,
+                                strength:5,
+                                magic:1,
+                                life:6,
+                                expiriance:0,
+                                gold:1,
+                                modefiers:[]
+                            }
                         ]
 
                         // let exampleCharacter = {
@@ -53,7 +125,6 @@
                         
                                             
                     function generatCharacterHTML(character){
-                        
 
                         let characterContainer = document.getElementById('characterContainer')
                         let chracterDiv = document.createElement('div')
@@ -95,18 +166,23 @@
                                         returnCharacter.words = json.words
                                         returnCharacter.ancestralWeapons = json.ancestralWeapons 
                                         // console.log(returnCharacter);
+                                        returnCharacter.stats = charcterObject
                                 })
                                 .then( e => generatCharacterHTML(returnCharacter))
                                 .catch(error => console.log("ERROR MAN INTER!: ", error))
                             })
                             .catch(error => console.log("ERROR MAN!: ",error))
+
                             return returnCharacter
                     }
                     
                     playerOne = fetchCharacter(playableCharacters[7])
                     playertwo = fetchCharacter(playableCharacters[0])
 
-                    console.log(playerOne, " - ", playertwo);
+                    // console.log(playerOne, " - ", playertwo);
+                    console.log(JSON.stringify(playerOne))
+                    // console.log(playerOne)
+
 
                 </script>
 
@@ -128,6 +204,6 @@
             <button class="UI__arrow-left"> < </button>
             <button class="UI__arrow-right"> > </button>
     </div>
-    <script src="game.js"></script>
+    <!-- <script src="game.js"></script> -->
 </body>
 </html>

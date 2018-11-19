@@ -183,7 +183,7 @@ ol{
     margin: 0 50px;
     background: rgba(255, 255, 255, 0.459);
 }
-.tile-card__states-container{
+.tile-card__stats-container{
     position: relative;
     display: flex;
     color: white;
@@ -242,7 +242,7 @@ ol{
     align-items: center;
     justify-items: center;
 }
-.states-container{
+.stats-container{
     font-family: Arial, Helvetica, sans-serif;
     color: white;
     font-size: 50px;
@@ -252,7 +252,7 @@ ol{
     position: relative;
     top: 200px;
 }
-.state-item{
+.stat-item{
     padding: 30px;
     margin: 0 20px;
     min-width: 200px;
@@ -260,14 +260,14 @@ ol{
     text-align: center; 
     border: solid 3px #ddd;
 }
-.state-item:first-child{
+.stat-item:first-child{
     margin-left: -10px;
 }
-.state-item__number{
+.stat-item__number{
     padding: 0;
     margin: 0;
 }
-.state-item__label{
+.stat-item__label{
     padding: 0;
     margin: 10px;
 }

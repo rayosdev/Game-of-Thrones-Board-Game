@@ -97,7 +97,7 @@ function Game_Loop(){
 
 
 function dealCombatDamage(diceNumber){
-    console.log(activePlayer.data)
+    console.log(activePlayer.stats)
 }
 
 
@@ -162,5 +162,3 @@ function drawCard() {
         
     })
 }
-
-

@@ -61,7 +61,7 @@
         <template>
             <h3 class="tile-card__name">Wolf</h3>
             <div class="tile-card__image-container"></div>
-            <ul class="tile-card__states-container">
+            <ul class="tile-card__stats-container">
                 <li class="stats-item stats__strength">4</li>
                 <li class="stats-item stats__magic">2</li>
                 <li class="stats-item stats__life">2</li>
@@ -76,27 +76,27 @@
         <button class="ui-action-btn attack-btn hide" id="AttackBtn">Attack</button>
 
         <div class="character-overlay">
-            <div class="character-overlay__states-panel">
-                <ul class="states-container">
-                    <li class="state-item">
-                        <p class="state-item__number">0</p>
-                        <p class="state-item__label">Strength</p>
+            <div class="character-overlay__stats-panel">
+                <ul class="stats-container" id="statsContainer">
+                    <li class="stat-item" id="playerStrength">
+                        <p class="stat-item__number">0</p>
+                        <p class="stat-item__label">Strength</p>
                     </li>
-                    <li class="state-item">
-                        <p class="state-item__number">0</p>
-                        <p class="state-item__label">Magic</p>
+                    <li class="stat-item" id="playerMagic">
+                        <p class="stat-item__number">0</p>
+                        <p class="stat-item__label">Magic</p>
                     </li>
-                    <li class="state-item">
-                        <p class="state-item__number">0</p>
-                        <p class="state-item__label">Expiriance</p>
+                    <li class="stat-item" id="playerExpiriance">
+                        <p class="stat-item__number">0</p>
+                        <p class="stat-item__label">Expiriance</p>
                     </li>
-                    <li class="state-item">
-                        <p class="state-item__number">0</p>
-                        <p class="state-item__label">Gold</p>
+                    <li class="stat-item" id="playerGold">
+                        <p class="stat-item__number">0</p>
+                        <p class="stat-item__label">Gold</p>
                     </li>
-                    <li class="state-item">
-                        <p class="state-item__number">0</p>
-                        <p class="state-item__label">Life</p>
+                    <li class="stat-item" id="playerLife">
+                        <p class="stat-item__number">0</p>
+                        <p class="stat-item__label">Life</p>
                     </li>
                 </ul>
             </div>
@@ -113,12 +113,12 @@
 
         let roleDiceButton = document.getElementById('roleDiceButton')
         
-
         let activePlayer = player1
         let playerTurnLabel = document.getElementsByClassName('player-turn-label')[0]
         let diceNumberLabel = document.getElementsByClassName('dice-number-label')[0]
     
-    
+        
+
     </script>
     <script src="utils.js"></script>
     <script src="boradSetup.js"></script>

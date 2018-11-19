@@ -1,4 +1,8 @@
 
+
+    
+
+
 //Tile actions
 let actionList = {
     DRAW_CARD: "DRAW_CARD",
@@ -222,8 +226,6 @@ let gameInterval
 
 function _onReady(){
 
-    
-
     polulateTileDetails()
 
     player1.tile = 1
@@ -231,7 +233,29 @@ function _onReady(){
     
     moveToTile(player1, player1.tile)
     moveToTile(player2, player2.tile)
-    
+
+    player1.stats = {
+            name:"Brienne of Tarth",
+            ID:216,
+            strength:5,
+            magic:1,
+            life:6,
+            expiriance:0,
+            gold:1,
+            modefiers:[]
+    }
+    player2.stats = {
+            name:"Jon Snow", 
+            ID:583,
+            strength:4,
+            magic:2,
+            life:6,
+            expiriance:0,
+            gold:1,
+            modefiers:[]
+    }
+
+    updateHTMLStats()
     gameInterval = setInterval(Game_Loop, 10)
 }
 
