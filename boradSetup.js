@@ -1,4 +1,15 @@
 
+    let tiles = document.getElementsByClassName('tile')
+    let player1 = document.getElementById('player1')
+    let player2 = document.getElementById('player2')
+    player1.tileIndex = 0
+    player2.tileIndex = 0
+
+    let roleDiceButton = document.getElementById('roleDiceButton')
+    
+    let activePlayer = player1
+    let playerTurnLabel = document.getElementsByClassName('player-turn-label')[0]
+    let diceNumberLabel = document.getElementsByClassName('dice-number-label')[0]
 
     
 
@@ -220,11 +231,12 @@ function fetchTileCardDeck(){
     })
 }
 
+
 fetchTileCardDeck()
 
 let gameInterval
 
-function _onReady(){
+function onReady(){
 
     polulateTileDetails()
 
@@ -259,4 +271,4 @@ function _onReady(){
     gameInterval = setInterval(Game_Loop, 10)
 }
 
-document.addEventListener('DOMContentLoaded', _onReady)
+document.addEventListener('DOMContentLoaded', onReady)
