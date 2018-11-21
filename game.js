@@ -10,14 +10,11 @@ let Phase = {
 
 let CurrentPhase = Phase._IDEL
 
-
 function changePhase(_phase){
-    resetGrapics()
     console.log("Phase_chnaged from: ", getKeyByValue(Phase, CurrentPhase), " to: ", getKeyByValue(Phase, _phase))
     runOnce = true
     CurrentPhase = _phase
 }
-
 
 let runOnce = true
 
@@ -31,7 +28,7 @@ function Game_Loop(){
                 runOnce = false
 
                 // console.log("_IDEL: ", runOnce)
-                _startRound()
+                startRound()
             }
             if(randomDiceNumber !== 0){
                 changePhase(Phase._MOVE)
@@ -81,7 +78,7 @@ function Game_Loop(){
         case Phase._FIGHT:
             if(runOnce){
                 runOnce = false
-                roleDiceButton.classList.remove('hide')
+                diceButton.classList.remove('hide')
             }
             
             if(randomDiceNumber != 0){
@@ -97,69 +94,109 @@ function Game_Loop(){
 
 
 
+
+
+
+
+function startRound(){
+    updateTurnInterface()
+    show(diceButton)
+    
+    diceButton.addEventListener('click', 
+    function tmpListner() {
+    diceRoll(
+    steps => movePlayer(steps,
+    e => tileAction()
+    ))
+    diceButton.removeEventListener('click', tmpListner)
+    })
+
+}
+
+
+function tileAction(){
+    let tileNr = activePlayer.tile - 1
+    switch(allHTMLTiles[tileNr].tileDitails.tileAction){
+        
+        case tileActionList.DRAW_CARD:
+            setTimeout( e => {
+                let tileCardHTML = drawCard()
+                evaluateDrawnTileCard(tileCardHTML)
+            }, 500)
+            break
+    }
+}
+
+
+function evaluateDrawnTileCard(tileCardHTML) {
+    
+        let card = tileCardHTML.cardInfo
+        const cardType = card[Object.keys(card)[0]].cardType
+        let tmpListner = tileCardHTML.addEventListener("animationend", e =>{
+            this.removeEventListener("animationend", tmpListner)
+            switch (cardType){
+    
+                case "FIGHT":
+                    setTimeout(e => startFight(card), 500)
+                    break
+            }
+        })
+}
+
+
+function startFight(enemy) {
+    
+    show(diceButton)
+}
+
+
+
+
+
+
+function diceRoll(actingFuction){
+    hide(diceButton)
+    let randNumber = Math.round(Math.random() * 5 + 1)
+    diceNumberLabel.innerHTML = randNumber
+    show(diceNumberLabel)
+    actingFuction(randNumber)
+}
+
+
+
+
 function gatherDamage(diceNumber){
     // console.log(card)
 }
 
 
 
-function tileAction(){
-    let tileNr = activePlayer.tileIndex - 1
-    // console.log("current: ", allHTMLTiles[tileNr])
-    switch(allHTMLTiles[tileNr].tileDitails.tileAction){
-        
-        
-        case actionList.DRAW_CARD:
-            changePhase(Phase._DRAW)
-            break
-    }
-}
 
 
-let randomDiceNumber = 0
 
-function _diceRole(e){
-    randomDiceNumber = Math.round(Math.random() * 5 + 1)
-    roleDiceButton.classList.add('hide') 
-    diceNumberLabel.classList.remove('hide')
-    diceNumberLabel.innerText = randomDiceNumber
+
+
+
+const boardMovmentSpeed = 200
+
+function movePlayer(steps, nextFunction){
+
+    let moveInterval = setInterval(e => {  
+        moveToTile(activePlayer, activePlayer.tile + 1)
     
-}
-
-roleDiceButton.addEventListener("click", _diceRole)
-
-
-
-function playerMovment(){
-    let moveInterval = setInterval(e => {
-        //Update player.tile property if it\s over 28 set it back to zero
-        activePlayer.tile = (activePlayer.tile >= 28) ? 1 : activePlayer.tile + 1
-        moveToTile(activePlayer, activePlayer.tile)
-        randomDiceNumber -= 1
-        //Breake interval when random number is depleated
-        if(randomDiceNumber <= 0){
+        steps -= 1
+        if(steps <= 0){
             clearInterval(moveInterval)
-            changePhase(Phase._ON_TILE)
+            nextFunction()
         }
-    }, 200)
+    }, boardMovmentSpeed)
 }
 
-let fightCharacter
+
+
 
 function drawCard() {
     let card = tileCardDeck.shift() // shift removes first pops first item in array
     let tileCardHTML = createHTMLCard(card)
-    const cardType = card[Object.keys(card)[0]].cardType
-    let tempEvent = tileCardHTML.addEventListener("animationend", e =>{
-        this.removeEventListener("animationend", tempEvent)
-        switch (cardType){
-
-            case "FIGHT":
-                fightCharacter = card
-                changePhase(Phase._FIGHT)
-                break
-        }
-
-        
-    })
+    return tileCardHTML
 }

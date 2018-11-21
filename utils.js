@@ -5,7 +5,7 @@ function moveToTile(element, number){
     let elementPos    = {x:0, y:0}
     let elementOffset = {x:42, y:-1}
 
-    let tilesIndex = [
+    let tileVectors = [
     //Top Side
         {x:0,y:0},
         {x:1,y:0},
@@ -40,11 +40,10 @@ function moveToTile(element, number){
         {x:0,y:1}
     ] 
     
+    if(number > tileVectors.length){number = 1}
 
-    // if(number >= tilesIndex.length + 1){number = 1}
-
-    elementPos.x = 120 * tilesIndex[number -1].x 
-    elementPos.y = 120 * tilesIndex[number -1].y
+    elementPos.x = 120 * tileVectors[number -1].x 
+    elementPos.y = 120 * tileVectors[number -1].y
     
     elementPos.x += elementOffset.x
     elementPos.y += elementOffset.y
@@ -53,8 +52,10 @@ function moveToTile(element, number){
     element.style.top = `${elementPos.y}px`
 
     element.innerText = number
-    element.tileIndex = number
+    element.tile = number
 }
+
+
 
 
 function shuffle(array){
@@ -81,11 +82,17 @@ function shuffle(array){
 }
 
 
+
+
+
 function flipTurns(){
     if(activePlayer.id == 'player1'){activePlayer = player2}
     else{activePlayer = player1}
-    _startRound()
+    // startRound()
+    updateTurnInterface()
 }
+
+
 
 
 
@@ -97,44 +104,40 @@ function createHTMLCard(card){
         <h3 class="tile-card__name">${name}</h3>
         <div class="tile-card__image-container"></div>
         <ul class="tile-card__stats-container">
-            <li class="stats-item stats__strength">${ card[name].strength }</li>
-            <li class="stats-item stats__magic">${ card[name].magic }</li>
-            <li class="stats-item stats__life">${ card[name].lives }</li>
+            <li class="tile-card__stat stats__strength">${ card[name].strength }</li>
+            <li class="tile-card__stat stats__magic">${ card[name].magic }</li>
+            <li class="tile-card__stat stats__life">${ card[name].lives }</li>
         </ul>
     `
     tileCard.innerHTML = cardInner
     // console.log(tileCard.children[2].children[0])
-    let statsItems = Array.from(document.getElementsByClassName('stats-item'))
-    statsItems.forEach(li => {
-        // console.log(li.innerText)
-        if(li.innerText == "undefined"){
-            // console.log("found")
-            li.classList.add('hide')
-            // console.log(li.classList)
-        }
+    let cardStat = Array.from(document.getElementsByClassName('tile-card__stat'))
+    cardStat.forEach(li => {
+        if(li.innerText == "undefined"){hide(li)}
     });
-
-    tileCard.classList.remove('hide')
+    show(tileCard)
     tileCard.classList.add('tile-card--anim-appear')
     
+    tileCard.cardInfo = card
     return tileCard
 }
 
 
+
+
+//DEPRECTTED
 function resetGrapics(){
     roleDiceButton.classList.add('hide')
 }
 
 
-function _startRound(){
-    roleDiceButton.classList.remove('hide')
-    playerTurnLabel.innerHTML = `${activePlayer.id}'s turn`
-}
 
 
 function getKeyByValue(object, value) {
     return Object.keys(object).find(key => object[key] === value);
   }
+
+
 
 function updateHTMLStats() {
     let strengthStatHTML    = document.getElementById('playerStrength')
@@ -155,3 +158,12 @@ function updateHTMLStats() {
     lifeStatHTML.querySelector('.stat-item__number').innerText      = activePlayer.stats.life
 
 }
+
+
+
+function updateTurnInterface() {
+    playerTurnLabel.innerHTML = `${activePlayer.id}'s turn`
+    updateHTMLStats()
+}
+
+// player-name-label

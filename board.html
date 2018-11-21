@@ -57,14 +57,14 @@
 
 
     
-    <div class="tile-card tile-card--show hide" id="tileCard">
+    <div class="tile-card hide" id="tileCard">
         <template>
             <h3 class="tile-card__name">Wolf</h3>
             <div class="tile-card__image-container"></div>
             <ul class="tile-card__stats-container">
-                <li class="stats-item stats__strength">4</li>
-                <li class="stats-item stats__magic">2</li>
-                <li class="stats-item stats__life">2</li>
+                <li class="tile-card__stat stats__strength">4</li>
+                <li class="tile-card__stat stats__magic">2</li>
+                <li class="tile-card__stat stats__life">2</li>
             </ul>
         </template>
     </div>
@@ -73,7 +73,7 @@
         <p class="player-turn-label">turn</p>
         <h3 class="player-name-label" id="playerNameHTML">Gorgon</h3>
         <h2 class="dice-number-label hide">0</h2>
-        <button class="ui-action-btn role-dice-btn hide" id="roleDiceButton">Role Dice</button>
+        <button class="ui-action-btn role-dice-btn hide" id="diceButton">Role Dice</button>
         <button class="ui-action-btn attack-btn hide" id="AttackBtn">Attack</button>
 
         <div class="character-overlay">

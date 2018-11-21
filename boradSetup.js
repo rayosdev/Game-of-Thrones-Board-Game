@@ -1,206 +1,212 @@
 
-    let tiles = document.getElementsByClassName('tile')
-    let player1 = document.getElementById('player1')
-    let player2 = document.getElementById('player2')
-    player1.tileIndex = 0
-    player2.tileIndex = 0
+// Fetch Varaibles and init Setup
 
-    let roleDiceButton = document.getElementById('roleDiceButton')
-    
-    let activePlayer = player1
-    let playerTurnLabel = document.getElementsByClassName('player-turn-label')[0]
-    let diceNumberLabel = document.getElementsByClassName('dice-number-label')[0]
-
-    
+let tiles = document.getElementsByClassName('tile')
+let player1 = document.getElementById('player1')
+let player2 = document.getElementById('player2')
+player1.tile = 27
+player2.tile = 12
 
 
-//Tile actions
-let actionList = {
-    DRAW_CARD: "DRAW_CARD",
+let activePlayer = player1
+let playerTurnLabel = document.getElementsByClassName('player-turn-label')[0]
 
+
+let diceButton = document.getElementById('diceButton')
+let diceNumberLabel = document.getElementsByClassName('dice-number-label')[0]
+
+
+function show(element) {element.classList.remove('hide')}
+function hide(element) {element.classList.add('hide')}
+
+
+// WORK AS AN ENUM
+let tileActionList = {
+    DRAW_CARD   : "DRAW_CARD",
+    DICE_OUTCOME: "DICE_OUTCOME",
+    STORE       : "STORE",
+    OTHER_LAND  : "OTHER_LAND"  
 }
 
 let tileDitails = [
     {
         nr:1,
         name:"tile",
-        tileAction:actionList.DRAW_CARD,
+        tileAction:tileActionList.DRAW_CARD,
         flavorText:""
     },
     {
         nr:2,
         name:"tile",
-        tileAction:actionList.DRAW_CARD,
+        tileAction:tileActionList.DRAW_CARD,
         flavorText:""
     },
     {
         nr:3,
         name:"tile",
-        tileAction:actionList.DRAW_CARD,
+        tileAction:tileActionList.DRAW_CARD,
         flavorText:""
     },
     {
         nr:4,
         name:"tile",
-        tileAction:actionList.DRAW_CARD,
+        tileAction:tileActionList.DRAW_CARD,
         flavorText:""
     },
     {
         nr:5,
         name:"tile",
-        tileAction:actionList.DRAW_CARD,
+        tileAction:tileActionList.DRAW_CARD,
         flavorText:""
     },
     {
         nr:6,
         name:"tile",
-        tileAction:actionList.DRAW_CARD,
+        tileAction:tileActionList.DRAW_CARD,
         flavorText:""
     },
     {
         nr:7,
         name:"tile",
-        tileAction:actionList.DRAW_CARD,
+        tileAction:tileActionList.DRAW_CARD,
         flavorText:""
     },
     {
         nr:8,
         name:"tile",
-        tileAction:actionList.DRAW_CARD,
+        tileAction:tileActionList.DRAW_CARD,
         flavorText:""
     },
     {
         nr:9,
         name:"tile",
-        tileAction:actionList.DRAW_CARD,
+        tileAction:tileActionList.DRAW_CARD,
         flavorText:""
     },
     {
         nr:10,
         name:"tile",
-        tileAction:actionList.DRAW_CARD,
+        tileAction:tileActionList.DRAW_CARD,
         flavorText:""
     },
     {
         nr:11,
         name:"tile",
-        tileAction:actionList.DRAW_CARD,
+        tileAction:tileActionList.DRAW_CARD,
         flavorText:""
     },
     {
         nr:12,
         name:"tile",
-        tileAction:actionList.DRAW_CARD,
+        tileAction:tileActionList.DRAW_CARD,
         flavorText:""
     },
     {
         nr:13,
         name:"tile",
-        tileAction:actionList.DRAW_CARD,
+        tileAction:tileActionList.DRAW_CARD,
         flavorText:""
     },
     {
         nr:14,
         name:"tile",
-        tileAction:actionList.DRAW_CARD,
+        tileAction:tileActionList.DRAW_CARD,
         flavorText:""
     },
     {
         nr:15,
         name:"tile",
-        tileAction:actionList.DRAW_CARD,
+        tileAction:tileActionList.DRAW_CARD,
         flavorText:""
     },
     {
         nr:16,
         name:"tile",
-        tileAction:actionList.DRAW_CARD,
+        tileAction:tileActionList.DRAW_CARD,
         flavorText:""
     },
     {
         nr:17,
         name:"tile",
-        tileAction:actionList.DRAW_CARD,
+        tileAction:tileActionList.DRAW_CARD,
         flavorText:""
     },
     {
         nr:18,
         name:"tile",
-        tileAction:actionList.DRAW_CARD,
+        tileAction:tileActionList.DRAW_CARD,
         flavorText:""
     },
     {
         nr:19,
         name:"tile",
-        tileAction:actionList.DRAW_CARD,
+        tileAction:tileActionList.DRAW_CARD,
         flavorText:""
     },
     {
         nr:20,
         name:"tile",
-        tileAction:actionList.DRAW_CARD,
+        tileAction:tileActionList.DRAW_CARD,
         flavorText:""
     },
     {
         nr:21,
         name:"tile",
-        tileAction:actionList.DRAW_CARD,
+        tileAction:tileActionList.DRAW_CARD,
         flavorText:""
     },
     {
         nr:22,
         name:"tile",
-        tileAction:actionList.DRAW_CARD,
+        tileAction:tileActionList.DRAW_CARD,
         flavorText:""
     },
     {
         nr:23,
         name:"tile",
-        tileAction:actionList.DRAW_CARD,
+        tileAction:tileActionList.DRAW_CARD,
         flavorText:""
     },
     {
         nr:24,
         name:"tile",
-        tileAction:actionList.DRAW_CARD,
+        tileAction:tileActionList.DRAW_CARD,
         flavorText:""
     },
     {
         nr:25,
         name:"tile",
-        tileAction:actionList.DRAW_CARD,
+        tileAction:tileActionList.DRAW_CARD,
         flavorText:""
     },
     {
         nr:26,
         name:"tile",
-        tileAction:actionList.DRAW_CARD,
+        tileAction:tileActionList.DRAW_CARD,
         flavorText:""
     },
     {
         nr:27,
         name:"tile",
-        tileAction:actionList.DRAW_CARD,
+        tileAction:tileActionList.DRAW_CARD,
         flavorText:""
     },
     {
         nr:28,
         name:"tile",
-        tileAction:actionList.DRAW_CARD,
+        tileAction:tileActionList.DRAW_CARD,
         flavorText:""
     },
 ]
 let allHTMLTiles = []
-
 function polulateTileDetails(){
-    let topTiles    = document.getElementById('topTiles').childNodes
-    topTiles = Array.prototype.slice.call(topTiles).filter(item => item.nodeName == "LI").map(item => allHTMLTiles.push(item))
-    let rightTiles  = document.getElementById('rightTiles').childNodes
-    rightTiles = Array.prototype.slice.call(rightTiles).filter(item => item.nodeName == "LI").map(item => allHTMLTiles.push(item))
-    let bottomTiles = document.getElementById('bottomTiles').childNodes
-    bottomTiles = Array.prototype.slice.call(bottomTiles).filter(item => item.nodeName == "LI").map(item => allHTMLTiles.push(item))
-    let leftTiles   = document.getElementById('leftTiles').childNodes
-    leftTiles = Array.prototype.slice.call(leftTiles).filter(item => item.nodeName == "LI").map(item => allHTMLTiles.push(item))
+
+    ['topTiles','rightTiles','bottomTiles','leftTiles'].forEach(section => {
+        section = document.getElementById(section).children
+        Array.prototype.slice.call(section)
+        .filter(item => item.nodeName == "LI")
+        .map(item => allHTMLTiles.push(item))
+    })
 
     let i = 0
     allHTMLTiles.forEach(element => {
@@ -239,9 +245,6 @@ let gameInterval
 function onReady(){
 
     polulateTileDetails()
-
-    player1.tile = 1
-    player2.tile = 1
     
     moveToTile(player1, player1.tile)
     moveToTile(player2, player2.tile)
@@ -268,7 +271,8 @@ function onReady(){
     }
 
     updateHTMLStats()
-    gameInterval = setInterval(Game_Loop, 10)
+    startRound()
+    // gameInterval = setInterval(Game_Loop, 10)
 }
 
 document.addEventListener('DOMContentLoaded', onReady)

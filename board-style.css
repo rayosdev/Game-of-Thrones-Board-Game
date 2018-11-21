@@ -204,7 +204,7 @@ ol{
     bottom: -50px;
     left: 270px;
 }
-.stats-item{
+.tile-card__stat{
     display: grid;
     padding: 35px;
     margin: 10px;
