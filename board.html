@@ -70,11 +70,16 @@
     </div>
 
     <div class="game-gui-container">
-        <p class="player-turn-label">turn</p>
+        <p class="player-turn-label" id="playerTurnLabel">turn</p>
         <h3 class="player-name-label" id="playerNameHTML">Gorgon</h3>
-        <h2 class="dice-number-label hide">0</h2>
+        <h2 class="dice-number-label hide" id="diceNumberLabel">0</h2>
         <button class="ui-action-btn role-dice-btn hide" id="diceButton">Role Dice</button>
         <button class="ui-action-btn attack-btn hide" id="AttackBtn">Attack</button>
+        
+        <div class="damage-info">
+            <p class="hide damage-info__label enemy-damage-label" id="enemyDamageLabel">Enemy damage: 12</p>
+            <p class="hide damage-info__label player-damage-label" id="playerDamageLabel">Player damage: 12</p>
+        </div>
 
         <div class="character-overlay">
             <div class="character-overlay__stats-panel">
@@ -103,6 +108,22 @@
             </div>
         </div>
     </div>
+
+    <style>
+        #testDiv{
+            position: absolute;
+            font-size: 80px;
+            color: white;
+        }
+        #testDiv2{
+            position: absolute;
+            left: 600px;
+            font-size: 80px;
+            color: white;
+        }
+    </style>
+    <div id="testDiv">HOLA</div>
+    <div id="testDiv2">OTRO</div>
 
     <script> // --- Start Variables
         

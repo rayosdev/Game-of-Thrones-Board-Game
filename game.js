@@ -103,12 +103,12 @@ function startRound(){
     show(diceButton)
     
     diceButton.addEventListener('click', 
-    function tmpListner() {
+    function listner() {
     diceRoll(
     steps => movePlayer(steps,
     e => tileAction()
     ))
-    diceButton.removeEventListener('click', tmpListner)
+    endListner(diceButton,'click', listner)
     })
 
 }
@@ -122,7 +122,7 @@ function tileAction(){
             setTimeout( e => {
                 let tileCardHTML = drawCard()
                 evaluateDrawnTileCard(tileCardHTML)
-            }, 500)
+            }, 5) //    500
             break
     }
 }
@@ -137,20 +137,82 @@ function evaluateDrawnTileCard(tileCardHTML) {
             switch (cardType){
     
                 case "FIGHT":
-                    setTimeout(e => startFight(card), 500)
+                    setTimeout(e => fight(card), 5) //     500
                     break
             }
         })
 }
 
 
-function startFight(enemy) {
-    
+// window.addEventListener('click', function test(){
+//     this.console.log("nice")
+//     this.endListner('click', test)
+// })
+
+
+
+// function player(e) {
+//     console.log("test ", e)
+// }
+
+
+function fight(enemy) {
+    playerDamage = 0
+    EnemyDamage = 0
+
     show(diceButton)
+    diceButton.addEventListener('click', 
+    function listner() {
+    diceRoll(
+    diceDamage => {
+        
+        function showDamageLabel(actor, strength, magic){
+            if(actor == "Player"){
+                show(playerDamageLabel)
+                playerDamageLabel.innerText = 
+                `Player Damage: ${(strength)? strength:magic} + ${diceDamage} = ${playerDamage}`
+            }
+        }
+
+
+        playerDamage += diceDamage
+        if('strength' in enemy[Object.keys(enemy)[0]]){
+            playerDamage += activePlayer.stats.strength
+            showDamageLabel("Player", activePlayer.stats.strength, null)
+            moveToElement(diceNumberLabel, document.getElementById("playerStrength", 1000))
+            
+        }
+        if('magic' in enemy[Object.keys(enemy)[0]]){
+            playerDamage += activePlayer.stats.magic
+            showDamageLabel("Player", null, activePlayer.stats.magic)
+            moveToElement(diceNumberLabel, document.getElementById("playerMagic", 1000))
+        }
+        
+
+        
+    }
+    )
+    endListner(diceButton, 'click',listner)
+    })
 }
 
 
 
+function moveToElement(elementA, elementB, speed){
+    console.log(elementA, " : ", elementB)
+    let interval = setInterval(e => {
+        // elementPos(elementA).x += elementPos(elementA).x - elementPos(elementB).x
+        elementA.getClientRects().left = 100
+        console.log(elementPos(elementA).left)
+    }, speed)
+}
+
+moveToElement(
+    document.getElementById("testDiv"), 
+    document.getElementById("testDiv2"), 200)
+
+
+function elementPos(obj){return obj.getClientRects()[0]}
 
 
 
@@ -165,19 +227,7 @@ function diceRoll(actingFuction){
 
 
 
-function gatherDamage(diceNumber){
-    // console.log(card)
-}
-
-
-
-
-
-
-
-
-
-const boardMovmentSpeed = 200
+const boardMovmentSpeed = 2 //      200
 
 function movePlayer(steps, nextFunction){
 

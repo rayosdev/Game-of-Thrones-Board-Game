@@ -5,15 +5,23 @@ let tiles = document.getElementsByClassName('tile')
 let player1 = document.getElementById('player1')
 let player2 = document.getElementById('player2')
 player1.tile = 27
-player2.tile = 12
+player2.tile = 22
 
 
 let activePlayer = player1
-let playerTurnLabel = document.getElementsByClassName('player-turn-label')[0]
+let playerTurnLabel = document.getElementById('playerTurnLabel')
 
 
 let diceButton = document.getElementById('diceButton')
-let diceNumberLabel = document.getElementsByClassName('dice-number-label')[0]
+let diceNumberLabel = document.getElementById('diceNumberLabel')
+
+
+let enemyDamageLabel = document.getElementById('enemyDamageLabel')
+let playerDamageLabel = document.getElementById('playerDamageLabel')
+
+
+
+
 
 
 function show(element) {element.classList.remove('hide')}
@@ -27,6 +35,7 @@ let tileActionList = {
     STORE       : "STORE",
     OTHER_LAND  : "OTHER_LAND"  
 }
+
 
 let tileDitails = [
     {
@@ -216,21 +225,19 @@ function polulateTileDetails(){
     // console.log(allHTMLTiles[4].tileDitails)
 }
 
+
 let tileCardDeck = []
 
 function fetchTileCardDeck(){
     fetch("./tileCards.json")
     .then(response => response.json())
     .then(json => {
-       
         tileCardDeck = Object.keys(json[0]).map(key => {
             json[0][key].name = key
             let tmpObj = {}
             tmpObj[key] = json[0][key]
-            return tmpObj
-             
-        })
-        
+            return tmpObj   
+        })   
     })
     .then(e => {
         tileCardDeck = shuffle(tileCardDeck)

@@ -167,3 +167,7 @@ function updateTurnInterface() {
 }
 
 // player-name-label
+
+function endListner(element ,event, funcName){
+    element.removeEventListener(event, funcName)
+}

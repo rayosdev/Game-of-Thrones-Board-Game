@@ -162,6 +162,29 @@ ol{
     color: white;
 }
 
+.damage-info{
+    position: absolute;
+    min-width: 300px;
+    min-height: 100px;
+    /* border: 4px solid red; */
+    font-size: 60px;
+    z-index: 99;
+    margin: 0;
+    color: white;
+    left: 30px;
+}
+
+.damage-info__label{
+    margin: 25px;
+}
+
+
+
+
+
+
+
+
 .tile-card{
     position: absolute;
     align-self: center;
@@ -173,7 +196,7 @@ ol{
 }
 .tile-card--anim-appear{
     /* border: solid 15px red; */
-    animation: show-card 1s;
+    animation: show-card 0.1s;
 }
 @keyframes show-card{
     from{
