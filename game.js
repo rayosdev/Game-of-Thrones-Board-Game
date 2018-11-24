@@ -174,18 +174,20 @@ function fight(enemy) {
             }
         }
 
-
+        // tile-card__stat stats__strength
+        let strengthStat = document.getElementById("playerStrength")
+        let magicStat = document.getElementById("playerMagic")
+        
         playerDamage += diceDamage
         if('strength' in enemy[Object.keys(enemy)[0]]){
             playerDamage += activePlayer.stats.strength
             showDamageLabel("Player", activePlayer.stats.strength, null)
-            moveToElement(diceNumberLabel, document.getElementById("playerStrength", 1000))
-            
+            // moveToElement(diceNumberLabel, strengthStat)    
         }
         if('magic' in enemy[Object.keys(enemy)[0]]){
             playerDamage += activePlayer.stats.magic
             showDamageLabel("Player", null, activePlayer.stats.magic)
-            moveToElement(diceNumberLabel, document.getElementById("playerMagic", 1000))
+            // moveToElement(diceNumberLabel, magicStat)
         }
         
 
@@ -198,18 +200,32 @@ function fight(enemy) {
 
 
 
-function moveToElement(elementA, elementB, speed){
-    console.log(elementA, " : ", elementB)
-    let interval = setInterval(e => {
-        // elementPos(elementA).x += elementPos(elementA).x - elementPos(elementB).x
-        elementA.getClientRects().left = 100
-        console.log(elementPos(elementA).left)
-    }, speed)
-}
+// 'function moveToElement(elementA, elementB){
+//     let elmA = {}
+//     let elmB = {}
+//     console.log(elementB)
+//     elementA.style.position = "relative"
+//     elementA.classList.add('move-tranisiton')
+//     elmA.x = elementPos(elementA).left
+//     elmA.y = elementPos(elementA).top
+//     elmB.x = elementPos(elementB).left
+//     elmB.y = elementPos(elementB).top
+//     // console.log(elm)
+//     // elementA.style.transform = `translate3d(${(elmB.x - elmA.x) * 2.7}px, ${(elmB.y - elmA.y) * 2.7}px, 0)`
+//     elementA.style.transform = `translate3d(${(elmB.x - elmA.x) * 3.2}px, ${(elmB.y - elmA.y) * 3.2}px, 0)`
+    
+// }
 
-moveToElement(
-    document.getElementById("testDiv"), 
-    document.getElementById("testDiv2"), 200)
+
+
+
+// function moveElement(element, vector2D){
+//     element.style.left = `${vector2D.x}px`
+//     element.style.top = `${vector2D.y}px`
+// }
+
+
+
 
 
 function elementPos(obj){return obj.getClientRects()[0]}
