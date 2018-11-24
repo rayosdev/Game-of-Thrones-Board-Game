@@ -1,4 +1,6 @@
 
+// DEPRICATED 
+
 let Phase = {
     _IDEL   :1,
     _MOVE   :2,
@@ -93,11 +95,11 @@ function Game_Loop(){
 }
 
 
+//DEPRICATED 
 
 
 
-
-
+// Entry Point
 function startRound(){
     updateTurnInterface()
     show(diceButton)
@@ -122,7 +124,7 @@ function tileAction(){
             setTimeout( e => {
                 let tileCardHTML = drawCard()
                 evaluateDrawnTileCard(tileCardHTML)
-            }, 5) //    500
+            }, 500) //    500
             break
     }
 }
@@ -137,23 +139,12 @@ function evaluateDrawnTileCard(tileCardHTML) {
             switch (cardType){
     
                 case "FIGHT":
-                    setTimeout(e => fight(card), 5) //     500
+                    setTimeout(e => fight(card), 500) //     500
                     break
             }
         })
 }
 
-
-// window.addEventListener('click', function test(){
-//     this.console.log("nice")
-//     this.endListner('click', test)
-// })
-
-
-
-// function player(e) {
-//     console.log("test ", e)
-// }
 
 
 function fight(enemy) {
@@ -166,14 +157,6 @@ function fight(enemy) {
     diceRoll(
     diceDamage => {
         
-        function showDamageLabel(actor, strength, magic){
-            if(actor == "Player"){
-                show(playerDamageLabel)
-                playerDamageLabel.innerText = 
-                `Player Damage: ${(strength)? strength:magic} + ${diceDamage} = ${playerDamage}`
-            }
-        }
-
         // tile-card__stat stats__strength
         let strengthStat = document.getElementById("playerStrength")
         let magicStat = document.getElementById("playerMagic")
@@ -182,18 +165,32 @@ function fight(enemy) {
         if('strength' in enemy[Object.keys(enemy)[0]]){
             playerDamage += activePlayer.stats.strength
             showDamageLabel("Player", activePlayer.stats.strength, null)
-            // moveToElement(diceNumberLabel, strengthStat)    
+            // moveToElement(diceNumberLabel, strengthStat)
         }
         if('magic' in enemy[Object.keys(enemy)[0]]){
             playerDamage += activePlayer.stats.magic
             showDamageLabel("Player", null, activePlayer.stats.magic)
-            // moveToElement(diceNumberLabel, magicStat)
+            // moveToElement(diceNumberLabel, magicStat)    
         }
         
+        function showDamageLabel(actor, strength, magic){
+            
 
+            if(actor == "Player"){
+                show(playerDamageLabel)
+                playerDamageLabel.innerText = 
+                `Player Damage: ${(strength)? strength:magic} + ${diceDamage} = ${playerDamage}`
+            }
+            if(actor == "Enemy"){
+                show(enemyDamageLabel)
+                enemyDamageLabel.innerText = 
+                `Player Damage: ${(strength)? strength:magic} + ${diceDamage} = ${playerDamage}`
+            }
+        }
         
-    }
-    )
+    })
+    
+
     endListner(diceButton, 'click',listner)
     })
 }
@@ -243,7 +240,7 @@ function diceRoll(actingFuction){
 
 
 
-const boardMovmentSpeed = 2 //      200
+const boardMovmentSpeed = 200 //      200
 
 function movePlayer(steps, nextFunction){
 
