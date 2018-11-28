@@ -4,8 +4,8 @@
 let tiles = document.getElementsByClassName('tile')
 let player1 = document.getElementById('player1')
 let player2 = document.getElementById('player2')
-player1.tile = 27
-player2.tile = 22
+player1.tile = 3
+player2.tile = 3
 
 
 let activePlayer = player1
@@ -206,6 +206,18 @@ let tileDitails = [
         tileAction:tileActionList.DRAW_CARD,
         flavorText:""
     },
+    {
+        nr:29,
+        name:"tile",
+        tileAction:tileActionList.DRAW_CARD,
+        flavorText:""
+    },
+    {
+        nr:30,
+        name:"tile",
+        tileAction:tileActionList.DRAW_CARD,
+        flavorText:""
+    }
 ]
 let allHTMLTiles = []
 function polulateTileDetails(){

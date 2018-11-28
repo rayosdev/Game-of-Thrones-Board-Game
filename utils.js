@@ -104,9 +104,9 @@ function createHTMLCard(card){
         <h3 class="tile-card__name">${name}</h3>
         <div class="tile-card__image-container"></div>
         <ul class="tile-card__stats-container">
-            <li class="tile-card__stat stats__strength">${ card[name].strength }</li>
-            <li class="tile-card__stat stats__magic">${ card[name].magic }</li>
-            <li class="tile-card__stat stats__life">${ card[name].lives }</li>
+            <li class="tile-card__stat stats__strength id="tileCardStrenght">${ card[name].strength }</li>
+            <li class="tile-card__stat stats__magic" id="tileCardMagic">${ card[name].magic }</li>
+            <li class="tile-card__stat stats__life" id="tileCardLife">${ card[name].lives }</li>
         </ul>
     `
     tileCard.innerHTML = cardInner

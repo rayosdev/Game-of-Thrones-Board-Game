@@ -1,102 +1,4 @@
 
-// DEPRICATED 
-
-let Phase = {
-    _IDEL   :1,
-    _MOVE   :2,
-    _ON_TILE:3,
-    _DRAW   :4,
-    _FIGHT  :5,
-    _END_ROUND:6
-}
-
-let CurrentPhase = Phase._IDEL
-
-function changePhase(_phase){
-    console.log("Phase_chnaged from: ", getKeyByValue(Phase, CurrentPhase), " to: ", getKeyByValue(Phase, _phase))
-    runOnce = true
-    CurrentPhase = _phase
-}
-
-let runOnce = true
-
-function Game_Loop(){
-    switch(CurrentPhase){
-        
-
-
-        case Phase._IDEL:
-            if(runOnce){
-                runOnce = false
-
-                // console.log("_IDEL: ", runOnce)
-                startRound()
-            }
-            if(randomDiceNumber !== 0){
-                changePhase(Phase._MOVE)
-            }
-
-            break
-            
-
-
-        case Phase._MOVE:
-            if(runOnce){
-                runOnce = false
-
-                // console.log("_MOVE: ", runOnce)
-                playerMovment()
-            }
-            
-            break
-
-            
-            
-        case Phase._ON_TILE:
-            if(runOnce){
-                runOnce = false
-
-                // console.log("_ON_TILE: ", runOnce)
-                diceNumberLabel.classList.add('hide')
-                tileAction()
-            }
-
-            break
-
-            
-            
-        case Phase._DRAW:
-            if(runOnce){
-                runOnce = false
-
-                // console.log("DRAW TIME?")
-                drawCard()
-            }
-            
-            break
-
-            
-            
-        case Phase._FIGHT:
-            if(runOnce){
-                runOnce = false
-                diceButton.classList.remove('hide')
-            }
-            
-            if(randomDiceNumber != 0){
-
-                gatherDamage(randomDiceNumber)
-                randomDiceNumber = 0
-            }
-            break
-
-    }
-    
-}
-
-
-//DEPRICATED 
-
 
 
 // Entry Point
@@ -155,47 +57,63 @@ function fight(enemy) {
     diceButton.addEventListener('click', 
     function listner() {
     diceRoll(
-    diceDamage => {
+    playerDiceDamage => {
         
-        // tile-card__stat stats__strength
-        let strengthStat = document.getElementById("playerStrength")
-        let magicStat = document.getElementById("playerMagic")
+        // let strengthStat = document.getElementById("playerStrength")
+        // let magicStat = document.getElementById("playerMagic")
         
-        playerDamage += diceDamage
+        playerDamage += playerDiceDamage
         if('strength' in enemy[Object.keys(enemy)[0]]){
             playerDamage += activePlayer.stats.strength
-            showDamageLabel("Player", activePlayer.stats.strength, null)
-            // moveToElement(diceNumberLabel, strengthStat)
+            showDamageLabel("Player", activePlayer.stats.strength, null, playerDiceDamage)
         }
         if('magic' in enemy[Object.keys(enemy)[0]]){
             playerDamage += activePlayer.stats.magic
-            showDamageLabel("Player", null, activePlayer.stats.magic)
-            // moveToElement(diceNumberLabel, magicStat)    
-        }
+            showDamageLabel("Player", null, activePlayer.stats.magic, playerDiceDamage)
+        } 
         
-        function showDamageLabel(actor, strength, magic){
-            
+    }, 
+    diceRoll(
+    enemyDiceDamage => {
+        console.log("enemyDiceDamage: ", enemyDiceDamage)
 
-            if(actor == "Player"){
-                show(playerDamageLabel)
-                playerDamageLabel.innerText = 
-                `Player Damage: ${(strength)? strength:magic} + ${diceDamage} = ${playerDamage}`
-            }
-            if(actor == "Enemy"){
-                show(enemyDamageLabel)
-                enemyDamageLabel.innerText = 
-                `Player Damage: ${(strength)? strength:magic} + ${diceDamage} = ${playerDamage}`
-            }
-        }
+        let strengthStat = document.getElementById("tileCardStrenght")
+        let magicStat = document.getElementById("tileCardMagic")
         
-    })
-    
+        console.log(strengthStat)
+
+        enemyDamage += enemyDiceDamage
+        if('strength' in enemy[Object.keys(enemy)[0]]){
+            enemyDamage += activePlayer.stats.strength
+            showDamageLabel("Player", activePlayer.stats.strength, null, enemyDiceDamage)
+        }
+        if('magic' in enemy[Object.keys(enemy)[0]]){
+            enemyDamage += activePlayer.stats.magic
+            showDamageLabel("Player", null, activePlayer.stats.magic, enemyDiceDamage)
+        } 
+        
+    }))
+
+
+    function showDamageLabel(actor, strength, magic, diceDamage){    
+
+        if(actor == "Player"){
+            show(playerDamageLabel)
+            playerDamageLabel.innerText = 
+            `Player Damage: ${(strength)? strength:magic} + ${diceDamage} = ${playerDamage}`
+        }
+        if(actor == "Enemy"){
+            show(enemyDamageLabel)
+            enemyDamageLabel.innerText = 
+            `Player Damage: ${(strength)? strength:magic} + ${diceDamage} = ${playerDamage}`
+        }
+    }
 
     endListner(diceButton, 'click',listner)
     })
 }
 
-
+diceRoll( test => console.log("test: ", test))
 
 // 'function moveToElement(elementA, elementB){
 //     let elmA = {}
