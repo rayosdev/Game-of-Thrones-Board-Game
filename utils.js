@@ -15,14 +15,16 @@ function moveToTile(element, number){
         {x:5,y:0},
         {x:6,y:0},
         {x:7,y:0},
+        {x:8,y:0},  // 09
                     //Right Side
-        {x:7,y:1},
-        {x:7,y:2},
-        {x:7,y:3},
-        {x:7,y:4},
-        {x:7,y:5},
-        {x:7,y:6},
+        {x:8,y:1},
+        {x:8,y:2},
+        {x:8,y:3},
+        {x:8,y:4},
+        {x:8,y:5},
+        {x:8,y:6},  // 15
                     //Bottom Side
+        {x:8,y:7},
         {x:7,y:7},
         {x:6,y:7},
         {x:5,y:7},
@@ -30,14 +32,14 @@ function moveToTile(element, number){
         {x:3,y:7},
         {x:2,y:7},
         {x:1,y:7},
-        {x:0,y:7},
+        {x:0,y:7},  // 24
                     //Left Side
         {x:0,y:6},
         {x:0,y:5},
         {x:0,y:4},
         {x:0,y:3},
         {x:0,y:2},
-        {x:0,y:1}
+        {x:0,y:1}   // 30
     ] 
     
     if(number > tileVectors.length){number = 1}

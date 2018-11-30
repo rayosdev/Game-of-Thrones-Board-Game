@@ -114,34 +114,6 @@ function fight(enemy) {
     })
 }
 
-diceRoll( test => console.log("test: ", test))
-
-// 'function moveToElement(elementA, elementB){
-//     let elmA = {}
-//     let elmB = {}
-//     console.log(elementB)
-//     elementA.style.position = "relative"
-//     elementA.classList.add('move-tranisiton')
-//     elmA.x = elementPos(elementA).left
-//     elmA.y = elementPos(elementA).top
-//     elmB.x = elementPos(elementB).left
-//     elmB.y = elementPos(elementB).top
-//     // console.log(elm)
-//     // elementA.style.transform = `translate3d(${(elmB.x - elmA.x) * 2.7}px, ${(elmB.y - elmA.y) * 2.7}px, 0)`
-//     elementA.style.transform = `translate3d(${(elmB.x - elmA.x) * 3.2}px, ${(elmB.y - elmA.y) * 3.2}px, 0)`
-    
-// }
-
-
-
-
-// function moveElement(element, vector2D){
-//     element.style.left = `${vector2D.x}px`
-//     element.style.top = `${vector2D.y}px`
-// }
-
-
-
 
 
 function elementPos(obj){return obj.getClientRects()[0]}
@@ -153,7 +125,8 @@ function diceRoll(actingFuction){
     let randNumber = Math.round(Math.random() * 5 + 1)
     diceNumberLabel.innerHTML = randNumber
     show(diceNumberLabel)
-    actingFuction(randNumber)
+    // actingFuction(randNumber)
+    actingFuction(30)
 }
 
 
