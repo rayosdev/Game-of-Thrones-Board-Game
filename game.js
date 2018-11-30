@@ -94,6 +94,7 @@ function fight(enemy) {
         
     }))
 
+    // coment
 
     function showDamageLabel(actor, strength, magic, diceDamage){    
 
