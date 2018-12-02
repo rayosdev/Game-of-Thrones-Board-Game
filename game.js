@@ -132,7 +132,7 @@ function diceRoll(actingFuction){
 
 
 
-const boardMovmentSpeed = 200 //      200
+const boardMovmentSpeed = 19 //      200
 
 function movePlayer(steps, nextFunction){
 
