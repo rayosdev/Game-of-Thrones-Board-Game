@@ -1,6 +1,6 @@
 [{
     "Dragons":{
-
+        
         "cardType":"FIGHT",
         "strength": 7,
         "lives": 2

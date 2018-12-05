@@ -5,17 +5,19 @@
 function startRound(){
     updateTurnInterface()
     show(diceButton)
-    
-    diceButton.addEventListener('click', 
-    function listner() {
-    diceRoll(
-    steps => movePlayer(steps,
-    e => tileAction()
-    ))
-    endListner(diceButton,'click', listner)
+
+    addTmpListner(diceButton,'click', function (){
+        diceRoll(steps => movePlayer(steps,
+        e => tileAction())
+        )
     })
 
 }
+
+
+
+
+
 
 
 function tileAction(){
@@ -41,7 +43,7 @@ function evaluateDrawnTileCard(tileCardHTML) {
             switch (cardType){
     
                 case "FIGHT":
-                    setTimeout(e => fight(card), 500) //     500
+                    setTimeout(e => startFight(card), 500) //     500
                     break
             }
         })
@@ -49,13 +51,16 @@ function evaluateDrawnTileCard(tileCardHTML) {
 
 
 
-function fight(enemy) {
+function startFight(enemy) {
     playerDamage = 0
     EnemyDamage = 0
 
     show(diceButton)
-    diceButton.addEventListener('click', 
-    function listner() {
+    // diceButton.addEventListener('click', 
+    // function listner() {
+
+    
+    addTmpListner(diceButton,'click', function (){
     diceRoll(
     playerDiceDamage => {
         
@@ -110,7 +115,7 @@ function fight(enemy) {
         }
     }
 
-    endListner(diceButton, 'click',listner)
+    // endListner(diceButton, 'click',listner)
     })
 }
 
@@ -125,14 +130,14 @@ function diceRoll(actingFuction){
     let randNumber = Math.round(Math.random() * 5 + 1)
     diceNumberLabel.innerHTML = randNumber
     show(diceNumberLabel)
-    // actingFuction(randNumber)
-    actingFuction(30)
+    actingFuction(randNumber)
+    // actingFuction(30)
 }
 
 
 
 
-const boardMovmentSpeed = 19 //      200
+const boardMovmentSpeed = 20 //      200
 
 function movePlayer(steps, nextFunction){
 

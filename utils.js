@@ -173,3 +173,11 @@ function updateTurnInterface() {
 function endListner(element ,event, funcName){
     element.removeEventListener(event, funcName)
 }
+
+
+function addTmpListner(element, type, func) {
+    element.addEventListener(type, function listner(){
+    func()
+    endListner(element,type, listner)
+    })
+}
