@@ -4,8 +4,8 @@
 let tiles = document.getElementsByClassName('tile')
 let player1 = document.getElementById('player1')
 let player2 = document.getElementById('player2')
-player1.tile = 3
-player2.tile = 3
+player1.tile = 1
+player2.tile = 1
 
 
 let activePlayer = player1
@@ -29,25 +29,26 @@ function hide(element) {element.classList.add('hide')}
 
 
 // WORK AS AN ENUM
-let tileActionList = {
+const tileActionList = {
+    SKIP_ROUND  : "SKIP_ROUND",
     DRAW_CARD   : "DRAW_CARD",
     DICE_OUTCOME: "DICE_OUTCOME",
     STORE       : "STORE",
-    OTHER_LAND  : "OTHER_LAND"  
+    OTHER_LAND  : "OTHER_LAND",
 }
 
 
-let tileDitails = [
+const tileDitails = [
     {
         nr:1,
-        name:"tile",
-        tileAction:tileActionList.DRAW_CARD,
+        name:"Mystirius Death",
+        // tileAction:tileActionList.DRAW_CARD,
         flavorText:""
     },
     {
         nr:2,
         name:"tile",
-        tileAction:tileActionList.DRAW_CARD,
+        tileAction:tileActionList.SKIP_ROUND,
         flavorText:""
     },
     {
@@ -267,6 +268,9 @@ function onReady(){
     
     moveToTile(player1, player1.tile)
     moveToTile(player2, player2.tile)
+
+    player1.roundModifer = []
+    player2.roundModifer = []
 
     player1.stats = {
             name:"Brienne of Tarth",

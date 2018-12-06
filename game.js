@@ -1,9 +1,21 @@
 
 
+let extraRound = false
+
 
 // Entry Point
 function startRound(){
     updateTurnInterface()
+
+    let breakFlow = checkRoundModifiers()
+    if(breakFlow){return}
+
+    setupMovmentDice()
+
+}
+
+
+function setupMovmentDice() {
     show(diceButton)
 
     addTmpListner(diceButton,'click', function (){
@@ -11,10 +23,20 @@ function startRound(){
         e => tileAction())
         )
     })
-
 }
 
 
+function checkRoundModifiers(){
+    console.log(activePlayer.roundModifer.shift())
+    console.log(activePlayer.roundModifer.length)
+    if(activePlayer.roundModifer.length >= 0){return false}
+    switch(activePlayer.roundModifer.shift()){
+        case "SKIP_ROUND":
+            console.log("round skipt")
+            endRound()
+            break
+    }
+}
 
 
 
@@ -27,6 +49,11 @@ function tileAction(){
         case tileActionList.DICE_OUTCOME:
             
             break
+        
+        case tileActionList.SKIP_ROUND:
+            activePlayer.roundModifer.push('SKIP_ROUND')
+            endRound()
+            break
 
         // case tileActionList.DRAW_CARD:
         //     setTimeout( e => {
@@ -35,7 +62,23 @@ function tileAction(){
         //     }, 500) //    500
         //     break
 
+        default:
+            endRound()
     }
+}
+
+
+function endRound(){
+    
+    // initialise extra round
+    if(extraRound){
+        startRound()
+        extraRound = false
+        return
+    }
+
+    flipTurns()
+    startRound()
 }
 
 
@@ -133,6 +176,10 @@ function elementPos(obj){return obj.getClientRects()[0]}
 function diceRoll(actingFuction){
     hide(diceButton)
     let randNumber = Math.round(Math.random() * 5 + 1)
+    
+    // for testing
+    randNumber = 1
+
     diceNumberLabel.innerHTML = randNumber
     show(diceNumberLabel)
     actingFuction(randNumber)
@@ -142,10 +189,14 @@ function diceRoll(actingFuction){
 
 
 
-const boardMovmentSpeed = 20 //      200
+const boardMovmentSpeed = 200 //      200
 
 function movePlayer(steps, nextFunction){
 
+    // you get an extra round if the dice throw was 6
+    if(steps == 6){
+        extraRound = true
+    }
     let moveInterval = setInterval(e => {  
         moveToTile(activePlayer, activePlayer.tile + 1)
     
