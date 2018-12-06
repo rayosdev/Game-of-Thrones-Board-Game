@@ -23,13 +23,18 @@ function startRound(){
 function tileAction(){
     let tileNr = activePlayer.tile - 1
     switch(allHTMLTiles[tileNr].tileDitails.tileAction){
-        
-        case tileActionList.DRAW_CARD:
-            setTimeout( e => {
-                let tileCardHTML = drawCard()
-                evaluateDrawnTileCard(tileCardHTML)
-            }, 500) //    500
+
+        case tileActionList.DICE_OUTCOME:
+            
             break
+
+        // case tileActionList.DRAW_CARD:
+        //     setTimeout( e => {
+        //         let tileCardHTML = drawCard()
+        //         evaluateDrawnTileCard(tileCardHTML)
+        //     }, 500) //    500
+        //     break
+
     }
 }
 
