@@ -8,14 +8,14 @@ function startRound(){
     updateTurnInterface()
 
     let breakFlow = checkRoundModifiers()
+    console.log('breakFlow :', breakFlow)
     if(breakFlow){return}
-
-    setupMovmentDice()
+    setupDiceMoveBtn()
 
 }
 
 
-function setupMovmentDice() {
+function setupDiceMoveBtn() {
     show(diceButton)
 
     addTmpListner(diceButton,'click', function (){
@@ -27,18 +27,72 @@ function setupMovmentDice() {
 
 
 function checkRoundModifiers(){
-    console.log(activePlayer.roundModifer.shift())
-    console.log(activePlayer.roundModifer.length)
-    if(activePlayer.roundModifer.length >= 0){return false}
-    switch(activePlayer.roundModifer.shift()){
+    console.log(activePlayer.stats.name," : ",activePlayer.roundModifer.length)
+    // console.log(activePlayer.roundModifer.shift())
+    if(activePlayer.roundModifer.length == 0){return false}
+    let _roundModefier = activePlayer.roundModifer.shift()
+    switch(_roundModefier){
         case "SKIP_ROUND":
-            console.log("round skipt")
+            showInformationDialog()
             endRound()
+            return true
             break
     }
+
 }
 
 
+// generator test¨
+
+
+
+
+// function * generatorTest(num) {
+//     for(let i = 0; i < num; i += 1){
+//         yield console.log('test', i)
+//     }
+// }
+
+// const genTest = generatorTest(5)
+
+// genTest.next()
+// genTest.next()
+// genTest.next()
+
+
+function * gameLoop(n) {
+
+    console.log(n)
+    let gameFunctions = [
+        () => {console.log("testMAN")},
+        () => {console.log("test1")},
+        () => {console.log("test2")},
+    ]
+
+    for (let i = 0; i <= gameFunctions.length; i += 1) {
+        yield console.log(i)
+        // console.log("runtest: ", i)
+        // yield 
+    }
+}
+
+gameLoop().next()
+gameLoop().next()
+gameLoop().next()
+
+
+function showInformationDialog(test) {
+    console.log(Array.isArray(test))
+    if(Array.isArray(test) == false){return}
+    test.forEach(element => {
+        console.log('que ', element)
+        element()
+    });
+}
+
+
+// showInformationDialog([e => alert('test1'),e => alert('test2'),e => alert('test3')])
+// showInformationDialog()
 
 
 
