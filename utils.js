@@ -1,5 +1,10 @@
 
 
+const KEY = {
+    E:101,
+}
+
+
 function moveToTile(element, number){
          
     let elementPos    = {x:0, y:0}

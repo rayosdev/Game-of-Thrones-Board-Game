@@ -8,7 +8,7 @@ function startRound(){
     updateTurnInterface()
 
     let breakFlow = checkRoundModifiers()
-    console.log('breakFlow :', breakFlow)
+    // console.log('breakFlow :', breakFlow)
     if(breakFlow){return}
     setupDiceMoveBtn()
 
@@ -60,6 +60,9 @@ function checkRoundModifiers(){
 // genTest.next()
 
 
+
+
+
 function * gameLoop(n) {
 
     console.log(n)
@@ -69,16 +72,26 @@ function * gameLoop(n) {
         () => {console.log("test2")},
     ]
 
-    for (let i = 0; i <= gameFunctions.length; i += 1) {
-        yield console.log(i)
-        // console.log("runtest: ", i)
-        // yield 
-    }
-}
+    // for (let i = 0; i <= gameFunctions.length; i += 1) {
+    //     yield console.log(i)
+    // }
+//     for (const func of gameFunctions) {
+//         yield func()
+//     }
+// }
 
-gameLoop().next()
-gameLoop().next()
-gameLoop().next()
+// const test = gameLoop(4)
+
+
+// window.addEventListener('keypress', e =>{
+//     if(e.keyCode == KEY.E){
+//         console.log(test.next())
+//     }
+//     // console.log(e.keyCode)
+// })
+
+
+
 
 
 function showInformationDialog(test) {
