@@ -1,94 +1,96 @@
 
 
-let extraRound = false
 
-
-// Entry Point
-function startRound(){
-    updateTurnInterface()
-
-    let breakFlow = checkRoundModifiers()
-    // console.log('breakFlow :', breakFlow)
-    if(breakFlow){return}
-    setupDiceMoveBtn()
+const STATE = {
+    ROUND_SETUP:"ROUND_SETUP",
+    MOVE_DICE:"MOVE_DICE",
+    MOVE_PLAYER:"MOVE_PLAYER",
+    END_ROUND:"END_ROUND",
+    SKIP_ROUND:"SKIP_ROUND",
 
 }
+
+let currentStat = STATE.ROUND_SETUP
+
+function * stateMachine() {
+    switch (currentStat) {
+        
+        case STATE.ROUND_SETUP:
+            yield updateTurnInterface()
+            yield checkRoundModifiers()
+            yield changeState(STATE.MOVE_DICE)
+        break
+
+        case STATE.MOVE_DICE:
+            yield setupDiceMoveBtn()
+            yield changeState(STATE.MOVE_PLAYER)
+        break
+            
+        case STATE.MOVE_PLAYER:
+            yield movePlayer(diceRollNumber)
+            yield tileAction()     
+            yield changeState(STATE.END_ROUND)  
+        break
+        
+        case STATE.END_ROUND:
+            yield changeTurns()
+            changeState(STATE.ROUND_SETUP) 
+        break
+   
+        case STATE.SKIP_ROUND:
+            
+            yield changeState(STATE.END_ROUND) 
+        break
+    }
+    
+    
+}
+
+let runStateGenerator = stateMachine()
+
+function changeState(newState) {
+    currentStat = newState
+    runStateGenerator = stateMachine()
+    nextGeneratorStep(`... changetate(${newState})`)
+    // setTimeout(() => console.log( runStateGenerator.next(), `changetate(${newState})`), 100)
+}
+
+
+
+let extraRound = false
+
 
 
 function setupDiceMoveBtn() {
     show(diceButton)
 
     addTmpListner(diceButton,'click', function (){
-        diceRoll(steps => movePlayer(steps,
-        e => tileAction())
-        )
+        diceRoll()
+        nextGeneratorStep("... setupDiceMoveBtn()")
+        // setTimeout(() => console.log( runStateGenerator.next() , "setupDiceMoveBtn()"), 100)
     })
 }
 
 
 function checkRoundModifiers(){
-    console.log(activePlayer.stats.name," : ",activePlayer.roundModifer.length)
+
+    // console.log(activePlayer.stats.name," : ",activePlayer.roundModifer.length)
     // console.log(activePlayer.roundModifer.shift())
-    if(activePlayer.roundModifer.length == 0){return false}
-    let _roundModefier = activePlayer.roundModifer.shift()
-    switch(_roundModefier){
+
+    switch(activePlayer.roundModifer.shift()){
         case "SKIP_ROUND":
-            showInformationDialog()
-            endRound()
-            return true
-            break
+            changeState(STATE.SKIP_ROUND)
+        // showInformationDialog()
+        // endRound()
+        // return true
+        break
+
+        default:
+        nextGeneratorStep("... checkRoundModifiers()")
     }
 
+    // setTimeout(() => console.log(runStateGenerator.next(), "checkRoundModifiers()"), 100)    
 }
-
-
-// generator test¨
-
-
-
-
-// function * generatorTest(num) {
-//     for(let i = 0; i < num; i += 1){
-//         yield console.log('test', i)
-//     }
-// }
-
-// const genTest = generatorTest(5)
-
-// genTest.next()
-// genTest.next()
-// genTest.next()
-
-
-
-
-
-function * gameLoop(n) {
-
-    console.log(n)
-    let gameFunctions = [
-        () => {console.log("testMAN")},
-        () => {console.log("test1")},
-        () => {console.log("test2")},
-    ]
-
-    // for (let i = 0; i <= gameFunctions.length; i += 1) {
-    //     yield console.log(i)
-    // }
-//     for (const func of gameFunctions) {
-//         yield func()
-//     }
-// }
-
-// const test = gameLoop(4)
-
-
-// window.addEventListener('keypress', e =>{
-//     if(e.keyCode == KEY.E){
-//         console.log(test.next())
-//     }
-//     // console.log(e.keyCode)
-// })
 
 
 
@@ -119,7 +121,8 @@ function tileAction(){
         
         case tileActionList.SKIP_ROUND:
             activePlayer.roundModifer.push('SKIP_ROUND')
-            endRound()
+            // endRound()
+
             break
 
         // case tileActionList.DRAW_CARD:
@@ -130,22 +133,24 @@ function tileAction(){
         //     break
 
         default:
-            endRound()
+            // endRound()
     }
+    nextGeneratorStep("... tileAction()")
+    // setTimeout(() => console.log(runStateGenerator.next(), "tileAction()"), 100)   
 }
 
 
 function endRound(){
-    
+    console.log("QUE PASSA")
     // initialise extra round
     if(extraRound){
         startRound()
         extraRound = false
         return
     }
-
-    flipTurns()
-    startRound()
+    
+    changeTurns()
+    changeState(STATE.ROUND_SETUP)
 }
 
 
@@ -239,6 +244,7 @@ function startFight(enemy) {
 function elementPos(obj){return obj.getClientRects()[0]}
 
 
+let diceRollNumber = null
 
 function diceRoll(actingFuction){
     hide(diceButton)
@@ -249,7 +255,8 @@ function diceRoll(actingFuction){
 
     diceNumberLabel.innerHTML = randNumber
     show(diceNumberLabel)
-    actingFuction(randNumber)
+    diceRollNumber = randNumber
+    // actingFuction(randNumber)
     // actingFuction(30)
 }
 
@@ -269,8 +276,11 @@ function movePlayer(steps, nextFunction){
     
         steps -= 1
         if(steps <= 0){
+            diceRollNumber = null
             clearInterval(moveInterval)
-            nextFunction()
+            // nextFunction()
+            nextGeneratorStep("... movePlayer()")
+            // setTimeout(() => console.log(runStateGenerator.next(), "movePlayer()"), 100) 
         }
     }, boardMovmentSpeed)
 }
@@ -282,4 +292,18 @@ function drawCard() {
     let card = tileCardDeck.shift() // shift removes first pops first item in array
     let tileCardHTML = createHTMLCard(card)
     return tileCardHTML
+}
+
+// document.addEventListener('DOMContentLoaded', startRound())
+
+
+
+
+//  START ENTRY POINT
+
+
+function startRound(){
+    changeState(STATE.ROUND_SETUP)
+    // console.log(runStateGenerator.next())
+
 }

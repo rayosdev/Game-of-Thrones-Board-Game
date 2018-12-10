@@ -92,7 +92,7 @@ function shuffle(array){
 
 
 
-function flipTurns(){
+function changeTurns(){
     if(activePlayer.id == 'player1'){activePlayer = player2}
     else{activePlayer = player1}
     // startRound()
@@ -171,6 +171,8 @@ function updateHTMLStats() {
 function updateTurnInterface() {
     playerTurnLabel.innerHTML = `${activePlayer.id}'s turn`
     updateHTMLStats()
+    nextGeneratorStep("... updateTurnInterface()")
+    // setTimeout(() => console.log( runStateGenerator.next(), "updateTurnInterface()"), 200)
 }
 
 // player-name-label
@@ -185,4 +187,12 @@ function addTmpListner(element, type, func) {
     func()
     endListner(element,type, listner)
     })
+}
+
+
+function nextGeneratorStep(currentFunctionName) {
+    setTimeout(() => {
+        console.log(currentFunctionName)
+        runStateGenerator.next()
+    }, 100)
 }
