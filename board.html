@@ -114,7 +114,70 @@
         </div>
     </div>
 
-    <div id="informationDialog"></div>
+    <style>
+        #informationDialog{
+            display: grid;
+            justify-self: center;
+            position: absolute;
+            width: 400px;
+            height: 550px;
+            padding: 60px;
+            margin: 160px;
+            background: rgba(158, 71, 71, 0.699);
+            border: red 3px solid;
+            color: rgb(255, 255, 255);
+            font-size: 45px;
+        }
+        #informationDialog h2{
+            margin: 0;
+            padding: 0;
+        }
+        #informationDialog p{
+            font-size: 50px;
+        }
+        #informationDialog button{
+            font-size: 50px;
+        }
+
+        .anim-dialog-show{
+            animation: anim-dialog-show 1s 1 forwards; 
+        }
+
+        @keyframes anim-dialog-show{
+            0%{
+                transform: scale(0);
+                opacity: 0;
+            }
+            100%{
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .anim-dialog-hide{
+            animation: anim-dialog-hide 1s 1 forwards; 
+        }
+
+        @keyframes anim-dialog-hide{
+            0%{
+                transform: scale(1);
+                opacity: 1;
+            }
+            100%{
+                transform: scale(0);
+                opacity: 0;
+            }
+        }
+
+    </style>
+    <div id="informationDialog" class="anim-dialog-show">
+        <h2>Information</h2>
+        <p>Ditailse Lorem ipsum dolor sit, amet consectetur adipisicing elit. Possimus, maiores?</p>
+        <button onclick="console.log('test: ', informationDialog.classList.toggle('anim-dialog-hide')); 
+        setTimeout(e => {informationDialog.classList.toggle('anim-dialog-hide')}, 1000)">
+            done
+        </button>
+    </div>
 
 
     <script> // --- Start Variables

@@ -30,18 +30,20 @@ function hide(element) {element.classList.add('hide')}
 
 // WORK AS AN ENUM
 const tileActionList = {
-    SKIP_ROUND  : "SKIP_ROUND",
-    DRAW_CARD   : "DRAW_CARD",
-    DICE_OUTCOME: "DICE_OUTCOME",
-    STORE       : "STORE",
-    OTHER_LAND  : "OTHER_LAND",
+    SKIP_ROUND      : "SKIP_ROUND",
+    DRAW_CARD       : "DRAW_CARD",
+    DICE_OUTCOME    : "DICE_OUTCOME",
+    STORE           : "STORE",
+    OTHER_LAND      : "OTHER_LAND",
+    MOVE_X_SPACES   : "MOVE_X_SPACES",
+    EMPTY_TILE      : "EMPTY_TILE",
 }
 
 
 const tileDitails = [
     {
         nr:1,
-        name:"Mystirius Death",
+        name:"Kings Landing",
         // tileAction:tileActionList.DRAW_CARD,
         flavorText:""
     },
@@ -54,170 +56,177 @@ const tileDitails = [
     {
         nr:3,
         name:"tile",
-        tileAction:tileActionList.DRAW_CARD,
+        tileAction:tileActionList.EMPTY_TILE,
         flavorText:""
     },
     {
         nr:4,
         name:"tile",
-        tileAction:tileActionList.DRAW_CARD,
+        tileAction:tileActionList.EMPTY_TILE,
         flavorText:""
     },
     {
         nr:5,
         name:"tile",
-        tileAction:tileActionList.DRAW_CARD,
+        tileAction:tileActionList.SKIP_ROUND,
         flavorText:""
     },
     {
         nr:6,
         name:"tile",
-        tileAction:tileActionList.DRAW_CARD,
+        tileAction:tileActionList.EMPTY_TILE,
         flavorText:""
     },
     {
         nr:7,
         name:"tile",
-        tileAction:tileActionList.DRAW_CARD,
-        flavorText:""
+        tileAction:tileActionList.MOVE_X_SPACES,
+        flavorText:"",
+        xSpaces: -1
     },
     {
         nr:8,
         name:"tile",
-        tileAction:tileActionList.DRAW_CARD,
+        tileAction:tileActionList.SKIP_ROUND,
         flavorText:""
     },
     {
         nr:9,
         name:"tile",
-        tileAction:tileActionList.DRAW_CARD,
+        tileAction:tileActionList.EMPTY_TILE,
         flavorText:""
     },
     {
         nr:10,
         name:"tile",
-        tileAction:tileActionList.DRAW_CARD,
+        tileAction:tileActionList.EMPTY_TILE,
         flavorText:""
     },
     {
         nr:11,
         name:"tile",
-        tileAction:tileActionList.DRAW_CARD,
+        tileAction:tileActionList.SKIP_ROUND,
         flavorText:""
     },
     {
         nr:12,
         name:"tile",
-        tileAction:tileActionList.DRAW_CARD,
-        flavorText:""
+        tileAction:tileActionList.MOVE_X_SPACES,
+        flavorText:"",
+        xSpaces: -3
     },
     {
         nr:13,
         name:"tile",
-        tileAction:tileActionList.DRAW_CARD,
+        tileAction:tileActionList.EMPTY_TILE,
         flavorText:""
     },
     {
         nr:14,
         name:"tile",
-        tileAction:tileActionList.DRAW_CARD,
+        tileAction:tileActionList.SKIP_ROUND,
         flavorText:""
     },
     {
         nr:15,
         name:"tile",
-        tileAction:tileActionList.DRAW_CARD,
+        tileAction:tileActionList.EMPTY_TILE,
         flavorText:""
     },
     {
         nr:16,
         name:"tile",
-        tileAction:tileActionList.DRAW_CARD,
-        flavorText:""
+        tileAction:tileActionList.MOVE_X_SPACES,
+        flavorText:"",
+        xSpaces: 3
     },
     {
         nr:17,
         name:"tile",
-        tileAction:tileActionList.DRAW_CARD,
+        tileAction:tileActionList.EMPTY_TILE,
         flavorText:""
     },
     {
         nr:18,
         name:"tile",
-        tileAction:tileActionList.DRAW_CARD,
+        tileAction:tileActionList.EMPTY_TILE,
         flavorText:""
     },
     {
         nr:19,
         name:"tile",
-        tileAction:tileActionList.DRAW_CARD,
+        tileAction:tileActionList.SKIP_ROUND,
         flavorText:""
     },
     {
         nr:20,
         name:"tile",
-        tileAction:tileActionList.DRAW_CARD,
-        flavorText:""
+        tileAction:tileActionList.MOVE_X_SPACES,
+        flavorText:"",
+        xSpaces: 2
     },
     {
         nr:21,
         name:"tile",
-        tileAction:tileActionList.DRAW_CARD,
+        tileAction:tileActionList.EMPTY_TILE,
         flavorText:""
     },
     {
         nr:22,
         name:"tile",
-        tileAction:tileActionList.DRAW_CARD,
+        tileAction:tileActionList.EMPTY_TILE,
         flavorText:""
     },
     {
         nr:23,
         name:"tile",
-        tileAction:tileActionList.DRAW_CARD,
+        tileAction:tileActionList.EMPTY_TILE,
         flavorText:""
     },
     {
         nr:24,
         name:"tile",
-        tileAction:tileActionList.DRAW_CARD,
+        tileAction:tileActionList.SKIP_ROUND,
         flavorText:""
     },
     {
         nr:25,
         name:"tile",
-        tileAction:tileActionList.DRAW_CARD,
-        flavorText:""
+        tileAction:tileActionList.MOVE_X_SPACES,
+        flavorText:"",
+        xSpaces: 3
     },
     {
         nr:26,
         name:"tile",
-        tileAction:tileActionList.DRAW_CARD,
+        tileAction:tileActionList.SKIP_ROUND,
         flavorText:""
     },
     {
         nr:27,
         name:"tile",
-        tileAction:tileActionList.DRAW_CARD,
+        tileAction:tileActionList.EMPTY_TILE,
         flavorText:""
     },
     {
         nr:28,
         name:"tile",
-        tileAction:tileActionList.DRAW_CARD,
-        flavorText:""
+        tileAction:tileActionList.MOVE_X_SPACES,
+        flavorText:"",
+        xSpaces: -10
     },
     {
         nr:29,
         name:"tile",
-        tileAction:tileActionList.DRAW_CARD,
+        tileAction:tileActionList.EMPTY_TILE,
         flavorText:""
     },
     {
         nr:30,
         name:"tile",
-        tileAction:tileActionList.DRAW_CARD,
-        flavorText:""
+        tileAction:tileActionList.MOVE_X_SPACES,
+        flavorText:"",
+        xSpaces: -5
     }
 ]
 let allHTMLTiles = []

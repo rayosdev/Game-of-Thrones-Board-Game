@@ -7,6 +7,7 @@ const STATE = {
     MOVE_PLAYER:"MOVE_PLAYER",
     END_ROUND:"END_ROUND",
     SKIP_ROUND:"SKIP_ROUND",
+    MOVE_X_SPACES:"MOVE_X_SPACES"
 
 }
 
@@ -15,32 +16,49 @@ let currentStat = STATE.ROUND_SETUP
 function * stateMachine() {
     switch (currentStat) {
         
+
         case STATE.ROUND_SETUP:
-            yield updateTurnInterface()
             yield checkRoundModifiers()
             yield changeState(STATE.MOVE_DICE)
         break
+
 
         case STATE.MOVE_DICE:
             yield setupDiceMoveBtn()
             yield changeState(STATE.MOVE_PLAYER)
         break
             
+
         case STATE.MOVE_PLAYER:
             yield movePlayer(diceRollNumber)
             yield tileAction()     
             yield changeState(STATE.END_ROUND)  
         break
         
+
         case STATE.END_ROUND:
             yield changeTurns()
+            console.log("___________________________________________________")
+            console.log(activePlayer.stats.name)
             changeState(STATE.ROUND_SETUP) 
         break
    
+        
+        //      ROUND MODEFIERS
+
+
         case STATE.SKIP_ROUND:
-            
             yield changeState(STATE.END_ROUND) 
         break
+        
+        
+        case STATE.MOVE_X_SPACES:
+            yield movePlayer(xSpaces)
+            yield () => {xSpaces = 0, nextGeneratorStep("... xSpace = 0")}
+            yield changeState(STATE.END_ROUND)
+        break
+
+
     }
     
     
@@ -66,6 +84,7 @@ function setupDiceMoveBtn() {
 
     addTmpListner(diceButton,'click', function (){
         diceRoll()
+        if(diceRollNumber == 6){extraRound = true}
         nextGeneratorStep("... setupDiceMoveBtn()")
         // setTimeout(() => console.log( runStateGenerator.next() , "setupDiceMoveBtn()"), 100)
     })
@@ -109,31 +128,40 @@ function showInformationDialog(test) {
 // showInformationDialog([e => alert('test1'),e => alert('test2'),e => alert('test3')])
 // showInformationDialog()
 
-
+xSpaces = 0
 
 function tileAction(){
     let tileNr = activePlayer.tile - 1
-    switch(allHTMLTiles[tileNr].tileDitails.tileAction){
+    let tileInfo = allHTMLTiles[tileNr].tileDitails
+    console.log("TileAction: " ,tileInfo.tileAction)
+    switch(tileInfo.tileAction){
+
 
         case tileActionList.DICE_OUTCOME:
             
             break
-        
+
+            
         case tileActionList.SKIP_ROUND:
             activePlayer.roundModifer.push('SKIP_ROUND')
-            // endRound()
 
             break
+        
 
-        // case tileActionList.DRAW_CARD:
-        //     setTimeout( e => {
-        //         let tileCardHTML = drawCard()
-        //         evaluateDrawnTileCard(tileCardHTML)
-        //     }, 500) //    500
-        //     break
+        case tileActionList.MOVE_X_SPACES:
+            xSpaces = tileInfo.xSpaces
+            changeState(STATE.MOVE_X_SPACES)
+            break    
+        
+
+        case tileActionList.EMPTY_TILE:
+
+        
+            break
+
 
         default:
-            // endRound()
+        
     }
     nextGeneratorStep("... tileAction()")
     // setTimeout(() => console.log(runStateGenerator.next(), "tileAction()"), 100)   
@@ -141,7 +169,6 @@ function tileAction(){
 
 
 function endRound(){
-    console.log("QUE PASSA")
     // initialise extra round
     if(extraRound){
         startRound()
@@ -251,7 +278,7 @@ function diceRoll(actingFuction){
     let randNumber = Math.round(Math.random() * 5 + 1)
     
     // for testing
-    randNumber = 1
+    // randNumber = 1
 
     diceNumberLabel.innerHTML = randNumber
     show(diceNumberLabel)
@@ -262,20 +289,20 @@ function diceRoll(actingFuction){
 
 
 
-
 const boardMovmentSpeed = 200 //      200
 
 function movePlayer(steps, nextFunction){
 
     // you get an extra round if the dice throw was 6
-    if(steps == 6){
-        extraRound = true
-    }
-    let moveInterval = setInterval(e => {  
-        moveToTile(activePlayer, activePlayer.tile + 1)
+    let signNr = Math.sign(steps)
     
-        steps -= 1
-        if(steps <= 0){
+    let moveInterval = setInterval(() => {  
+        moveToTile(activePlayer, activePlayer.tile + signNr)
+        
+        // console.log("STEPS: ", steps, " SIGNNR: ", signNr)
+        steps -= signNr
+        console.log("steps: ", steps)
+        if(steps == 0){
             diceRollNumber = null
             clearInterval(moveInterval)
             // nextFunction()
@@ -303,6 +330,8 @@ function drawCard() {
 
 
 function startRound(){
+    console.log("___________________________________________________")
+    console.log(activePlayer.stats.name)
     changeState(STATE.ROUND_SETUP)
     // console.log(runStateGenerator.next())
 
