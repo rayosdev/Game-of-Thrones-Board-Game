@@ -31,8 +31,11 @@ function * stateMachine() {
 
         case STATE.MOVE_PLAYER:
             yield movePlayer(diceRollNumber)
-            yield tileAction()     
-            yield changeState(STATE.END_ROUND)  
+            yield tileAction()
+            yield 
+            console.log("MHMMMMMM" ,tileActionFunction)
+            if(tileActionFunction == null) {changeState(STATE.END_ROUND)}  
+            else {tileActionFunction}
         break
         
 
@@ -128,7 +131,10 @@ function showInformationDialog(test) {
 // showInformationDialog([e => alert('test1'),e => alert('test2'),e => alert('test3')])
 // showInformationDialog()
 
-xSpaces = 0
+// xSpaces = 0
+
+
+let tileActionFunction
 
 function tileAction(){
     let tileNr = activePlayer.tile - 1
@@ -150,7 +156,8 @@ function tileAction(){
 
         case tileActionList.MOVE_X_SPACES:
             xSpaces = tileInfo.xSpaces
-            changeState(STATE.MOVE_X_SPACES)
+            console.log('state change time----')
+            // tileActionFunction = changeState(STATE.MOVE_X_SPACES)
             break    
         
 
@@ -163,8 +170,18 @@ function tileAction(){
         default:
         
     }
-    nextGeneratorStep("... tileAction()")
+    // console.log(tileInfo)
+    dialogElement.querySelector('h2').innerText = tileInfo.name 
+    dialogElement.querySelector('h4').innerText = tileInfo.tileAction 
+    dialogElement.querySelector('p').innerText = tileInfo.flavorText 
+    dialogElement.classList.remove('hide')
+    dialogElement.classList.toggle('anim-dialog-hide')
+    // nextGeneratorStep("... tileAction()")
     // setTimeout(() => console.log(runStateGenerator.next(), "tileAction()"), 100)   
+}
+
+function showDialog() {
+    // class="hide anim-dialog-show anim-dialog-hide"
 }
 
 

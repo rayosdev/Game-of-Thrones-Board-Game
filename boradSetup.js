@@ -20,6 +20,11 @@ let enemyDamageLabel = document.getElementById('enemyDamageLabel')
 let playerDamageLabel = document.getElementById('playerDamageLabel')
 
 
+let dialogElement = document.getElementById('informationDialog')
+dialogElement.querySelector('button').addEventListener('click' ,() => {
+        dialogElement.classList.toggle('anim-dialog-hide')
+        setTimeout(() => console.log(runStateGenerator.next(), "... Listner on dialogElementButton"), 1000)    
+})
 
 
 
