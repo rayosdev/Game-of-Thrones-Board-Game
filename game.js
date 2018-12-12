@@ -33,15 +33,23 @@ function * stateMachine() {
             yield movePlayer(diceRollNumber)
             yield tileAction()
             yield tileActionNextFunction()
-            // if(tileActionFunction == 'undefined') {console.log("testMAN MAN") ;changeState(STATE.END_ROUND)}  
-            // else {tileActionFunction}
-
-
         break
         
 
         case STATE.END_ROUND:
             yield checkForExtraRound()
+            yield (function() {
+                if(endGame){ 
+                    console.log("END GAME")
+                    if(oneLastRound){
+                        console.log("ONE LAST ROUND")
+                        nextGeneratorStep()
+                    }
+                    else{
+                        console.log("GAME FINSIHED"); 
+                    }
+                }
+            })()
             yield changeTurns()
             console.log("___________________________________________________")
             console.log(activePlayer.stats.name)
@@ -81,18 +89,23 @@ function changeState(newState) {
 
 
 let extraRound = false
-let endGame = false 
+let endGame = false
+let oneLastRound = false
 
 
 function checkForExtraRound() {
 
-    if(extraRound){changeState(STATE.ROUND_SETUP)}
+    if(extraRound){
+        changeState(STATE.ROUND_SETUP)
+        extraRound = false
+    }
     else{nextGeneratorStep("... checkForExtraRound()")}
 }
 
 
 function setupDiceMoveBtn() {
     show(diceButton)
+    diceButton.focus()
 
     addTmpListner(diceButton,'click', function (){
         diceRoll()
@@ -137,12 +150,6 @@ function showInformationDialog(test) {
 }
 
 
-// showInformationDialog([e => alert('test1'),e => alert('test2'),e => alert('test3')])
-// showInformationDialog()
-
-// xSpaces = 0
-
-
 let tileActionNextFunction
 
 function tileAction(){
@@ -185,11 +192,13 @@ function tileAction(){
     dialogElement.querySelector('h2').innerText = tileInfo.name 
     dialogElement.querySelector('h4').innerText = tileInfo.tileAction 
     dialogElement.querySelector('p').innerText = tileInfo.flavorText 
+    dialogElement.querySelector('button').focus()
     dialogElement.classList.remove('hide')
     dialogElement.classList.toggle('anim-dialog-hide')
     // nextGeneratorStep("... tileAction()")
     // setTimeout(() => console.log(runStateGenerator.next(), "tileAction()"), 100)   
 }
+
 
 function showDialog() {
     // class="hide anim-dialog-show anim-dialog-hide"
@@ -295,7 +304,6 @@ function startFight(enemy) {
 }
 
 
-
 function elementPos(obj){return obj.getClientRects()[0]}
 
 
@@ -305,26 +313,41 @@ function diceRoll(actingFuction){
     hide(diceButton)
     let randNumber = Math.round(Math.random() * 5 + 1)
     
-    // for testing
-    // randNumber = 6
+    //# Only for testing
+    randNumber = 6
 
     diceNumberLabel.innerHTML = randNumber
     show(diceNumberLabel)
     diceRollNumber = randNumber
-    // actingFuction(randNumber)
-    // actingFuction(30)
 }
 
-
+// console.log(player1.stats.name == activePlayer)
+// console.log(activePlayer.stats)
 
 const boardMovmentSpeed = 200 //      200
 
 function movePlayer(steps, nextFunction){
-
+    
     // you get an extra round if the dice throw was 6
     let signNr = Math.sign(steps)
     
     let moveInterval = setInterval(() => {  
+        //# Check if player is going past tile 30
+        if(activePlayer.tile == 30){
+            //# Save overflow of steps and start last round
+            if(player1 == activePlayer){
+                player1.overflowSteps = steps
+                oneLastRound = true
+            }
+            if(player2 == activePlayer){
+                player2.overflowSteps = steps
+            }
+            extraRound = false
+            clearInterval(moveInterval)
+            console.log("activePlayer.overflowSteps: ", activePlayer.overflowSteps)
+            console.log("oneLastRound: ", oneLastRound)
+            return changeState(STATE.END_ROUND)
+        }
         moveToTile(activePlayer, activePlayer.tile + signNr)
         
         // console.log("STEPS: ", steps, " SIGNNR: ", signNr)

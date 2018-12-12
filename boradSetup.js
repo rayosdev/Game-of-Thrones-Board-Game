@@ -294,6 +294,8 @@ function onReady(){
     player1.roundModifer = []
     player2.roundModifer = []
 
+    player1.overflowSteps = 0
+
     player1.stats = {
             name:"Brienne of Tarth",
             ID:216,

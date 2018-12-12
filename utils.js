@@ -185,7 +185,7 @@ function endListner(element ,event, funcName){
 function addTmpListner(element, type, func) {
     element.addEventListener(type, function listner(){
     func()
-    endListner(element,type, listner)
+    endListner(element, type, listner)
     })
 }
 
