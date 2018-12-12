@@ -192,12 +192,16 @@ function tileAction(){
     dialogElement.querySelector('h2').innerText = tileInfo.name 
     dialogElement.querySelector('h4').innerText = tileInfo.tileAction 
     dialogElement.querySelector('p').innerText = tileInfo.flavorText 
-    dialogElement.querySelector('button').focus()
     dialogElement.classList.remove('hide')
     dialogElement.classList.toggle('anim-dialog-hide')
-    // nextGeneratorStep("... tileAction()")
-    // setTimeout(() => console.log(runStateGenerator.next(), "tileAction()"), 100)   
+    dialogElement.querySelector('button').focus()
+    
+    addTmpListner(dialogElement, 'click', function () {
+        dialogElement.classList.toggle('anim-dialog-hide')
+        nextGeneratorStep("... dialogButton")
+    })
 }
+
 
 
 function showDialog() {

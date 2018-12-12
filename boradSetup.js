@@ -21,10 +21,10 @@ let playerDamageLabel = document.getElementById('playerDamageLabel')
 
 
 let dialogElement = document.getElementById('informationDialog')
-dialogElement.querySelector('button').addEventListener('click' ,() => {
-        dialogElement.classList.toggle('anim-dialog-hide')
-        setTimeout(() => {runStateGenerator.next(); console.log("... dialogButton")}, 100)    
-})
+// dialogElement.querySelector('button').addEventListener('click' ,() => {
+//         dialogElement.classList.toggle('anim-dialog-hide')
+//         setTimeout(() => {runStateGenerator.next(); console.log("... dialogButton")}, 100)    
+// })
 
 
 
