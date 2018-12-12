@@ -23,7 +23,7 @@ let playerDamageLabel = document.getElementById('playerDamageLabel')
 let dialogElement = document.getElementById('informationDialog')
 dialogElement.querySelector('button').addEventListener('click' ,() => {
         dialogElement.classList.toggle('anim-dialog-hide')
-        setTimeout(() => console.log(runStateGenerator.next(), "... Listner on dialogElementButton"), 1000)    
+        setTimeout(() => {runStateGenerator.next(); console.log("... dialogButton")}, 100)    
 })
 
 
@@ -44,6 +44,7 @@ const tileActionList = {
     EMPTY_TILE      : "EMPTY_TILE",
 }
 
+let tileDetialsCard = document.getElementById('tileDetialsCard')
 
 const tileDitails = [
     {
@@ -218,7 +219,7 @@ const tileDitails = [
         name:"tile",
         tileAction:tileActionList.MOVE_X_SPACES,
         flavorText:"",
-        xSpaces: -10
+        xSpaces: -5
     },
     {
         nr:29,
@@ -231,7 +232,7 @@ const tileDitails = [
         name:"tile",
         tileAction:tileActionList.MOVE_X_SPACES,
         flavorText:"",
-        xSpaces: -5
+        xSpaces: -10
     }
 ]
 let allHTMLTiles = []
@@ -247,10 +248,17 @@ function polulateTileDetails(){
     let i = 0
     allHTMLTiles.forEach(element => {
         element.tileDitails = tileDitails[i]
+        element.addEventListener('mouseover', e => {
+            let ditails = element.tileDitails
+            tileDetialsCard.querySelector('h2').innerText = ditails.tile
+            tileDetialsCard.querySelector('h3').innerText = ditails.tileAction
+        })
         i++
     });
     // console.log(allHTMLTiles[4].tileDitails)
 }
+
+
 
 
 let tileCardDeck = []

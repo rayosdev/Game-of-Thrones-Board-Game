@@ -32,22 +32,23 @@ function * stateMachine() {
         case STATE.MOVE_PLAYER:
             yield movePlayer(diceRollNumber)
             yield tileAction()
-            yield 
-            console.log("MHMMMMMM" ,tileActionFunction)
-            if(tileActionFunction == null) {changeState(STATE.END_ROUND)}  
-            else {tileActionFunction}
+            yield tileActionNextFunction()
+            // if(tileActionFunction == 'undefined') {console.log("testMAN MAN") ;changeState(STATE.END_ROUND)}  
+            // else {tileActionFunction}
+
+
         break
         
 
         case STATE.END_ROUND:
+            yield checkForExtraRound()
             yield changeTurns()
             console.log("___________________________________________________")
             console.log(activePlayer.stats.name)
             changeState(STATE.ROUND_SETUP) 
         break
    
-        
-        //      ROUND MODEFIERS
+
 
 
         case STATE.SKIP_ROUND:
@@ -57,7 +58,9 @@ function * stateMachine() {
         
         case STATE.MOVE_X_SPACES:
             yield movePlayer(xSpaces)
-            yield () => {xSpaces = 0, nextGeneratorStep("... xSpace = 0")}
+            xSpaces = 0
+            // yield () => {xSpaces = 0; nextGeneratorStep("... xSpace = 0")}
+            // console.log("--- After Player Move")
             yield changeState(STATE.END_ROUND)
         break
 
@@ -77,9 +80,15 @@ function changeState(newState) {
 }
 
 
-
 let extraRound = false
+let endGame = false 
 
+
+function checkForExtraRound() {
+
+    if(extraRound){changeState(STATE.ROUND_SETUP)}
+    else{nextGeneratorStep("... checkForExtraRound()")}
+}
 
 
 function setupDiceMoveBtn() {
@@ -134,12 +143,12 @@ function showInformationDialog(test) {
 // xSpaces = 0
 
 
-let tileActionFunction
+let tileActionNextFunction
 
 function tileAction(){
     let tileNr = activePlayer.tile - 1
     let tileInfo = allHTMLTiles[tileNr].tileDitails
-    console.log("TileAction: " ,tileInfo.tileAction)
+    // console.log("TileAction: " ,tileInfo.tileAction)
     switch(tileInfo.tileAction){
 
 
@@ -150,24 +159,26 @@ function tileAction(){
             
         case tileActionList.SKIP_ROUND:
             activePlayer.roundModifer.push('SKIP_ROUND')
-
+            tileActionNextFunction = changeState.bind(null, STATE.END_ROUND)
             break
         
 
         case tileActionList.MOVE_X_SPACES:
             xSpaces = tileInfo.xSpaces
-            console.log('state change time----')
+            
+            tileActionNextFunction = changeState.bind(null, STATE.MOVE_X_SPACES)
             // tileActionFunction = changeState(STATE.MOVE_X_SPACES)
             break    
         
 
         case tileActionList.EMPTY_TILE:
-
-        
+            tileActionNextFunction = changeState.bind(null, STATE.END_ROUND)
+            // console.log(tileActionFunction)
             break
-
-
+            
+            
         default:
+            tileActionNextFunction = changeState.bind(null, STATE.END_ROUND)
         
     }
     // console.log(tileInfo)
@@ -295,7 +306,7 @@ function diceRoll(actingFuction){
     let randNumber = Math.round(Math.random() * 5 + 1)
     
     // for testing
-    // randNumber = 1
+    // randNumber = 6
 
     diceNumberLabel.innerHTML = randNumber
     show(diceNumberLabel)
