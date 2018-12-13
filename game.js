@@ -40,15 +40,17 @@ function * stateMachine() {
             yield checkForExtraRound()
             yield (function() {
                 if(endGame){ 
-                    console.log("END GAME")
+                    console.log("THE END GAME")
                     if(oneLastRound){
                         console.log("ONE LAST ROUND")
-                        nextGeneratorStep()
+                        oneLastRound = false
+                        nextGeneratorStep("... endRoundCheck")
                     }
                     else{
                         console.log("GAME FINSIHED"); 
                     }
                 }
+                else{nextGeneratorStep("... endRoundCheck")}
             })()
             yield changeTurns()
             console.log("___________________________________________________")
@@ -83,7 +85,7 @@ let runStateGenerator = stateMachine()
 function changeState(newState) {
     currentStat = newState
     runStateGenerator = stateMachine()
-    nextGeneratorStep(`... changetate(${newState})`)
+    nextGeneratorStep(`... changeState(${newState})`)
     // setTimeout(() => console.log( runStateGenerator.next(), `changetate(${newState})`), 100)
 }
 
@@ -155,7 +157,7 @@ let tileActionNextFunction
 function tileAction(){
     let tileNr = activePlayer.tile - 1
     let tileInfo = allHTMLTiles[tileNr].tileDitails
-    // console.log("TileAction: " ,tileInfo.tileAction)
+    console.log("TileAction: " ,tileInfo.tileAction)
     switch(tileInfo.tileAction){
 
 
@@ -209,6 +211,7 @@ function showDialog() {
 }
 
 
+//# Deprecated
 function endRound(){
     // initialise extra round
     if(extraRound){
@@ -318,7 +321,7 @@ function diceRoll(actingFuction){
     let randNumber = Math.round(Math.random() * 5 + 1)
     
     //# Only for testing
-    randNumber = 6
+    // randNumber = 6
 
     diceNumberLabel.innerHTML = randNumber
     show(diceNumberLabel)
@@ -328,7 +331,7 @@ function diceRoll(actingFuction){
 // console.log(player1.stats.name == activePlayer)
 // console.log(activePlayer.stats)
 
-const boardMovmentSpeed = 200 //      200
+const boardMovmentSpeed = 10 //      200
 
 function movePlayer(steps, nextFunction){
     
@@ -337,18 +340,23 @@ function movePlayer(steps, nextFunction){
     
     let moveInterval = setInterval(() => {  
         //# Check if player is going past tile 30
-        if(activePlayer.tile == 30){
+        if(activePlayer.tile == 30 && steps > 1){
+
+            console.log("steps when on tile 30: ", steps)
             //# Save overflow of steps and start last round
             if(player1 == activePlayer){
                 player1.overflowSteps = steps
                 oneLastRound = true
+                console.log("plauer1: ", player1.stats.name, "  :  oneLastRound: ", oneLastRound )
             }
             if(player2 == activePlayer){
                 player2.overflowSteps = steps
             }
+            endGame = true
+
             extraRound = false
             clearInterval(moveInterval)
-            console.log("activePlayer.overflowSteps: ", activePlayer.overflowSteps)
+            console.log(activePlayer.stats.name, "overflowSteps: ", activePlayer.overflowSteps)
             console.log("oneLastRound: ", oneLastRound)
             return changeState(STATE.END_ROUND)
         }
