@@ -340,14 +340,14 @@ function movePlayer(steps, nextFunction){
     
     let moveInterval = setInterval(() => {  
         //# Check if player is going past tile 30
-        if(activePlayer.tile == 30 && steps > 1){
+        if(activePlayer.tile == 30 && steps >= 1){
 
             console.log("steps when on tile 30: ", steps)
             //# Save overflow of steps and start last round
             if(player1 == activePlayer){
                 player1.overflowSteps = steps
                 oneLastRound = true
-                console.log("plauer1: ", player1.stats.name, "  :  oneLastRound: ", oneLastRound )
+                console.log("player1: ", player1.stats.name, "  :  oneLastRound: ", oneLastRound )
             }
             if(player2 == activePlayer){
                 player2.overflowSteps = steps
@@ -363,9 +363,10 @@ function movePlayer(steps, nextFunction){
         moveToTile(activePlayer, activePlayer.tile + signNr)
         
         // console.log("STEPS: ", steps, " SIGNNR: ", signNr)
-        steps -= signNr
         console.log("steps: ", steps)
+        steps -= signNr
         if(steps == 0){
+            console.log("end tile: ", activePlayer.tile)
             diceRollNumber = null
             clearInterval(moveInterval)
             // nextFunction()
