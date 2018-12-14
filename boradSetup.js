@@ -295,6 +295,7 @@ function onReady(){
     player2.roundModifer = []
 
     player1.overflowSteps = 0
+    player2.overflowSteps = 0
 
     player1.stats = {
             name:"Brienne of Tarth",

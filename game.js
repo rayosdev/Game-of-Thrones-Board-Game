@@ -1,5 +1,5 @@
 
-//des 13
+
 
 
 const STATE = {
@@ -8,7 +8,8 @@ const STATE = {
     MOVE_PLAYER:"MOVE_PLAYER",
     END_ROUND:"END_ROUND",
     SKIP_ROUND:"SKIP_ROUND",
-    MOVE_X_SPACES:"MOVE_X_SPACES"
+    MOVE_X_SPACES:"MOVE_X_SPACES",
+    GAME_DRAW:"GAME_DRAW"
 
 }
 
@@ -48,6 +49,23 @@ function * stateMachine() {
                         nextGeneratorStep("... endRoundCheck")
                     }
                     else{
+
+                        if(playersFinsihed.length != 2){
+                            victory(playersFinsihed[0])
+                        }else{
+                            console.log("overflow check: ", player1.overflowSteps, " | ", player2.overflowSteps)
+                            if(player1.overflowSteps != player2.overflowSteps){
+                                if(player1.overflowSteps > player2.overflowSteps){
+                                    victory(player1)
+                                }else{
+                                    victory(player2)
+                                }
+                            }else{
+                                player1.roundModifer[0] = STATE.GAME_DRAW
+                                player2.roundModifer[0] = STATE.GAME_DRAW
+                                nextGeneratorStep("... DRAW_ROUND")
+                            }
+                        }
                         console.log("GAME FINSIHED"); 
                     }
                 }
@@ -74,12 +92,19 @@ function * stateMachine() {
             // console.log("--- After Player Move")
             yield changeState(STATE.END_ROUND)
         break
+        
+        case STATE.GAME_DRAW:
+            yield setupDrawDiceBtn()
+
+        break
+
 
 
     }
     
     
 }
+
 
 let runStateGenerator = stateMachine()
 
@@ -119,6 +144,19 @@ function setupDiceMoveBtn() {
 }
 
 
+function setupDrawDiceBtn() {
+    show(diceButton)
+    diceButton.focus()
+
+    addTmpListner(diceButton,'click', function (){
+        diceRoll()
+        if(diceRollNumber == 6){extraRound = true}
+        nextGeneratorStep("... setupDrawDiceBtn()")
+        // setTimeout(() => console.log( runStateGenerator.next() , "setupDiceMoveBtn()"), 100)
+    })
+}
+
+
 function checkRoundModifiers(){
 
     // console.log(activePlayer.stats.name," : ",activePlayer.roundModifer.length)
@@ -131,6 +169,9 @@ function checkRoundModifiers(){
         // endRound()
         // return true
         break
+        case STATE.GAME_DRAW:
+            changeState(STATE.GAME_DRAW)
+        break
 
         default:
         nextGeneratorStep("... checkRoundModifiers()")
@@ -140,7 +181,9 @@ function checkRoundModifiers(){
 }
 
 
-
+function victory(player) {
+    console.log(player.stats.name, " is Victoris!!!!!!!")
+}
 
 
 function showInformationDialog(test) {
@@ -322,7 +365,7 @@ function diceRoll(actingFuction){
     let randNumber = Math.round(Math.random() * 5 + 1)
     
     //# Only for testing
-    // randNumber = 6
+    randNumber = 6
 
     diceNumberLabel.innerHTML = randNumber
     show(diceNumberLabel)
@@ -333,6 +376,7 @@ function diceRoll(actingFuction){
 // console.log(activePlayer.stats)
 
 const boardMovmentSpeed = 10 //      200
+let playersFinsihed = []
 
 function movePlayer(steps, nextFunction){
     
@@ -340,27 +384,35 @@ function movePlayer(steps, nextFunction){
     let signNr = Math.sign(steps)
     
     let moveInterval = setInterval(() => {  
-        //# Check if player is going past tile 30
-        if(activePlayer.tile == 30 && steps >= 1){
 
-            console.log("steps when on tile 30: ", steps)
-            //# Save overflow of steps and start last round
-            if(player1 == activePlayer){
-                player1.overflowSteps = steps
-                oneLastRound = true
-                console.log("player1: ", player1.stats.name, "  :  oneLastRound: ", oneLastRound )
-            }
-            if(player2 == activePlayer){
-                player2.overflowSteps = steps
-            }
-            endGame = true
-
-            extraRound = false
+        if(playerOnLastTile(steps)){
             clearInterval(moveInterval)
-            console.log(activePlayer.stats.name, "overflowSteps: ", activePlayer.overflowSteps)
-            console.log("oneLastRound: ", oneLastRound)
             return changeState(STATE.END_ROUND)
         }
+
+        //# Check if player is going past tile 30
+        // if(activePlayer.tile == 30 && steps >= 1){
+
+        //     console.log("steps when on tile 30: ", steps)
+        //     //# Save overflow of steps and start last round
+        //     if(player1 == activePlayer){
+        //         player1.overflowSteps = steps
+        //         oneLastRound = true
+        //         console.log("player1: ", player1.stats.name, "  :  oneLastRound: ", oneLastRound )
+        //     }
+        //     if(player2 == activePlayer){
+        //         player2.overflowSteps = steps
+        //     }
+        //     endGame = true
+
+        //     extraRound = false
+        //     clearInterval(moveInterval)
+        //     console.log(activePlayer.stats.name, "overflowSteps: ", activePlayer.overflowSteps)
+        //     console.log("oneLastRound: ", oneLastRound)
+        //     return changeState(STATE.END_ROUND)
+        // }
+
+
         moveToTile(activePlayer, activePlayer.tile + signNr)
         
         // console.log("STEPS: ", steps, " SIGNNR: ", signNr)
@@ -376,6 +428,35 @@ function movePlayer(steps, nextFunction){
         }
     }, boardMovmentSpeed)
 }
+
+
+
+function playerOnLastTile(steps) {
+    //# Check if player is going past tile 30
+    if(activePlayer.tile == 30 && steps >= 1){
+
+        console.log("steps when on tile 30: ", steps)
+        //# Save overflow of steps and start last round
+        if(player1 == activePlayer){
+            player1.overflowSteps = steps
+            playersFinsihed.push(player1)
+            oneLastRound = true
+            console.log("player1: ", player1.stats.name, "  :  oneLastRound: ", oneLastRound )
+        }
+        if(player2 == activePlayer){
+            player2.overflowSteps = steps
+            playersFinsihed.push(player2)
+        }
+        endGame = true
+
+        extraRound = false
+
+        console.log(activePlayer.stats.name, "overflowSteps: ", activePlayer.overflowSteps)
+        console.log("oneLastRound: ", oneLastRound)
+        return true
+    }    
+}
+
 
 
 
