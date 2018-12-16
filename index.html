@@ -15,7 +15,7 @@
 
 </style>
 <body>
-    <!-- T'des 16 -->
+     <!-- Swap pc -->
     <style>
         #end-result-image{
             position: absolute;
@@ -106,6 +106,7 @@
             /* border: solid 3px blue; */
         }
         #errorInstructions{
+            margin-top: 0;
             opacity: 0;
         }
 
@@ -120,7 +121,26 @@
             90% {opacity: 1;}
             100%{opacity: 0;}
         }
-        
+        .play-button{
+            display: grid;
+            justify-self: center;
+            color: #FFCC00;
+            font-size: 25px;
+            border: 3px solid #FFCC00;
+            padding: 10px;
+            cursor: pointer;
+            width: 100px;
+            transition: 0.3s;
+            opacity: 1;
+        }
+        .play-button:hover{
+            background: rgba(255, 255, 255, 0.151);
+        }
+
+        .invisable{
+            opacity: 0;
+            cursor: default;
+        }
     </style>
     <img id="end-result-image" class="hide" src="/img/tmp/chracter select frame.png" alt="">
     
@@ -139,6 +159,8 @@
                 <h3 class="player-instructions" id="errorInstructions">
                     only select two characters
                 </h3>
+
+                <div class="play-button invisable" id="playButton">PLAY</div>
 
                 <div class="shield-container">
                     <div class="shield-item" value="brian"><img src="img/shield - Brian.svg" alt=""></div>
@@ -175,10 +197,24 @@
                         }, 100)
 
                     }
+                    if(selectedCharacter.length == 2){
+                        playButton.classList.remove('invisable')
+                        playButtonListner = playButton.addEventListener('click', () => {
+                            console.log("hola mundo")
+                        })
+                    }else{
+                        playButton.removeEventListener('click',playButtonListner)
+                        playButton.classList.add('invisable')
+                    }
                 }
             )
                 
         }
+        
+        
+        let playButton = document.getElementById('playButton')
+        let playButtonListner = null
+
     </script>
 
     <!-- API -->
@@ -200,6 +236,9 @@
             <div class="UI__character-container" id="characterContainer">
 
                 <script>
+                    let playerOne
+                    let playerTwo
+
                     let playableCharacters = 
                         [
                             {
@@ -296,7 +335,7 @@
                                         returnCharacter.coatOfArms = json.coatOfArms
                                         returnCharacter.words = json.words
                                         returnCharacter.ancestralWeapons = json.ancestralWeapons 
-                                        // console.log(returnCharacter);
+                                        console.log(returnCharacter);
                                         returnCharacter.stats = charcterObject
                                 })
                                 .then( e => generatCharacterHTML(returnCharacter))
@@ -307,11 +346,11 @@
                             return returnCharacter
                     }
                     
-                    playerOne = fetchCharacter(playableCharacters[7])
+                    playerOne = fetchCharacter(playableCharacters[1])
                     playertwo = fetchCharacter(playableCharacters[0])
 
                     // console.log(playerOne, " - ", playertwo);
-                    console.log(JSON.stringify(playerOne))
+                    console.log("que passa: " ,JSON.stringify(playertwo))
                     // console.log(playerOne)
 
 
