@@ -58,7 +58,8 @@ function moveToTile(element, number){
     element.style.left = `${elementPos.x}px`
     element.style.top = `${elementPos.y}px`
 
-    element.innerText = number
+    //# fordebuging later
+    // element.innerText = number
     element.tile = number
 }
 

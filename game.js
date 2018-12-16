@@ -156,25 +156,27 @@ function checkForExtraRound() {
 
 
 function setupDiceMoveBtn() {
-    show(diceButton)
+    // show(diceButton)
     diceButton.focus()
 
     addTmpListner(diceButton,'click', function (){
         diceRoll()
         if(diceRollNumber == 6){extraRound = true}
-        nextGeneratorStep("... setupDiceMoveBtn()")
+        // nextGeneratorStep("... setupDiceMoveBtn()")
+        setTimeout( () => nextGeneratorStep("... setupDiceMoveBtn()"), 1500)
      })
 }
 
 
 function setupDrawDiceBtn() {
-    show(diceButton)
+    // show(diceButton)
     diceButton.focus()
 
     addTmpListner(diceButton,'click', function (){
         diceRoll()
         activePlayer.gameDrawDiceThrow = diceRollNumber
-        nextGeneratorStep("... setupDrawDiceBtn()")
+        setTimeout( () => nextGeneratorStep("... setupDrawDiceBtn()"), 1000)
+        
     })
 }
 
@@ -246,6 +248,8 @@ function tileAction(){
             tileActionNextFunction = changeState.bind(null, STATE.END_ROUND)
         
     }
+    console.log(tileAction)
+    if(tileInfo.tileAction == tileActionList.EMPTY_TILE){return nextGeneratorStep("... Empty Tile")}
     // console.log(tileInfo)
     dialogElement.querySelector('h2').innerText = tileInfo.name 
     dialogElement.querySelector('h4').innerText = tileInfo.tileAction 
@@ -382,8 +386,9 @@ function elementPos(obj){return obj.getClientRects()[0]}
 let diceRollNumber = null
 
 function diceRoll(actingFuction){
-    hide(diceButton)
+    // hide(diceButton)
     let randNumber = Math.round(Math.random() * 5 + 1)
+    runDiceAnimation(randNumber)
     
     //# Only for testing
     // randNumber = 6
@@ -396,7 +401,7 @@ function diceRoll(actingFuction){
 
 
 
-const boardMovmentSpeed = 10 //      200
+const boardMovmentSpeed = 200 //      200
 let playersFinsihed = []
 
 function movePlayer(steps, nextFunction){
@@ -410,28 +415,6 @@ function movePlayer(steps, nextFunction){
             clearInterval(moveInterval)
             return changeState(STATE.END_ROUND)
         }
-
-        //# Check if player is going past tile 30
-        // if(activePlayer.tile == 30 && steps >= 1){
-
-        //     console.log("steps when on tile 30: ", steps)
-        //     //# Save overflow of steps and start last round
-        //     if(player1 == activePlayer){
-        //         player1.overflowSteps = steps
-        //         oneLastRound = true
-        //         console.log("player1: ", player1.stats.name, "  :  oneLastRound: ", oneLastRound )
-        //     }
-        //     if(player2 == activePlayer){
-        //         player2.overflowSteps = steps
-        //     }
-        //     endGame = true
-
-        //     extraRound = false
-        //     clearInterval(moveInterval)
-        //     console.log(activePlayer.stats.name, "overflowSteps: ", activePlayer.overflowSteps)
-        //     console.log("oneLastRound: ", oneLastRound)
-        //     return changeState(STATE.END_ROUND)
-        // }
 
 
         moveToTile(activePlayer, activePlayer.tile + signNr)
@@ -511,3 +494,22 @@ function startRound(){
 
 // console.log(JSON.stringify(sessionStorage.getItem('player1')))
 // console.log(JSON.stringify(sessionStorage.getItem('player2')))
+
+
+
+function runDiceAnimation(number) {
+    let diceImg = [
+        'img/die1.svg',
+        'img/die2.svg',
+        'img/die3.svg',
+        'img/die4.svg',
+        'img/die5.svg',
+        'img/die6.svg'
+    ]
+
+    diceButton.classList.add('dice-roll-anim')
+    setTimeout(() => {
+        diceButton.setAttribute('src', diceImg[number -1])
+    },100)
+    setTimeout( () => diceButton.classList.remove('dice-roll-anim'), 1500)
+}

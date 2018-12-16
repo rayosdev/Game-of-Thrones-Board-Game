@@ -1,20 +1,58 @@
 body{
-    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    /* min-height: 100vh; */
     display: grid;
-    border: solid black 13px;
+    /* border: solid black 13px; */
     background: #111;
-    transform: scale(0.2);
+    /* transform: scale(.4); */
     /* transform: scale(0.7); */
-    position: absolute;
-    top: -400px;
-    left: -250px;
+    /* position: absolute; */
+    /* top: -200px;
+    left: -250px; */
 
 }
+
 .container{
+    display: flex;
     /* align-self: center; */
     justify-self: center;
-    top: -100px;
+    /* top: -100px; */
 }
+
+#backgroundImage{
+
+    position: absolute;
+    overflow: hidden;
+    max-height: 1000px;
+    width: 100%;
+    z-index: -1;
+}
+
+
+.dice-grapics-container{
+    position: relative;
+    opacity: 0.7;
+    bottom: -110px;
+    right: -101%;
+    /* top: 400px;
+    left: 100px; */
+    cursor: pointer;
+}
+.dice-grapics-container img{
+    width: 140px;
+}
+
+.dice-roll-anim{
+    animation: 1s roll;
+}
+
+@keyframes roll{
+    0%  {transform: rotate(0deg)}
+    100% {transform: rotate(3395deg)}
+
+}
+
 .top-tiles{
     display: flex;
 }
@@ -27,11 +65,13 @@ body{
     flex-direction: column-reverse;
 }
 .tile{
+    text-indent: 9999px;
+    opacity: 0.5;
     position: relative;
     width: 116px;
     height: 116px;
-    background: #444;
-    border: solid #777;
+    background: rgba(192, 192, 192, 0.582);
+    border: solid rgba(255, 255, 255, 0.527);
     list-style: none;
     color: white;
     font-size: 40px;
@@ -42,10 +82,15 @@ body{
 .right-tiles    {grid-area: rig;}
 .left-tiles     {grid-area: lef;}
 
-.top-tiles > .tile {border: salmon solid 2px;}
+.top-tiles > .tile {border: rgb(255, 255, 255) solid 2px;}
+.bottom-tiles > .tile {border: rgb(255, 255, 255) solid 2px;}
+.right-tiles > .tile {border: rgb(255, 255, 255) solid 2px;}
+.left-tiles > .tile {border: rgb(255, 255, 255) solid 2px;}
+
+/* .top-tiles > .tile {border: salmon solid 2px;}
 .bottom-tiles > .tile {border: seagreen solid 2px;}
 .right-tiles > .tile {border: royalblue solid 2px;}
-.left-tiles > .tile {border: rebeccapurple solid 2px;}
+.left-tiles > .tile {border: rebeccapurple solid 2px;} */
 
 .left-tiles {justify-self: end;}
 
@@ -54,6 +99,7 @@ ol{
 }
 
 .board-container{
+    /* opacity: 0.4; */
     display: grid;
     row-gap: 0;
     column-gap: 0;
@@ -64,6 +110,12 @@ ol{
         
     transform: perspective(1200px) rotateX(25deg);
 }
+.board-container-positioning{
+    position: relative;
+    left: -25px;
+    transform: scale(0.6);
+}
+
 
 .players{
     height: 116px;
@@ -79,18 +131,35 @@ ol{
 }
 
 #player1{
-    background: rgba(40, 212, 97, 0.514);
+    /* background: rgba(40, 212, 97, 0.514); */
     position: absolute;
 }
 #player2{
-    background: rgba(182, 211, 17, 0.507);
+    /* background: rgba(182, 211, 17, 0.507); */
     position: absolute;
     top: 0;
     left: 240px;
 }
 
 
+.board-pice-posisioner{
+    transform: scale(0.25);
+    position: relative;
+    top: -320px;
+    left: -50px;
+}
+.board-pice{
+    box-shadow: 0 14px 2px -2px rgb(0, 0, 0);
+    transform: rotateX(-10deg);
+}
 
+#player2Img{
+    display: grid;
+    position: relative;
+    top: 160px;
+    left: 50px;
+    /* background: rgba(231, 37, 37, 0.445); */
+}
 
 
 /* ______________________________________________________ */

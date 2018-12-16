@@ -5,13 +5,14 @@ let tiles = document.getElementsByClassName('tile')
 let player1 = document.getElementById('player1')
 let player2 = document.getElementById('player2')
 
-
-
 let activePlayer = player1
 let playerTurnLabel = document.getElementById('playerTurnLabel')
 
 
-let diceButton = document.getElementById('diceButton')
+
+
+// let diceButton = document.getElementById('diceButton')
+let diceButton = document.getElementById('grapicDiceBtn')
 let diceNumberLabel = document.getElementById('diceNumberLabel')
 
 
@@ -308,6 +309,9 @@ function onReady(){
     player1.gameDrawDiceThrow = null
     player2.gameDrawDiceThrow = null
 
+    setRightBoardPice(player1, document.getElementById('player1Img'))
+    setRightBoardPice(player2, document.getElementById('player2Img'))
+
 
 
     updateHTMLStats()
@@ -316,3 +320,38 @@ function onReady(){
 }
 
 document.addEventListener('DOMContentLoaded', onReady)
+
+
+function setRightBoardPice(player, piceImg) {
+    
+    
+    player2.boardPiceImg = document.getElementById('player2Img')
+
+    let allBoardPiceURLs = [
+        'img/board pice Wolf.svg',
+        'img/board pice Dear.svg',
+        'img/board pice dragon.svg',
+        'img/board pice lion.svg'
+    ] 
+
+    switch (player.stats.name) {
+        case 'Jon Snow':
+            piceImg.setAttribute('src',allBoardPiceURLs[0])
+            break;
+    
+        case 'Brienne of Tarth':
+            piceImg.setAttribute('src',allBoardPiceURLs[1])
+            break;
+    
+        case 'Daenerys Targaryen':
+            piceImg.setAttribute('src',allBoardPiceURLs[2])
+            break;
+    
+        case 'Tyrion Lannister':
+            piceImg.setAttribute('src',allBoardPiceURLs[3])
+            break;
+    
+        default:
+            break;
+    }
+}

@@ -9,52 +9,72 @@
     
 </head>
 <body>
-
+    <img src="img/background.svg" alt="" id="backgroundImage">
     <div class="container">
-        <div class="board-container">
-            <div class="players" id="player1"></div>
-            <div class="players" id="player2"></div>
 
-            <ol class="top-tiles" id="topTiles">
-                <li class="tile" id="tileNr1">01</li>
-                <li class="tile" id="tileNr2">02</li>
-                <li class="tile" id="tileNr3">03</li>
-                <li class="tile" id="tileNr4">04</li>
-                <li class="tile" id="tileNr5">05</li>
-                <li class="tile" id="tileNr6">06</li>
-                <li class="tile" id="tileNr7">07</li>
-                <li class="tile" id="tileNr8">08</li>
-                <li class="tile" id="tileNr9">09</li>
-            </ol>
-            <ol class="right-tiles" id="rightTiles">
-                <li class="tile" id="tileNr10">10</li>
-                <li class="tile" id="tileNr11">11</li>
-                <li class="tile" id="tileNr12">12</li>
-                <li class="tile" id="tileNr13">13</li>
-                <li class="tile" id="tileNr14">14</li>
-                <li class="tile" id="tileNr15">15</li>
-            </ol>
-            <ol class="bottom-tiles" id="bottomTiles">
-                <li class="tile" id="tileNr16">16</li>
-                <li class="tile" id="tileNr17">17</li>
-                <li class="tile" id="tileNr18">18</li>
-                <li class="tile" id="tileNr19">19</li>
-                <li class="tile" id="tileNr20">20</li>
-                <li class="tile" id="tileNr21">21</li>
-                <li class="tile" id="tileNr22">22</li>
-                <li class="tile" id="tileNr23">23</li>
-                <li class="tile" id="tileNr24">24</li>
-            </ol>
-            <ol class="left-tiles" id="leftTiles">
-                <li class="tile" id="tileNr25">25</li>
-                <li class="tile" id="tileNr26">26</li>
-                <li class="tile" id="tileNr27">27</li>
-                <li class="tile" id="tileNr28">28</li>
-                <li class="tile" id="tileNr28">29</li>
-                <li class="tile" id="tileNr28">30</li>
-            </ol>
-        </div>
-        
+
+
+    
+    <div class="board-container-positioning">
+
+            <div class="board-container">
+                    <div class="players" id="player1">
+                        <div class="board-pice-posisioner">
+                            <img src="img/board pice lion.svg" alt="" class="board-pice" id="player1Img">
+                        </div>
+                    </div>
+                    <div class="players" id="player2">
+                        <div class="board-pice-posisioner">
+                            <img src="img/board pice Wolf.svg" alt="" class="board-pice" id="player2Img">
+                        </div>
+                    </div>
+                    
+                    
+
+                    <ol class="top-tiles" id="topTiles">
+                        <li class="tile" id="tileNr1">01</li>
+                        <li class="tile" id="tileNr2">02</li>
+                        <li class="tile" id="tileNr3">03</li>
+                        <li class="tile" id="tileNr4">04</li>
+                        <li class="tile" id="tileNr5">05</li>
+                        <li class="tile" id="tileNr6">06</li>
+                        <li class="tile" id="tileNr7">07</li>
+                        <li class="tile" id="tileNr8">08</li>
+                        <li class="tile" id="tileNr9">09</li>
+                    </ol>
+                    <ol class="right-tiles" id="rightTiles">
+                        <li class="tile" id="tileNr10">10</li>
+                        <li class="tile" id="tileNr11">11</li>
+                        <li class="tile" id="tileNr12">12</li>
+                        <li class="tile" id="tileNr13">13</li>
+                        <li class="tile" id="tileNr14">14</li>
+                        <li class="tile" id="tileNr15">15</li>
+                    </ol>
+                    <ol class="bottom-tiles" id="bottomTiles">
+                        <li class="tile" id="tileNr16">16</li>
+                        <li class="tile" id="tileNr17">17</li>
+                        <li class="tile" id="tileNr18">18</li>
+                        <li class="tile" id="tileNr19">19</li>
+                        <li class="tile" id="tileNr20">20</li>
+                        <li class="tile" id="tileNr21">21</li>
+                        <li class="tile" id="tileNr22">22</li>
+                        <li class="tile" id="tileNr23">23</li>
+                        <li class="tile" id="tileNr24">24</li>
+                    </ol>
+                    <ol class="left-tiles" id="leftTiles">
+                        <li class="tile" id="tileNr25">25</li>
+                        <li class="tile" id="tileNr26">26</li>
+                        <li class="tile" id="tileNr27">27</li>
+                        <li class="tile" id="tileNr28">28</li>
+                        <li class="tile" id="tileNr28">29</li>
+                        <li class="tile" id="tileNr28">30</li>
+                    </ol>
+                </div>
+                <div class="dice-grapics-container">
+                        <img src="img/die3.svg" alt="" class="" id="grapicDiceBtn">
+                </div>
+    </div>
+
     </div>
 
 
@@ -140,7 +160,7 @@
         }
 
         .anim-dialog-show{
-            animation: anim-dialog-show 1s 1 forwards; 
+            animation: anim-dialog-show 0.5s 1 forwards; 
         }
 
         @keyframes anim-dialog-show{
@@ -149,7 +169,7 @@
                 opacity: 0;
             }
             100%{
-                transform: scale(1);
+                transform: scale(0.5);
                 opacity: 1;
             }
         }
@@ -160,7 +180,7 @@
 
         @keyframes anim-dialog-hide{
             0%{
-                transform: scale(1);
+                transform: scale(0.5);
                 opacity: 1;
             }
             100%{
