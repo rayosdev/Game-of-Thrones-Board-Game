@@ -308,31 +308,11 @@ function onReady(){
     player1.gameDrawDiceThrow = null
     player2.gameDrawDiceThrow = null
 
-    // player1.stats = {
-    //         name:"Brienne of Tarth",
-    //         ID:216,
-    //         strength:5,
-    //         magic:1,
-    //         life:6,
-    //         expiriance:0,
-    //         gold:1,
-    //         modefiers:[]
-    // }
-    // player2.stats = {
-    //         name:"Jon Snow", 
-    //         ID:583,
-    //         strength:4,
-    //         magic:2,
-    //         life:6,
-    //         expiriance:0,
-    //         gold:1,
-    //         modefiers:[]
-    // }
 
 
     updateHTMLStats()
     startRound()
-    // gameInterval = setInterval(Game_Loop, 10)
+
 }
 
 document.addEventListener('DOMContentLoaded', onReady)
