@@ -293,8 +293,8 @@ function onReady(){
     player1.stats = JSON.parse(sessionStorage.getItem('player1'))
     player2.stats = JSON.parse(sessionStorage.getItem('player2'))
 
-    player1.tile = 1
-    player2.tile = 1
+    player1.tile = 25
+    player2.tile = 25
 
     moveToTile(player1, player1.tile)
     moveToTile(player2, player2.tile)

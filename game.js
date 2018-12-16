@@ -207,6 +207,9 @@ function checkRoundModifiers(){
 
 function victory(player) {
     console.log(player.stats.name, " is Victoris!!!!!!!")
+    sessionStorage.setItem('victor' ,JSON.stringify(player))
+    
+    setTimeout( () => window.location.href = "end.html", 1000)
 }
 
 
@@ -510,6 +513,6 @@ function runDiceAnimation(number) {
     diceButton.classList.add('dice-roll-anim')
     setTimeout(() => {
         diceButton.setAttribute('src', diceImg[number -1])
-    },100)
+    },500)
     setTimeout( () => diceButton.classList.remove('dice-roll-anim'), 1500)
 }
