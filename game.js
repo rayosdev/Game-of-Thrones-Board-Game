@@ -40,43 +40,7 @@ function * stateMachine() {
 
         case STATE.END_ROUND:
             yield checkForExtraRound()
-            yield (function() {
-                if(endGame){ 
-                    console.log("THE END GAME")
-                    if(oneLastRound){
-                        console.log("ONE LAST ROUND")
-                        oneLastRound = false
-                        nextGeneratorStep("... endRoundCheck")
-                    }
-                    else{
-
-                        if(playersFinsihed.length != 2){
-                            victory(playersFinsihed[0])
-                        }else{
-                            console.log("overflow check: ", player1.overflowSteps, " | ", player2.overflowSteps)
-                            if(player1.overflowSteps != player2.overflowSteps){
-                                if(player1.overflowSteps > player2.overflowSteps){
-                                    victory(player1)
-                                }else{
-                                    victory(player2)
-                                }
-                            }else{
-                                if(player1.gameDrawDiceThrow != null && player2.gameDrawDiceThrow != null){
-                                    if(player1.gameDrawDiceThrow == player2.gameDrawDiceThrow){
-                                        //#New draw round 
-                                    }
-                                }
-
-                                player1.roundModifer[0] = STATE.GAME_DRAW
-                                player2.roundModifer[0] = STATE.GAME_DRAW
-                                nextGeneratorStep("... DRAW_ROUND")
-                            }
-                        }
-                        console.log("GAME FINSIHED"); 
-                    }
-                }
-                else{nextGeneratorStep("... endRoundCheck")}
-            })()
+            yield checkForGameEnd()
             yield changeTurns()
             console.log("___________________________________________________")
             console.log(activePlayer.stats.name)
@@ -100,8 +64,12 @@ function * stateMachine() {
         break
         
         case STATE.GAME_DRAW:
+            yield changeTurns()
+            console.log("_______________DRAW ROUDN___________________________")
+            console.log(activePlayer.stats.name)
             yield setupDrawDiceBtn()
-
+            yield checkDrawDiceWinner()
+            yield changeState(STATE.GAME_DRAW)
         break
 
 
@@ -119,6 +87,56 @@ function changeState(newState) {
     runStateGenerator = stateMachine()
     nextGeneratorStep(`... changeState(${newState})`)
     // setTimeout(() => console.log( runStateGenerator.next(), `changetate(${newState})`), 100)
+}
+
+
+function checkForGameEnd() {
+    if(endGame && oneLastRound){
+            oneLastRound = false
+            console.log("One More Round")
+            return nextGeneratorStep("... checkForGameEnd()")
+    }
+    if(endGame){
+        if(playersFinsihed.length == 1){ 
+            console.log(playersFinsihed[0].stats.name, " reached the end alone")
+            victory(playersFinsihed[0]) 
+        }
+        else if(player1.overflowSteps == player2.overflowSteps){
+            return changeState(STATE.GAME_DRAW)
+        }else{
+            console.log("overflowSteps: ", player1.overflowSteps, " | ", player2.overflowSteps)
+            if(player1.overflowSteps > player2.overflowSteps){
+                return victory(player1)
+            }else{
+                return victory(player2)
+            }
+            
+        }
+        
+    }
+    else{nextGeneratorStep("... checkForGameEnd()")}
+   
+}
+
+
+function checkDrawDiceWinner() {
+    // console.log("player1.gameDrawDiceThrow > 0: ", player1.gameDrawDiceThrow > 0, " : ", player1.gameDrawDiceThrow)
+    if(player1.gameDrawDiceThrow > 0 && player2.gameDrawDiceThrow > 0){
+        
+        if(player1.gameDrawDiceThrow == player2.gameDrawDiceThrow){
+            console.log("draw round was a ... mhmm ... draw .... new draw round ")
+            player1.gameDrawDiceThrow = null
+            player2.gameDrawDiceThrow = null
+        }else{
+
+            if(player1.gameDrawDiceThrow > player2.gameDrawDiceThrow){
+                return victory(player1)
+            }else{ 
+                return victory(player2)
+            }
+        }
+    }
+    nextGeneratorStep("... checkDrawDiceWinner")
 }
 
 
@@ -145,11 +163,8 @@ function setupDiceMoveBtn() {
         diceRoll()
         if(diceRollNumber == 6){extraRound = true}
         nextGeneratorStep("... setupDiceMoveBtn()")
-        // setTimeout(() => console.log( runStateGenerator.next() , "setupDiceMoveBtn()"), 100)
-    })
+     })
 }
-
-
 
 
 function setupDrawDiceBtn() {
@@ -158,9 +173,8 @@ function setupDrawDiceBtn() {
 
     addTmpListner(diceButton,'click', function (){
         diceRoll()
-        activePlayer.gameDrawDiceThrow 
+        activePlayer.gameDrawDiceThrow = diceRollNumber
         nextGeneratorStep("... setupDrawDiceBtn()")
-        // setTimeout(() => console.log( runStateGenerator.next() , "setupDiceMoveBtn()"), 100)
     })
 }
 
@@ -191,16 +205,6 @@ function checkRoundModifiers(){
 
 function victory(player) {
     console.log(player.stats.name, " is Victoris!!!!!!!")
-}
-
-
-function showInformationDialog(test) {
-    console.log(Array.isArray(test))
-    if(Array.isArray(test) == false){return}
-    test.forEach(element => {
-        console.log('que ', element)
-        element()
-    });
 }
 
 
@@ -257,9 +261,19 @@ function tileAction(){
 }
 
 
-
+//# Not in use ?
 function showDialog() {
     // class="hide anim-dialog-show anim-dialog-hide"
+}
+
+//# Deprecated ?
+function showInformationDialog(test) {
+    console.log(Array.isArray(test))
+    if(Array.isArray(test) == false){return}
+    test.forEach(element => {
+        console.log('que ', element)
+        element()
+    });
 }
 
 
@@ -291,7 +305,6 @@ function evaluateDrawnTileCard(tileCardHTML) {
             }
         })
 }
-
 
 
 function startFight(enemy) {
@@ -380,8 +393,8 @@ function diceRoll(actingFuction){
     diceRollNumber = randNumber
 }
 
-// console.log(player1.stats.name == activePlayer)
-// console.log(activePlayer.stats)
+
+
 
 const boardMovmentSpeed = 10 //      200
 let playersFinsihed = []
