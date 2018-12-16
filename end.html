@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Select Character</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../index.css">
+    <link rel="stylesheet" href="../end.css">
     <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative|Noto+Serif" rel="stylesheet">
 </head>
@@ -22,56 +22,17 @@
             <div class="content-section">
                 <h1 class="game-title">THE JOURNEY NORTH</h1>
                 
-                <h3 class="player-instructions">
-                    SELECT TWO CHARACTERS TO PLAY
+                <img src="img/victory emblem jon.svg" alt="" class="victory-emblem" id="victoryEmblem">
+
+                <h3 class="player-instructions" id="playerInstructions">
+                    You “Jon Snow”, Alone survived the journey North
                 </h3>
-                <h3 class="player-instructions" id="errorInstructions">
-                    only select two characters
-                </h3>
+                
+                <img src="img/Shild Wolf.svg" alt="" class="coat-of-arms" id="coatOfArms">
 
-                <div class="play-button invisable" id="playButton">PLAY</div>
+                <div class="play-button" id="playButton">PLAY AGAIN?</div>
 
-                <div class="shield-container">
-                    <div class="shield-item" value="brian"><img src="img/brian in shild.svg" alt=""></div>
-                    <div class="shield-item" value="jon"><img src="img/jon in shild.svg" alt=""></div>
-                    <div class="shield-item" value="dineris"><img src="img/deneris in shild.svg" alt=""></div>
-                    <div class="shield-item" value="tyrian"><img src="img/tirian in shild.svg" alt=""></div>
-                </div>
-
-                <div class="container-box invisable" id="informationBox">
-                    
-                    <div class="selected-chracter-info">
-                        
-                        <!-- name: "Jon Snow" -->
-                        <label for="chracterName" id="chracterNameLabel">
-                            <h3 id="chracterName" class="chracter-info__name">Jon Snow</h3>
-                        </label> 
-                        <!-- ancestralWeapons: ["Ice"] -->
-                        <label for="ancestralWeapons">Ancestral Weapons: 
-                            <h4 id="ancestralWeapons" class="chracter-info__weapon">Ice</h4>
-                        </label> 
-                        <!-- coatOfArms: "A running grey direwolf, on an ice-white field" -->
-                        <label for="coatOfArms">Coat Of Arms: 
-                            <h4 id="coatOfArms" class="chracter-info__coat-of-armas">A running grey direwolf, on an ice-white field</h4>
-                        </label> 
-                        <!-- house: "House Stark of Winterfell" -->
-                        <label for="house">House: 
-                            <h4 id="house" class="chracter-info__house">House Stark of Winterfell</h4>
-                        </label> 
-                        <!-- alias: "Lord Snow" -->
-                        <label for="charcterAlias">Alias: 
-                            <h4 id="charcterAlias" class="chracter-info__alias">Lord Snow</h4>
-                        </label> 
-                        <!-- stats: {name: "Jon Snow", ID: 583, modefiers: Array(0)} -->
-                        <!-- title: "Lord Commander of the Night's Watch" -->
-                        <label for="characterTitle">Title: 
-                            <h4 id="characterTitle" class="chracter-info__title">Lord Commander of the Night's Watch</h4>
-                        </label> 
-                        <!-- words: Winter is Coming" -->
-                        <label for="houseWords"> House Words:  
-                            <h4 id="houseWords" class="chracter-info__words">Winter is Coming</h4>
-                        </label>
-                    </div>
+                
                 </div>
             
             </div>
@@ -88,7 +49,53 @@
     <!-- https://socket.io/docs/ -->
 
   
-    <script src="index.js"></script>
+    <!-- <script src="index.js"></script> -->
     </div>
+    <script src="end.js"></script>
+    <script>
+        let victoryEmblem = document.getElementById('victoryEmblem')
+        let playerInstructions = document.getElementById('playerInstructions')
+        let coatOfArms = document.getElementById('coatOfArms')
+        
+        
+        let victor = JSON.parse (sessionStorage.getItem('victor'))
+        console.log(victor.stats.name)
+        
+        switch (victor.stats.name) {
+            case "Jon Snow":
+                victoryEmblem.setAttribute('src', "img/victory emblem jon.svg") 
+                playerInstructions.innerText = `You “${victor.stats.name}”, Alone survived the journey North`
+                coatOfArms.setAttribute('src', "img/Shild Wolf.svg")
+                break;
+        
+            
+            case "Daenerys Targaryen":
+                victoryEmblem.setAttribute('src', "img/victory emblem dyneris.svg") 
+                playerInstructions.innerText = `You “${victor.stats.name}”, Alone survived the journey North`
+                coatOfArms.setAttribute('src', "img/Shild Dragon.svg")
+                break;
+        
+
+            case "Tyrion Lannister":
+                victoryEmblem.setAttribute('src', "img/victory emblem tyrian.svg") 
+                playerInstructions.innerText = `You “${victor.stats.name}”, Alone survived the journey North`
+                coatOfArms.setAttribute('src', "img/Shild Lion.svg")
+                break;
+        
+
+            case "Brienne of Tarth":
+                victoryEmblem.setAttribute('src', "img/victory emblem brian.svg") 
+                playerInstructions.innerText = `You “${victor.stats.name}”, Alone survived the journey North`
+                coatOfArms.setAttribute('src', "img/Shild Dear.svg")
+                break;
+        
+            
+        }
+
+        document.getElementById('playButton').addEventListener('click', e =>{
+            window.location.href = "index.html"
+        })        
+    </script>
+
 </body>
 </html>
