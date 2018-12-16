@@ -11,12 +11,17 @@
 <body>
     <img src="img/background.svg" alt="" id="backgroundImage">
     <div class="container">
-
-
+    
+    <div class="current-player" id="currentPlayerHTML"></div>
 
     
     <div class="board-container-positioning">
 
+            <h3 class="player-instructions" id="errorInstructions">
+                    CLICK ON DICE TO MOVE PLAYER
+            </h3>
+
+            
             <div class="board-container">
                     <div class="players" id="player1">
                         <div class="board-pice-posisioner">
@@ -135,59 +140,7 @@
     </div>
 
     <style>
-        #informationDialog{
-            display: grid;
-            justify-self: center;
-            position: absolute;
-            width: 400px;
-            height: 550px;
-            padding: 60px;
-            margin: 160px;
-            background: rgba(158, 71, 71, 0.699);
-            border: red 3px solid;
-            color: rgb(255, 255, 255);
-            font-size: 45px;
-        }
-        #informationDialog h2{
-            margin: 0;
-            padding: 0;
-        }
-        #informationDialog p{
-            font-size: 50px;
-        }
-        #informationDialog button{
-            font-size: 50px;
-        }
-
-        .anim-dialog-show{
-            animation: anim-dialog-show 0.5s 1 forwards; 
-        }
-
-        @keyframes anim-dialog-show{
-            0%{
-                transform: scale(0);
-                opacity: 0;
-            }
-            100%{
-                transform: scale(0.5);
-                opacity: 1;
-            }
-        }
-
-        .anim-dialog-hide{
-            animation: anim-dialog-hide 1s 1 forwards; 
-        }
-
-        @keyframes anim-dialog-hide{
-            0%{
-                transform: scale(0.5);
-                opacity: 1;
-            }
-            100%{
-                transform: scale(0);
-                opacity: 0;
-            }
-        }
+        
 
     </style>
     <div id="informationDialog" class="hide anim-dialog-show anim-dialog-hide">
@@ -201,14 +154,7 @@
 
 
     <style>
-        #tileDetialsCard{
-            position: absolute;
-            color: rgb(145, 99, 99);
-            transform: scale(2);
-            bottom: 140px;
-            left: -500px;
-            text-align: center;
-        }
+        
     </style>
     <div id="tileDetialsCard">
         <h2>Title</h2>

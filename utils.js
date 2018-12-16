@@ -172,8 +172,11 @@ function updateHTMLStats() {
 function updateTurnInterface() {
     playerTurnLabel.innerHTML = `${activePlayer.id}'s turn`
     updateHTMLStats()
-    nextGeneratorStep("... updateTurnInterface()")
+    
     // setTimeout(() => console.log( runStateGenerator.next(), "updateTurnInterface()"), 200)
+    updateCurrentPlayer()
+    
+    nextGeneratorStep("... updateTurnInterface()")
 }
 
 // player-name-label
@@ -196,4 +199,33 @@ function nextGeneratorStep(currentFunctionName) {
         console.log(currentFunctionName)
         runStateGenerator.next()
     }, 100)
+}
+
+
+function updateCurrentPlayer() {
+    let shildpersonUrl = null
+    switch (activePlayer.stats.name) {
+        case "Jon Snow":
+            shildpersonUrl = "img/jon in shild.svg"
+            break;
+
+        case "Daenerys Targaryen":
+            shildpersonUrl = "img/deneris in shild.svg"
+            break;
+
+        case "Tyrion Lannister":
+            shildpersonUrl = "img/tirian in shild.svg"
+            break;
+
+        case "Brienne of Tarth":
+            shildpersonUrl ="img/brian in shild.svg"
+            break;
+    }
+
+    document.getElementById('currentPlayerHTML').innerHTML =
+        `
+        <h4> ACTIVE PLAYER </h4>
+        <img src="${shildpersonUrl}" alt="">
+        <h4>${activePlayer.stats.name}</h4>
+        `
 }

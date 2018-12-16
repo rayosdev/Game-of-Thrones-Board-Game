@@ -154,12 +154,14 @@ function checkForExtraRound() {
     else{nextGeneratorStep("... checkForExtraRound()")}
 }
 
+let playerHasInteracted = false
 
 function setupDiceMoveBtn() {
     // show(diceButton)
     diceButton.focus()
 
     addTmpListner(diceButton,'click', function (){
+        playerHasInteracted = true
         diceRoll()
         if(diceRollNumber == 6){extraRound = true}
         // nextGeneratorStep("... setupDiceMoveBtn()")
@@ -516,3 +518,12 @@ function runDiceAnimation(number) {
     },500)
     setTimeout( () => diceButton.classList.remove('dice-roll-anim'), 1500)
 }
+
+
+setTimeout( () => {
+
+    if(playerHasInteracted == false){
+        document.getElementById('errorInstructions').classList.add('warning')
+    }
+
+}, 5000)

@@ -368,3 +368,124 @@ ol{
     padding: 0;
     margin: 10px;
 }
+
+
+#informationDialog{
+    display: grid;
+    justify-self: center;
+    position: absolute;
+    right: 100px;
+    width: 400px;
+    height: 550px;
+    padding: 60px;
+    margin: 160px;
+    background: rgba(90, 99, 150, 0.699);
+    border: rgb(255, 255, 255) 3px solid;
+    color: rgb(255, 255, 255);
+    font-size: 45px;
+    text-align: center;
+    /* width: 100%; */
+}
+#informationDialog h2{
+    display: none;
+    margin: 0;
+    padding: 0;
+}
+#informationDialog p{
+
+    font-size: 50px;
+}
+#informationDialog button{
+    font-size: 50px;
+}
+
+.anim-dialog-show{
+    animation: anim-dialog-show 0.5s 1 forwards; 
+}
+
+@keyframes anim-dialog-show{
+    0%{
+        transform: scale(0);
+        opacity: 0;
+    }
+    100%{
+        transform: scale(0.5);
+        opacity: 1;
+    }
+}
+
+.anim-dialog-hide{
+    animation: anim-dialog-hide 1s 1 forwards; 
+}
+
+@keyframes anim-dialog-hide{
+    0%{
+        transform: scale(0.5);
+        opacity: 1;
+    }
+    100%{
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+
+
+#errorInstructions{
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    top: 300px;
+    display: grid;
+    justify-self: center;
+    margin-top: 0;
+    opacity: 0;
+}
+
+.warning{
+    animation: showThenGo 5s;
+    color: rgb(255, 94, 0);
+}
+
+@keyframes showThenGo{
+    1%  {opacity: 0;}
+    5%  {opacity: 1;}
+    90% {opacity: 1;}
+    100%{opacity: 0;}
+}
+
+.player-instructions{
+    color: rgb(255, 255, 255);
+    font-family: Noto Serif;
+    font-weight: 600;
+    letter-spacing: 0.11em;
+    font-size: 30px;
+}
+
+#tileDetialsCard{
+    display: none;
+    position: absolute;
+    color: rgb(145, 99, 99);
+    transform: scale(3);
+    bottom: 140px;
+    left: -100px;
+    text-align: center;
+}
+
+.current-player{
+    transform: scale(0.8);
+    opacity: 0.9;
+    position: absolute;
+    top: 40px;
+    left: 360px;
+    color: rgb(20, 20, 20);
+    background: rgb(161, 161, 161);
+    text-align: center;
+    padding: 10px;
+}    
+.current-player img{
+    width: 80px;
+}
+.current-player h4{
+    margin: 5px;
+}

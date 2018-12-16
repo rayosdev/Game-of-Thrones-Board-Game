@@ -312,8 +312,7 @@ function onReady(){
     setRightBoardPice(player1, document.getElementById('player1Img'))
     setRightBoardPice(player2, document.getElementById('player2Img'))
 
-
-
+    updateCurrentPlayer()
     updateHTMLStats()
     startRound()
 
