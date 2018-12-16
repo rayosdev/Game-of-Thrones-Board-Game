@@ -503,3 +503,11 @@ function startRound(){
     // console.log(runStateGenerator.next())
 
 }
+
+
+
+// console.log("GOT THE VALUES? ")
+// console.log(JSON.parse (sessionStorage.getItem('player1')))
+
+// console.log(JSON.stringify(sessionStorage.getItem('player1')))
+// console.log(JSON.stringify(sessionStorage.getItem('player2')))

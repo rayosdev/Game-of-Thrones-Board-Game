@@ -5,143 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Select Character</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../index/index.css">
+    <link rel="stylesheet" href="../index.css">
     <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative|Noto+Serif" rel="stylesheet">
 </head>
-<style>
-
-
-
-</style>
 <body>
-     <!-- Swap pc -->
-    <style>
-        #end-result-image{
-            position: absolute;
-            width: 100%;
-            transform: scale(1.5);
-            opacity: 0.1;
-            /* left: -400px;
-            top: -700px; */
-        }
-        body{
-            background: #272727;
-        }
 
-        .main-conatiner{
-            display: grid;
-            /* margin-top: 80px;  */
-            align-self: center;
-            /* grid-template-columns: 1fr 1fr 1fr; */
-            /* min-width: 90%; */
-            
-        }
-        .background-img-conainer{
-            width: 100%
-        }
-        .background-img{
-            position: absolute;
-            overflow: hidden;
-            max-height: 1350px;
-            width: 100%;
-            z-index: -1;
-        }
-
-        .content-section{
-            /* margin-top: 80px; */
-            display: grid;
-            justify-content: center;
-            align-content: center;
-            text-align: center;
-        }
-
-        
-        .game-title{
-            font-family: Cinzel Decorative;
-            font-size: 230%;
-            margin-top: 80px;
-            color: white;
-            letter-spacing: 0.10em;
-        }
-        .player-instructions{
-            color: #FFCC00;
-            font-family: Noto Serif;
-            font-weight: 100;
-            letter-spacing: 0.11em;
-            font-size: 100%;
-        }
-
-        .shield-container{
-            /* min-width: 1000px; */
-            /* max-width: 800px;  */
-            margin-top: 5%;
-            /* border: 2px solid red; */
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
-            grid-gap: 60px;
-            padding: 40px;
-            margin-bottom: 100px;
-            justify-items: center;
-        }
-        .shield-item{
-            
-        }
-        .shield-item img{
-            width: 100%;
-            /* height: 200px; */
-            transition: 0.5s;
-            cursor: pointer;
-        }
-        .shield-item img:hover{
-            opacity: 0.6;
-        }
-        .shild-item-focus img{
-            /* border: solid yellow 3px; */
-            width: 120%;
-            /* padding: 40px; */
-            /* height: 300px; */
-        }
-        .shield-item:nth-child(1) img{
-            /* border: solid 3px blue; */
-        }
-        #errorInstructions{
-            margin-top: 0;
-            opacity: 0;
-        }
-
-        .warning{
-            animation: showThenGo 5s;
-            color: rgb(255, 94, 0);
-        }
-
-        @keyframes showThenGo{
-            1%  {opacity: 0;}
-            5%  {opacity: 1;}
-            90% {opacity: 1;}
-            100%{opacity: 0;}
-        }
-        .play-button{
-            display: grid;
-            justify-self: center;
-            color: #FFCC00;
-            font-size: 25px;
-            border: 3px solid #FFCC00;
-            padding: 10px;
-            cursor: pointer;
-            width: 100px;
-            transition: 0.3s;
-            opacity: 1;
-        }
-        .play-button:hover{
-            background: rgba(255, 255, 255, 0.151);
-        }
-
-        .invisable{
-            opacity: 0;
-            cursor: default;
-        }
-    </style>
     <img id="end-result-image" class="hide" src="/img/tmp/chracter select frame.png" alt="">
     
     <div class="main-container">
@@ -163,59 +32,54 @@
                 <div class="play-button invisable" id="playButton">PLAY</div>
 
                 <div class="shield-container">
-                    <div class="shield-item" value="brian"><img src="img/shield - Brian.svg" alt=""></div>
-                    <div class="shield-item" value="jon"><img src="img/shield - Jon.svg" alt=""></div>
-                    <div class="shield-item" value="Dineris"><img src="img/shield - Dineris.svg" alt=""></div>
-                    <div class="shield-item" value="tyrian"><img src="img/shield  - Tyrian.svg" alt=""></div>
+                    <div class="shield-item" value="brian"><img src="img/brian in shild.svg" alt=""></div>
+                    <div class="shield-item" value="jon"><img src="img/jon in shild.svg" alt=""></div>
+                    <div class="shield-item" value="dineris"><img src="img/deneris in shild.svg" alt=""></div>
+                    <div class="shield-item" value="tyrian"><img src="img/tirian in shild.svg" alt=""></div>
                 </div>
-            </div>
-            
 
-        
+                <div class="container-box invisable" id="informationBox">
+                    
+                    <div class="selected-chracter-info">
+                        
+                        <!-- name: "Jon Snow" -->
+                        <label for="chracterName" id="chracterNameLabel">
+                            <h3 id="chracterName" class="chracter-info__name">Jon Snow</h3>
+                        </label> 
+                        <!-- ancestralWeapons: ["Ice"] -->
+                        <label for="ancestralWeapons">Ancestral Weapons: 
+                            <h4 id="ancestralWeapons" class="chracter-info__weapon">Ice</h4>
+                        </label> 
+                        <!-- coatOfArms: "A running grey direwolf, on an ice-white field" -->
+                        <label for="coatOfArms">Coat Of Arms: 
+                            <h4 id="coatOfArms" class="chracter-info__coat-of-armas">A running grey direwolf, on an ice-white field</h4>
+                        </label> 
+                        <!-- house: "House Stark of Winterfell" -->
+                        <label for="house">House: 
+                            <h4 id="house" class="chracter-info__house">House Stark of Winterfell</h4>
+                        </label> 
+                        <!-- alias: "Lord Snow" -->
+                        <label for="charcterAlias">Alias: 
+                            <h4 id="charcterAlias" class="chracter-info__alias">Lord Snow</h4>
+                        </label> 
+                        <!-- stats: {name: "Jon Snow", ID: 583, modefiers: Array(0)} -->
+                        <!-- title: "Lord Commander of the Night's Watch" -->
+                        <label for="characterTitle">Title: 
+                            <h4 id="characterTitle" class="chracter-info__title">Lord Commander of the Night's Watch</h4>
+                        </label> 
+                        <!-- words: Winter is Coming" -->
+                        <label for="houseWords"> House Words:  
+                            <h4 id="houseWords" class="chracter-info__words">Winter is Coming</h4>
+                        </label>
+                    </div>
+                </div>
+            
+            </div>
     </div>
     
-    <script>
-        let shieldItems = document.getElementsByClassName("shield-item")
-        
-        let selectedCharacter = []
-        for (const item of shieldItems) {
-            item.addEventListener("click", e => {
-                    item.classList.toggle('shild-item-focus')
-                    if(item.classList.contains('shild-item-focus')){
-                        selectedCharacter.push(item)
-                    }else{
-                        selectedCharacter = selectedCharacter.filter(i => i !== item)
-                    }
-                    if(selectedCharacter.length > 2){
-                        for (const schars of selectedCharacter) {
-                            schars.classList.toggle('shild-item-focus')
-                        }
-                        selectedCharacter = []
-                        document.getElementById('errorInstructions').classList.remove('warning')
-                        setTimeout(() =>{
-                            document.getElementById('errorInstructions').classList.add('warning')
-                        }, 100)
 
-                    }
-                    if(selectedCharacter.length == 2){
-                        playButton.classList.remove('invisable')
-                        playButtonListner = playButton.addEventListener('click', () => {
-                            console.log("hola mundo")
-                        })
-                    }else{
-                        playButton.removeEventListener('click',playButtonListner)
-                        playButton.classList.add('invisable')
-                    }
-                }
-            )
-                
-        }
-        
-        
-        let playButton = document.getElementById('playButton')
-        let playButtonListner = null
+    
 
-    </script>
 
     <!-- API -->
     <!-- https://anapioficeandfire.com/. -->
@@ -223,157 +87,8 @@
     <!-- multiplayer -->
     <!-- https://socket.io/docs/ -->
 
-    
-    <style>
-        .hide{
-            display: none;
-        }
-    </style>
-    <div class="container hide">
-        
-        <div class="UI">
-            <h1 class="UI__header-text">Select your Character</h1>
-            <div class="UI__character-container" id="characterContainer">
-
-                <script>
-                    let playerOne
-                    let playerTwo
-
-                    let playableCharacters = 
-                        [
-                            {
-                                name:"Jon Snow", 
-                                ID:583,
-                                // strength:4,
-                                // magic:2,
-                                // life:6,
-                                // expiriance:0,
-                                // gold:1,
-                                modefiers:[]
-                            },
-                            {
-                                name:"Daenerys Targaryen", 
-                                ID:1303,
-                                // strength:2,
-                                // magic:4,
-                                // life:6,
-                                // expiriance:0,
-                                // gold:2,
-                                modefiers:[]
-                            },
-                            {
-                                name:"Tyrion Lannister", 
-                                ID:1052,
-                                // strength:2,
-                                // magic:2,
-                                // life:6,
-                                // expiriance:0,
-                                // gold:6,
-                                modefiers:[]
-                            },
-                            {
-                                name:"Brienne of Tarth",
-                                ID:216,
-                                // strength:5,
-                                // magic:1,
-                                // life:6,
-                                // expiriance:0,
-                                // gold:1,
-                                modefiers:[]
-                            }
-                        ]
-
-                        // let exampleCharacter = {
-                        //     name: "bob",
-                        //     title: "bobstar",
-                        //     alias: "ringo",
-                        //     house: "børen",
-                        //     coatOfArms: "den bøyde skje",
-                        //     words: "det er deg det",
-                        //     ancestralWeapons: "utedo"
-                        // }
-                        
-                                            
-                    function generatCharacterHTML(character){
-
-                        let characterContainer = document.getElementById('characterContainer')
-                        let chracterDiv = document.createElement('div')
-                        chracterDiv.classList.add('character')
-                        chracterDiv.innerHTML = `
-                            <h3 class="character_name">${character.name}</h3>
-                            <img src="" alt="" class="character__image">
-                            <div class="character__info">
-                                <h4 class="character__info__title">${(character.title == "") ? character.alias : character.title}</h4>
-                                <p class="character__info__house">${character.house}</p>
-                                <img src="" alt="" class="character__info__coat-of-arms">
-                                <p class="character__info__words">${character.words}</p>
-                                <p class="character__info__ancestral-weapons">${character.ancestralWeapons}</p>
-                            </div>
-                        `
-                        characterContainer.appendChild(chracterDiv)
-                    }
-                        
-                            
-                    function fetchCharacter(charcterObject){
-                        let returnCharacter = {}
-                        
-                        fetch('https://anapioficeandfire.com/api/characters/' + charcterObject.ID)
-                            .then(respons => respons.json())
-                            .then(json => {
-
-
-                                returnCharacter.name = json.name
-                                returnCharacter.title = (json.titles.length != 0) ? json.titles[0] : "None"
-                                returnCharacter.alias = (json.aliases.length
-                                != 0) ? json.aliases[0] : "None"
-
-                                fetch(json.allegiances[0])
-                                    .then(respons => respons.json())
-                                    .then(json => {
-
-                                        returnCharacter.house = json.name
-                                        returnCharacter.coatOfArms = json.coatOfArms
-                                        returnCharacter.words = json.words
-                                        returnCharacter.ancestralWeapons = json.ancestralWeapons 
-                                        console.log(returnCharacter);
-                                        returnCharacter.stats = charcterObject
-                                })
-                                .then( e => generatCharacterHTML(returnCharacter))
-                                .catch(error => console.log("ERROR MAN INTER!: ", error))
-                            })
-                            .catch(error => console.log("ERROR MAN!: ",error))
-
-                            return returnCharacter
-                    }
-                    
-                    playerOne = fetchCharacter(playableCharacters[1])
-                    playertwo = fetchCharacter(playableCharacters[0])
-
-                    // console.log(playerOne, " - ", playertwo);
-                    console.log("que passa: " ,JSON.stringify(playertwo))
-                    // console.log(playerOne)
-
-
-                </script>
-
-<!--                     
-                <div class="character">
-                    <h3 class="character_name">John Snow</h3>
-                    <img src="" alt="" class="character_image">
-                    <div class="character__info">
-                        <h4 class="character__info__title">king of the north</h4>
-                        <p class="character__info__house"></p>
-                        <img src="" alt="" class="character__info__coat-of-arms">
-                        <p class="character__info__words"></p>
-                        <p class="character__info__ancestral-weapons"></p>
-                    </div>
-                </div>
- -->
-
-            </div>
-            <button class="UI__arrow-left"> < </button>
-            <button class="UI__arrow-right"> > </button>
+  
+    <script src="index.js"></script>
     </div>
-    <!-- <script src="game.js"></script> -->
 </body>
 </html>

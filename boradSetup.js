@@ -4,8 +4,7 @@
 let tiles = document.getElementsByClassName('tile')
 let player1 = document.getElementById('player1')
 let player2 = document.getElementById('player2')
-player1.tile = 1
-player2.tile = 1
+
 
 
 let activePlayer = player1
@@ -288,8 +287,17 @@ function onReady(){
 
     polulateTileDetails()
     
+
+    
+    player1.stats = JSON.parse(sessionStorage.getItem('player1'))
+    player2.stats = JSON.parse(sessionStorage.getItem('player2'))
+
+    player1.tile = 1
+    player2.tile = 1
+
     moveToTile(player1, player1.tile)
     moveToTile(player2, player2.tile)
+
 
     player1.roundModifer = []
     player2.roundModifer = []
@@ -300,26 +308,27 @@ function onReady(){
     player1.gameDrawDiceThrow = null
     player2.gameDrawDiceThrow = null
 
-    player1.stats = {
-            name:"Brienne of Tarth",
-            ID:216,
-            strength:5,
-            magic:1,
-            life:6,
-            expiriance:0,
-            gold:1,
-            modefiers:[]
-    }
-    player2.stats = {
-            name:"Jon Snow", 
-            ID:583,
-            strength:4,
-            magic:2,
-            life:6,
-            expiriance:0,
-            gold:1,
-            modefiers:[]
-    }
+    // player1.stats = {
+    //         name:"Brienne of Tarth",
+    //         ID:216,
+    //         strength:5,
+    //         magic:1,
+    //         life:6,
+    //         expiriance:0,
+    //         gold:1,
+    //         modefiers:[]
+    // }
+    // player2.stats = {
+    //         name:"Jon Snow", 
+    //         ID:583,
+    //         strength:4,
+    //         magic:2,
+    //         life:6,
+    //         expiriance:0,
+    //         gold:1,
+    //         modefiers:[]
+    // }
+
 
     updateHTMLStats()
     startRound()
