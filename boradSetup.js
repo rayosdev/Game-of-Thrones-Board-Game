@@ -297,6 +297,9 @@ function onReady(){
     player1.overflowSteps = 0
     player2.overflowSteps = 0
 
+    player1.gameDrawDiceThrow = null
+    player2.gameDrawDiceThrow = null
+
     player1.stats = {
             name:"Brienne of Tarth",
             ID:216,

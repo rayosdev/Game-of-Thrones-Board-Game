@@ -61,6 +61,12 @@ function * stateMachine() {
                                     victory(player2)
                                 }
                             }else{
+                                if(player1.gameDrawDiceThrow != null && player2.gameDrawDiceThrow != null){
+                                    if(player1.gameDrawDiceThrow == player2.gameDrawDiceThrow){
+                                        //#New draw round 
+                                    }
+                                }
+
                                 player1.roundModifer[0] = STATE.GAME_DRAW
                                 player2.roundModifer[0] = STATE.GAME_DRAW
                                 nextGeneratorStep("... DRAW_ROUND")
@@ -144,13 +150,15 @@ function setupDiceMoveBtn() {
 }
 
 
+
+
 function setupDrawDiceBtn() {
     show(diceButton)
     diceButton.focus()
 
     addTmpListner(diceButton,'click', function (){
         diceRoll()
-        if(diceRollNumber == 6){extraRound = true}
+        activePlayer.gameDrawDiceThrow 
         nextGeneratorStep("... setupDrawDiceBtn()")
         // setTimeout(() => console.log( runStateGenerator.next() , "setupDiceMoveBtn()"), 100)
     })
@@ -365,7 +373,7 @@ function diceRoll(actingFuction){
     let randNumber = Math.round(Math.random() * 5 + 1)
     
     //# Only for testing
-    randNumber = 6
+    // randNumber = 6
 
     diceNumberLabel.innerHTML = randNumber
     show(diceNumberLabel)
